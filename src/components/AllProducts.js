@@ -13,6 +13,7 @@ import orange from "./images/orange.png";
 import amul from "./images/amul.jpg";
 import oil from "./images/oil.jpg";
 import drink from "./images/drink.jpg";
+import TopCat from "./TopCat";
 class Products extends Component {
   constructor(props) {
     super(props);
@@ -110,10 +111,6 @@ class RenderList extends Component {
     );
   }
 }
-
-const TopCat = () => {
-  return <p>asdjkhflfajhdsjashdlfkjahdlkfhaksdjh</p>;
-};
 
 class AllProducts extends Component {
   constructor(props) {

@@ -92,3 +92,32 @@
 .dropdown {
   background-color: #1b1b2a;
 }
+.topbtn {
+  height: 70px;
+  width: 200px;
+  border-radius: 70px;
+  margin: 5px;
+  border: 1px solid rgb(207, 190, 190);
+  background-color: white;
+  background-position: left;
+  background-repeat: no-repeat;
+  background-image: url("/src/components/images/btnrice.png");
+}
+.hc1:hover {
+  background-color: #3e8e41;
+}
+.hc2:hover {
+  background-color: #58d2dd;
+}
+.hc3:hover {
+  background-color: #dff04d;
+}
+.hc4:hover {
+  background-color: #5b50c2;
+}
+.hc5:hover {
+  background-color: #a13b6b;
+}
+.hc6:hover {
+  background-color: #d3741c;
+}
