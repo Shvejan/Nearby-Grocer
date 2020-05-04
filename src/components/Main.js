@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import Slides from "./Slide";
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -9,6 +10,7 @@ class Main extends Component {
     return (
       <React.Fragment>
         <Header />
+        <Slides />
         <Footer />
       </React.Fragment>
     );
