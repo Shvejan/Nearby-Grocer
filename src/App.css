@@ -34,15 +34,31 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
+.mainhead {
+  margin-bottom: 40px;
+}
 .App-link {
   color: #61dafb;
+}
+
+.productsDiv {
+  background-color: rgb(240, 246, 246);
 }
 .btnn {
   height: 45px;
   width: 200px;
   border-radius: 50px;
   margin-left: 60px;
+  border: 1px solid rgb(207, 190, 190);
+}
+.cardText {
+  font-size: smaller;
+}
+.cardButton {
+  height: 45px;
+  width: 100px;
+  border-radius: 50px;
+  margin-top: 20px;
   border: 1px solid rgb(207, 190, 190);
 }
 .login {
@@ -57,7 +73,7 @@
   height: 45px;
   width: 90px;
   border-radius: 50px;
-  background-color: #61dafb;
+  background-color: #fba661;
 
   border: 1px solid rgb(207, 190, 190);
 }
