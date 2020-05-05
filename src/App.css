@@ -7,7 +7,10 @@
   pointer-events: none;
 }
 .footer {
-  background-color: #9f9da3;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("./components/images/watermark.png");
   margin: 0px auto;
   padding: 20px 0px 20px 0px;
 }
@@ -43,6 +46,7 @@
 
 .productsDiv {
   background-color: rgb(240, 246, 246);
+  padding-bottom: 100px;
 }
 .btnn {
   height: 45px;
@@ -120,4 +124,23 @@
 }
 .hc6:hover {
   background-color: #d3741c;
+}
+.fh {
+  color: #1eaca0;
+  font-family: "Lucida Console";
+  font-weight: bold;
+}
+.fl {
+  font-size: small;
+  font-weight: bold;
+}
+.product-btn {
+  background-color: #59e7db;
+  width: 100px;
+  height: 40px;
+
+  color: white;
+  margin-left: 85px;
+  border: 0px;
+  border-radius: 10px;
 }

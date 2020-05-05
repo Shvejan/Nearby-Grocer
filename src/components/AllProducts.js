@@ -8,12 +8,14 @@ import {
   CardBody,
   CardSubtitle,
 } from "reactstrap";
+import green from "./images/green.png";
 import back from "./images/blue.png";
 import orange from "./images/orange.png";
 import amul from "./images/amul.jpg";
 import oil from "./images/oil.jpg";
 import drink from "./images/drink.jpg";
 import TopCat from "./TopCat";
+
 class Products extends Component {
   constructor(props) {
     super(props);
@@ -32,7 +34,7 @@ class Products extends Component {
           image: oil,
         },
         {
-          title: "Dutchie Strawberry Yogurt Tetrap.. - 200 Ml",
+          title: "Dutchie Strawberry - 200 Ml",
           desc: "Buy 2 Get 1 Free",
           price: "₹24.93",
           image: drink,
@@ -59,6 +61,7 @@ class Products extends Component {
             <h6>{p.price}</h6>
           </CardBody>
         </Card>
+        <button className="product-btn">ADD</button>
       </div>
     );
     return <React.Fragment>{this.state.products.map(card)}</React.Fragment>;
@@ -72,7 +75,7 @@ class RenderList extends Component {
   }
   render() {
     return (
-      <div className="row">
+      <div className="row" style={{ "padding-top": "100px" }}>
         <h3 className="col-3 mainhead">{this.props.cat.title}</h3>
         <hr
           className="col-7 line"
@@ -126,6 +129,11 @@ class AllProducts extends Component {
         desc: "Grocer shopping couldn't be more fun",
         back: orange,
       },
+      Category3: {
+        title: "Save Max",
+        desc: "Handpicked deals with best prices.",
+        back: green,
+      },
     };
   }
   render() {
@@ -134,7 +142,8 @@ class AllProducts extends Component {
         <div className="container">
           <RenderList cat={this.state.Category1} />
           <TopCat />
-          <RenderList cat={this.state.Category2} back={back} />
+          <RenderList cat={this.state.Category2} />
+          <RenderList cat={this.state.Category3} />
         </div>
       </div>
     );
