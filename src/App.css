@@ -126,7 +126,7 @@
   background-color: #d3741c;
 }
 .fh {
-  color: #1eaca0;
+  color: #11afa2;
   font-family: "Lucida Console";
   font-weight: bold;
 }
@@ -135,12 +135,33 @@
   font-weight: bold;
 }
 .product-btn {
-  background-color: #59e7db;
+  background-color: #41ada4;
   width: 100px;
   height: 40px;
 
   color: white;
   margin-left: 85px;
   border: 0px;
-  border-radius: 10px;
+  border-radius: 5px;
+}
+.sub-product-btn {
+  background-color: #41ada4;
+  width: 80px;
+  height: 30px;
+
+  color: white;
+  margin-left: 55px;
+  border: 0px;
+  border-radius: 5px;
+}
+.subCatButton {
+  width: 250px;
+  margin-left: -80px;
+  height: 65px;
+  background-color: white;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #d4cece;
+  border-radius: 20px;
+  margin-bottom: 30px;
 }

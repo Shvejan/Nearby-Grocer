@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import logo from "./images/StarQuiklogo.png";
+import logo from "./images/logo-big.png";
 import {
   Dropdown,
   DropdownToggle,
@@ -104,12 +104,12 @@ class Header extends Component {
       <React.Fragment>
         <div className="row row-content ">
           <div className=" p-4 col-2 col-sm-2">
-            <NavLink className="nav-link" to="/">
+            <NavLink to="/">
               <img
                 src={logo}
                 alt="Logo"
                 className="fluid"
-                style={{ width: 150 }}
+                style={{ width: 100, height: 50 }}
               />
             </NavLink>
           </div>
@@ -146,7 +146,7 @@ class Header extends Component {
                     toggle={() => this.toggle(1)}
                     style={{ backgroundColor: "#1b1b2a" }}
                   >
-                    <NavLink to="/beverages">
+                    <NavLink className="nav-link" to="/beverages">
                       <DropdownToggle
                         className="text-white"
                         caret
@@ -177,7 +177,7 @@ class Header extends Component {
                     toggle={() => this.toggle(2)}
                     style={{ backgroundColor: "#1b1b2a" }}
                   >
-                    <NavLink to="/brandedFood">
+                    <NavLink className="nav-link" to="/brandedFood">
                       <DropdownToggle
                         className="text-white"
                         caret
@@ -208,7 +208,7 @@ class Header extends Component {
                     toggle={() => this.toggle(3)}
                     style={{ backgroundColor: "#1b1b2a" }}
                   >
-                    <NavLink to="/diaryBakery">
+                    <NavLink className="nav-link" to="/diaryBakery">
                       <DropdownToggle
                         className="text-white"
                         caret
@@ -240,7 +240,7 @@ class Header extends Component {
                     toggle={() => this.toggle(4)}
                     style={{ backgroundColor: "#1b1b2a" }}
                   >
-                    <NavLink to="/fruitsVegitables">
+                    <NavLink className="nav-link" to="/fruitsVegitables">
                       <DropdownToggle
                         className="text-white"
                         caret
@@ -271,7 +271,7 @@ class Header extends Component {
                     toggle={() => this.toggle(5)}
                     style={{ backgroundColor: "#1b1b2a" }}
                   >
-                    <NavLink to="/frozenVeg">
+                    <NavLink className="nav-link" to="/frozenVeg">
                       <DropdownToggle
                         className="text-white"
                         caret
@@ -302,7 +302,7 @@ class Header extends Component {
                     toggle={() => this.toggle(6)}
                     style={{ backgroundColor: "#1b1b2a" }}
                   >
-                    <NavLink to="/nonVeg">
+                    <NavLink className="nav-link" to="/nonVeg">
                       <DropdownToggle
                         className="text-white"
                         caret
@@ -333,7 +333,7 @@ class Header extends Component {
                     toggle={() => this.toggle(7)}
                     style={{ backgroundColor: "#1b1b2a" }}
                   >
-                    <NavLink to="/homeCare">
+                    <NavLink className="nav-link" to="/homeCare">
                       <DropdownToggle
                         className="text-white"
                         caret
@@ -364,7 +364,7 @@ class Header extends Component {
                     toggle={() => this.toggle(8)}
                     style={{ backgroundColor: "#1b1b2a" }}
                   >
-                    <NavLink to="/personalCare">
+                    <NavLink className="nav-link" to="/personalCare">
                       <DropdownToggle
                         className="text-white"
                         caret

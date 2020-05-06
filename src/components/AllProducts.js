@@ -56,6 +56,10 @@ class Products extends Component {
           <CardBody>
             <h6 className="cardText">{p.title}</h6>
             <h6 className="cardText" style={{ color: "#e78536" }}>
+              <span
+                class="fa fa-percent"
+                style={{ "margin-right": "5px" }}
+              ></span>
               {p.desc}
             </h6>
             <h6>{p.price}</h6>

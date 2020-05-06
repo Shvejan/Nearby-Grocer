@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Home from "./Home";
-import BrandedFood from "./BrandedFood";
-import DiaryBakery from "./DiaryBakery";
-import FruitsVegitables from "./FruitsVegitables";
-import NonVeg from "./NonVeg";
-import HomeCare from "./HomeCare";
-import PersonalCare from "./PersonalCare";
+import BrandedFood from "./routes/BrandedFood";
+import DiaryBakery from "./routes/DiaryBakery";
+import FruitsVegitables from "./routes/FruitsVegitables";
+import NonVeg from "./routes/NonVeg";
+import HomeCare from "./routes/HomeCare";
+import PersonalCare from "./routes/PersonalCare";
 import { Switch, Route, withRouter } from "react-router-dom";
-import Beverages from "./Beverages";
-import FrozenVeg from "./FrozenVeg";
+import Beverages from "./routes/Beverages";
+import FrozenVeg from "./routes/FrozenVeg";
 class Main extends Component {
   constructor(props) {
     super(props);
