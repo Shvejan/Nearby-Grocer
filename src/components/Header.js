@@ -11,6 +11,7 @@ import {
   NavItem,
   NavbarToggler,
 } from "reactstrap";
+import { NavLink } from "react-router-dom";
 
 class Header extends Component {
   constructor(props) {
@@ -103,12 +104,14 @@ class Header extends Component {
       <React.Fragment>
         <div className="row row-content ">
           <div className=" p-4 col-2 col-sm-2">
-            <img
-              src={logo}
-              alt="Logo"
-              className="fluid"
-              style={{ width: 150 }}
-            />
+            <NavLink className="nav-link" to="/">
+              <img
+                src={logo}
+                alt="Logo"
+                className="fluid"
+                style={{ width: 150 }}
+              />
+            </NavLink>
           </div>
           <div className="row">
             <div className="col pt-3">
@@ -143,13 +146,16 @@ class Header extends Component {
                     toggle={() => this.toggle(1)}
                     style={{ backgroundColor: "#1b1b2a" }}
                   >
-                    <DropdownToggle
-                      className="text-white"
-                      caret
-                      color="#1b1b2a"
-                    >
-                      Beverages
-                    </DropdownToggle>
+                    <NavLink to="/beverages">
+                      <DropdownToggle
+                        className="text-white"
+                        caret
+                        color="#1b1b2a"
+                      >
+                        Beverages
+                      </DropdownToggle>
+                    </NavLink>
+
                     <DropdownMenu>
                       <DropdownItem header>Category 1</DropdownItem>
                       <DropdownItem divider />
@@ -171,13 +177,16 @@ class Header extends Component {
                     toggle={() => this.toggle(2)}
                     style={{ backgroundColor: "#1b1b2a" }}
                   >
-                    <DropdownToggle
-                      className="text-white"
-                      caret
-                      color="#1b1b2a"
-                    >
-                      Branded Food
-                    </DropdownToggle>
+                    <NavLink to="/brandedFood">
+                      <DropdownToggle
+                        className="text-white"
+                        caret
+                        color="#1b1b2a"
+                      >
+                        Branded Food
+                      </DropdownToggle>
+                    </NavLink>
+
                     <DropdownMenu>
                       <DropdownItem header>Category 1</DropdownItem>
                       <DropdownItem divider />
@@ -199,13 +208,16 @@ class Header extends Component {
                     toggle={() => this.toggle(3)}
                     style={{ backgroundColor: "#1b1b2a" }}
                   >
-                    <DropdownToggle
-                      className="text-white"
-                      caret
-                      color="#1b1b2a"
-                    >
-                      Diary,Bakery
-                    </DropdownToggle>
+                    <NavLink to="/diaryBakery">
+                      <DropdownToggle
+                        className="text-white"
+                        caret
+                        color="#1b1b2a"
+                      >
+                        Diary,Bakery
+                      </DropdownToggle>
+                    </NavLink>
+
                     <DropdownMenu>
                       <DropdownItem header>Category 1</DropdownItem>
                       <DropdownItem divider />
@@ -228,13 +240,16 @@ class Header extends Component {
                     toggle={() => this.toggle(4)}
                     style={{ backgroundColor: "#1b1b2a" }}
                   >
-                    <DropdownToggle
-                      className="text-white"
-                      caret
-                      color="#1b1b2a"
-                    >
-                      Fruits & Vegitables
-                    </DropdownToggle>
+                    <NavLink to="/fruitsVegitables">
+                      <DropdownToggle
+                        className="text-white"
+                        caret
+                        color="#1b1b2a"
+                      >
+                        Fruits & Vegitables
+                      </DropdownToggle>
+                    </NavLink>
+
                     <DropdownMenu>
                       <DropdownItem header>Category 1</DropdownItem>
                       <DropdownItem divider />
@@ -256,13 +271,16 @@ class Header extends Component {
                     toggle={() => this.toggle(5)}
                     style={{ backgroundColor: "#1b1b2a" }}
                   >
-                    <DropdownToggle
-                      className="text-white"
-                      caret
-                      color="#1b1b2a"
-                    >
-                      Frozen Veg
-                    </DropdownToggle>
+                    <NavLink to="/frozenVeg">
+                      <DropdownToggle
+                        className="text-white"
+                        caret
+                        color="#1b1b2a"
+                      >
+                        Frozen Veg
+                      </DropdownToggle>
+                    </NavLink>
+
                     <DropdownMenu>
                       <DropdownItem header>Category 1</DropdownItem>
                       <DropdownItem divider />
@@ -284,13 +302,16 @@ class Header extends Component {
                     toggle={() => this.toggle(6)}
                     style={{ backgroundColor: "#1b1b2a" }}
                   >
-                    <DropdownToggle
-                      className="text-white"
-                      caret
-                      color="#1b1b2a"
-                    >
-                      Non Veg
-                    </DropdownToggle>
+                    <NavLink to="/nonVeg">
+                      <DropdownToggle
+                        className="text-white"
+                        caret
+                        color="#1b1b2a"
+                      >
+                        Non Veg
+                      </DropdownToggle>
+                    </NavLink>
+
                     <DropdownMenu>
                       <DropdownItem header>Category 1</DropdownItem>
                       <DropdownItem divider />
@@ -312,13 +333,16 @@ class Header extends Component {
                     toggle={() => this.toggle(7)}
                     style={{ backgroundColor: "#1b1b2a" }}
                   >
-                    <DropdownToggle
-                      className="text-white"
-                      caret
-                      color="#1b1b2a"
-                    >
-                      Home Care
-                    </DropdownToggle>
+                    <NavLink to="/homeCare">
+                      <DropdownToggle
+                        className="text-white"
+                        caret
+                        color="#1b1b2a"
+                      >
+                        Home Care
+                      </DropdownToggle>
+                    </NavLink>
+
                     <DropdownMenu>
                       <DropdownItem header>Category 1</DropdownItem>
                       <DropdownItem divider />
@@ -340,13 +364,16 @@ class Header extends Component {
                     toggle={() => this.toggle(8)}
                     style={{ backgroundColor: "#1b1b2a" }}
                   >
-                    <DropdownToggle
-                      className="text-white"
-                      caret
-                      color="#1b1b2a"
-                    >
-                      Personal Care
-                    </DropdownToggle>
+                    <NavLink to="/personalCare">
+                      <DropdownToggle
+                        className="text-white"
+                        caret
+                        color="#1b1b2a"
+                      >
+                        Personal Care
+                      </DropdownToggle>
+                    </NavLink>
+
                     <DropdownMenu>
                       <DropdownItem header>Category 1</DropdownItem>
                       <DropdownItem divider />

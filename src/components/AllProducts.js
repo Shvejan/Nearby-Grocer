@@ -44,7 +44,7 @@ class Products extends Component {
   }
   render() {
     const card = (p) => (
-      <div className="col-3 justify-content-center">
+      <div className="col-12 col-sm-3 justify-content-center">
         <Card>
           <CardImg
             top
@@ -87,7 +87,7 @@ class RenderList extends Component {
         <h6 className="col-1" style={{ "margin-top": "9px" }}>
           View All
         </h6>
-        <div className="col-3">
+        <div className="col-12 col-sm-3">
           <Card inverse>
             <CardImg
               height="300px"
