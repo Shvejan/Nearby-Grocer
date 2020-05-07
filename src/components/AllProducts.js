@@ -7,6 +7,9 @@ import {
   CardImgOverlay,
   CardBody,
   CardSubtitle,
+  Modal,
+  ModalBody,
+  ModalHeader,
 } from "reactstrap";
 import green from "./images/green.png";
 import back from "./images/blue.png";
@@ -15,6 +18,7 @@ import amul from "./images/amul.jpg";
 import oil from "./images/oil.jpg";
 import drink from "./images/drink.jpg";
 import TopCat from "./TopCat";
+import { FadeTransform } from "react-animation-components";
 
 class Products extends Component {
   constructor(props) {
@@ -40,8 +44,12 @@ class Products extends Component {
           image: drink,
         },
       ],
+      isModalOpen: false,
     };
   }
+  toggleModal = () => {
+    this.setState({ isModalOpen: !this.state.isModalOpen });
+  };
   render() {
     const card = (p) => (
       <div className="col-12 col-sm-3 justify-content-center">
@@ -66,6 +74,64 @@ class Products extends Component {
           </CardBody>
         </Card>
         <button className="product-btn">ADD</button>
+        <Modal
+          isOpen={this.state.isModalOpen}
+          toggle={this.toggleModal}
+          scrollable={true}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <ModalHeader toggle={this.toggleModal}>Product details</ModalHeader>
+          <ModalBody>
+            <div className="row">
+              <div className="col-3">
+                <img height="150px" src={p.image} alt="Card image cap"></img>
+              </div>
+              <div className="col offset-1">
+                <h5>{p.title}</h5>
+                <h6
+                  className="cardText"
+                  style={{ color: "#e78536", height: "30px" }}
+                >
+                  <span
+                    class="fa fa-percent"
+                    style={{ "margin-right": "5px" }}
+                  ></span>
+                  {p.desc}
+                </h6>
+                <button
+                  style={{
+                    "background-color": "#41ada4",
+                    width: "80px",
+                    height: "30px",
+                    color: "white",
+                    border: "0px",
+                    "border-radius": "5px",
+                  }}
+                >
+                  ADD
+                </button>
+              </div>
+            </div>
+            <hr />
+            <h6 style={{ fontWeight: "bold", color: "#41ada4" }}>
+              Product Description
+            </h6>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry's standard dummy text
+              ever since the 1500s, when an unknown printer took a galley of
+              type and scrambled it to make a type specimen book. It has
+              survived not only five centuries, but also the leap into
+              electronic typesetting, remaining essentially unchanged. It was
+              popularised in the 1960s with the release of Letraset sheets
+              containing Lorem Ipsum passages, and more recently with desktop
+              publishing software like Aldus PageMaker including versions of
+              Lorem Ipsum
+            </p>
+          </ModalBody>
+        </Modal>
       </div>
     );
     return <React.Fragment>{this.state.products.map(card)}</React.Fragment>;

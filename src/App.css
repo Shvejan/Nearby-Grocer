@@ -165,3 +165,20 @@
   border-radius: 20px;
   margin-bottom: 30px;
 }
+
+.hoverImages {
+  height: 140px;
+  width: auto;
+  -webkit-transition: all 2s ease;
+  -moz-transition: all 2s ease;
+  -ms-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.hoverImages:hover {
+  cursor: pointer;
+  height: 155px;
+  width: auto;
+}
+.cart-modal {
+  height: 700px;
+}

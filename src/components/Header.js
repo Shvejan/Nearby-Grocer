@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import logo from "./images/logo-big.png";
+
+import { Tab, Tabs } from "react-bootstrap";
 import {
   Dropdown,
   DropdownToggle,
@@ -10,6 +12,14 @@ import {
   Collapse,
   NavItem,
   NavbarToggler,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  Form,
+  FormGroup,
+  Input,
+  Label,
+  Button,
 } from "reactstrap";
 import { NavLink } from "react-router-dom";
 
@@ -30,6 +40,9 @@ class Header extends Component {
       dropdownOpen7: false,
       dropdownOpen8: false,
       toggleNav: false,
+      loginModel: false,
+      activeTab: "1",
+      cartModal: false,
     };
   }
 
@@ -38,7 +51,16 @@ class Header extends Component {
       dropdownOpen: !prevState.dropdownOpen,
     }));
   }
-
+  toggleLoginModel = () => {
+    this.setState({
+      loginModel: !this.state.loginModel,
+    });
+  };
+  toggleCartModal = () => {
+    this.setState({
+      cartModal: !this.state.cartModal,
+    });
+  };
   onMouseEnter(id) {
     switch (id) {
       case 1:
@@ -99,17 +121,20 @@ class Header extends Component {
   toggleNav = () => {
     this.setState({ toggleNav: !this.state.toggleNav });
   };
+  toggleTab = (tab) => {
+    if (this.state.activeTab !== tab) this.setState({ activeTab: tab });
+  };
   render() {
     return (
       <React.Fragment>
-        <div className="row row-content ">
+        <div className="row row-content " style={{ height: "70px" }}>
           <div className=" p-4 col-2 col-sm-2">
             <NavLink to="/">
               <img
                 src={logo}
                 alt="Logo"
                 className="fluid"
-                style={{ width: 100, height: 50 }}
+                style={{ width: 100, height: 50, "margin-top": "-20px" }}
               />
             </NavLink>
           </div>
@@ -125,10 +150,14 @@ class Header extends Component {
               ></input>
             </div>
             <div className="col pt-3 ">
-              <button className="login">Login/Register</button>
+              <button className="login" onClick={this.toggleLoginModel}>
+                Login/Register
+              </button>
             </div>
             <div className="col pt-3">
-              <button className="cart">Cart</button>
+              <button className="cart" onClick={this.toggleCartModal}>
+                Cart
+              </button>
             </div>
           </div>
         </div>
@@ -390,6 +419,124 @@ class Header extends Component {
             </Collapse>
           </div>
         </Navbar>
+        <Modal isOpen={this.state.loginModel} toggle={this.toggleLoginModel}>
+          <div className="justify-content-center">
+            <Tabs
+              defaultActiveKey="home"
+              transition={false}
+              id="noanim-tab-example"
+            >
+              <Tab eventKey="home" title="Home">
+                <ModalHeader toggle={this.toggleLoginModel}>Login</ModalHeader>
+                <ModalBody>
+                  <Form onSubmit={this.handleLogin}>
+                    <FormGroup>
+                      <Label htmlFor="username">Username</Label>
+                      <Input
+                        type="text"
+                        id="username"
+                        name="username"
+                        innerRef={(input) => (this.username = input)}
+                      />
+                    </FormGroup>
+                    <FormGroup>
+                      <Label htmlFor="password">Password</Label>
+                      <Input
+                        type="password"
+                        id="password"
+                        name="password"
+                        innerRef={(input) => (this.password = input)}
+                      />
+                    </FormGroup>
+                    <FormGroup check>
+                      <Label check>
+                        <Input
+                          type="checkbox"
+                          name="remember"
+                          innerRef={(input) => (this.remember = input)}
+                        />
+                        Remember me
+                      </Label>
+                    </FormGroup>
+                    <Button type="submit" value="submit" color="primary">
+                      Login
+                    </Button>
+                  </Form>
+                </ModalBody>
+              </Tab>
+              <Tab eventKey="Register" title="Register">
+                <ModalHeader toggle={this.toggleLoginModel}>
+                  Register
+                </ModalHeader>
+                <ModalBody>
+                  <Form onSubmit={this.handleLogin}>
+                    <FormGroup>
+                      <Label htmlFor="username">Username</Label>
+                      <Input
+                        type="text"
+                        id="username"
+                        name="username"
+                        innerRef={(input) => (this.username = input)}
+                      />
+                    </FormGroup>
+                    <FormGroup>
+                      <Label htmlFor="password">Password</Label>
+                      <Input
+                        type="password"
+                        id="password"
+                        name="password"
+                        innerRef={(input) => (this.password = input)}
+                      />
+                    </FormGroup>
+                    <FormGroup>
+                      <Label htmlFor="password">Retype Password</Label>
+                      <Input
+                        type="password"
+                        id="password2"
+                        name="password2"
+                        innerRef={(input) => (this.password2 = input)}
+                      />
+                    </FormGroup>
+                    <FormGroup check>
+                      <Label check>
+                        <Input
+                          type="checkbox"
+                          name="remember"
+                          innerRef={(input) => (this.remember = input)}
+                        />
+                        Remember me
+                      </Label>
+                    </FormGroup>
+                    <Button type="submit" value="submit" color="primary">
+                      Register
+                    </Button>
+                  </Form>
+                </ModalBody>
+              </Tab>
+            </Tabs>
+          </div>
+        </Modal>
+        <Modal
+          isOpen={this.state.cartModal}
+          toggle={this.toggleCartModal}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          dialogClassName="cart-modal"
+        >
+          <ModalHeader toggle={this.toggleCartModal}>Your Cart</ModalHeader>
+          <ModalBody>
+            <div className="container">
+              <p> item1</p>
+              <p> item2</p>
+              <p> item3</p>
+            </div>
+            <hr />
+            <NavLink to="/checkout">
+              <Button color="success">Checkout</Button>
+            </NavLink>
+          </ModalBody>
+        </Modal>
       </React.Fragment>
     );
   }
