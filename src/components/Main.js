@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import Header from "./Header";
-import Footer from "./Footer";
+import Checkout from "./Checkout";
 import Home from "./Home";
 import BrandedFood from "./routes/BrandedFood";
 import DiaryBakery from "./routes/DiaryBakery";
@@ -18,7 +17,6 @@ class Main extends Component {
   render() {
     return (
       <React.Fragment>
-        <Header />
         <Switch>
           <Route exact path="/" component={() => <Home />} />
           <Route exact path="/beverages/" component={() => <Beverages />} />
@@ -37,8 +35,8 @@ class Main extends Component {
             path="/personalCare"
             component={() => <PersonalCare />}
           />
+          <Route exact path="/checkout/" component={() => <Checkout />} />
         </Switch>
-        <Footer />
       </React.Fragment>
     );
   }

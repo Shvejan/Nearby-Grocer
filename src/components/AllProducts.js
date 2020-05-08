@@ -52,18 +52,34 @@ class Products extends Component {
   };
   render() {
     const card = (p) => (
-      <div className="col-12 col-sm-3 justify-content-center">
-        <Card>
-          <CardImg
-            top
-            width="20%"
-            height="190px"
-            src={p.image}
-            alt="Card image cap"
-          />
+      <div
+        className="col-12 col-sm-3 justify-content-center"
+        onClick={this.toggleModal}
+      >
+        <Card style={{ height: "19rem" }}>
+          <div
+            style={{
+              height: "180px",
+              width: "180px",
+              "text-align": "center",
+            }}
+          >
+            <img
+              top
+              src={p.image}
+              alt="Card image cap"
+              className="hoverImagesHome"
+            />
+          </div>
+
           <CardBody>
-            <h6 className="cardText">{p.title}</h6>
-            <h6 className="cardText" style={{ color: "#e78536" }}>
+            <h6 className="cardText" style={{ height: "30px" }}>
+              {p.title}
+            </h6>
+            <h6
+              className="cardText"
+              style={{ color: "#e78536", height: "30px" }}
+            >
               <span
                 class="fa fa-percent"
                 style={{ "margin-right": "5px" }}

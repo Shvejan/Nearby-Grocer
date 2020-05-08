@@ -45,7 +45,7 @@
 }
 
 .productsDiv {
-  background-color: rgb(240, 246, 246);
+  background-color: #f4f7f8;
   padding-bottom: 100px;
 }
 .btnn {
@@ -181,4 +181,20 @@
 }
 .cart-modal {
   height: 700px;
+}
+.hoverImagesHome {
+  margin-left: 25px;
+  height: 200px;
+  width: auto;
+  -webkit-transition: all 2s ease;
+  -moz-transition: all 2s ease;
+  -ms-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.hoverImagesHome:hover {
+  margin-left: 15px;
+
+  cursor: pointer;
+  height: 220px;
+  width: auto;
 }

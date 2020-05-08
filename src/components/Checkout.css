@@ -1,0 +1,19 @@
+.mainDiv {
+  background-color: #2d3c44;
+  color: #fff;
+  height: 665px;
+}
+.checkoutHeader {
+  margin-top: 50px;
+  font-family: customfont;
+}
+.clearCartbtn {
+  margin-top: 60px;
+}
+.total {
+  color: black;
+  font-weight: bold;
+}
+.placeOrder {
+  margin-left: 400px;
+}
