@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./Checkout.css";
+import "./css/Checkout.css";
 import logo from "./images/logo-big.png";
 import {
   Card,

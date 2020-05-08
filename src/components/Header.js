@@ -582,7 +582,7 @@ class Header extends Component {
                 />
               </FormGroup>
               <Button type="submit" value="submit" color="primary">
-                Login
+                Search
               </Button>
             </Form>
           </ModalBody>
