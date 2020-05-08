@@ -10,6 +10,7 @@ import PersonalCare from "./routes/PersonalCare";
 import { Switch, Route, withRouter } from "react-router-dom";
 import Beverages from "./routes/Beverages";
 import FrozenVeg from "./routes/FrozenVeg";
+import { Loading } from "./Loading";
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -36,6 +37,7 @@ class Main extends Component {
             component={() => <PersonalCare />}
           />
           <Route exact path="/checkout/" component={() => <Checkout />} />
+          <Route exact path="/loading/" component={() => <Loading />} />
         </Switch>
       </React.Fragment>
     );

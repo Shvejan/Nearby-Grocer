@@ -6,7 +6,6 @@ import {
   CardImg,
   CardImgOverlay,
   CardBody,
-  CardSubtitle,
   Modal,
   ModalBody,
   ModalHeader,
@@ -18,7 +17,6 @@ import amul from "./images/amul.jpg";
 import oil from "./images/oil.jpg";
 import drink from "./images/drink.jpg";
 import TopCat from "./TopCat";
-import { FadeTransform } from "react-animation-components";
 
 class Products extends Component {
   constructor(props) {

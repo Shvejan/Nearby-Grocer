@@ -1,4 +1,3 @@
-import Slides from "./Slide";
 import AllProducts from "./AllProducts";
 import WhyChoose from "./WhyChoose";
 import React, { Component } from "react";

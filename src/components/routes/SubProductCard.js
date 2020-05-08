@@ -1,14 +1,5 @@
 import React, { Component } from "react";
-import {
-  Card,
-  CardImg,
-  CardBody,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  Label,
-  Button,
-} from "reactstrap";
+import { Card, CardBody, Modal, ModalHeader, ModalBody } from "reactstrap";
 class SubProductCard extends Component {
   constructor(props) {
     super(props);

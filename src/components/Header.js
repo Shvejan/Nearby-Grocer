@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import logo from "./images/logo-big.png";
-
 import { Tab, Tabs } from "react-bootstrap";
+import { connect } from "react-redux";
 import {
   Dropdown,
   DropdownToggle,
@@ -22,6 +22,16 @@ import {
   Button,
 } from "reactstrap";
 import { NavLink } from "react-router-dom";
+import { fetchStores } from "../redux/ActionCreators";
+import RecievedStores from "./RecievedStores";
+const mapStateToProps = (state) => {
+  return {
+    stores: state.stores,
+  };
+};
+const mapDispatchToProps = (dispatch) => ({
+  fetchStores: (pincode) => dispatch(fetchStores(pincode)),
+});
 
 class Header extends Component {
   constructor(props) {
@@ -43,6 +53,8 @@ class Header extends Component {
       loginModel: false,
       activeTab: "1",
       cartModal: false,
+      locationModal: false,
+      storeModal: false,
     };
   }
 
@@ -87,6 +99,8 @@ class Header extends Component {
       case 8:
         this.setState({ dropdownOpen8: true });
         return;
+      default:
+        return;
     }
   }
 
@@ -116,6 +130,8 @@ class Header extends Component {
       case 8:
         this.setState({ dropdownOpen8: false });
         return;
+      default:
+        return;
     }
   }
   toggleNav = () => {
@@ -123,6 +139,18 @@ class Header extends Component {
   };
   toggleTab = (tab) => {
     if (this.state.activeTab !== tab) this.setState({ activeTab: tab });
+  };
+  toggleLocModal = () => {
+    this.setState({ locationModal: !this.state.locationModal });
+  };
+  toggleSelectStore = () => {
+    this.setState({ storeModal: !this.state.storeModal });
+  };
+  handleLocation = (event) => {
+    this.toggleLocModal();
+    this.props.fetchStores(this.pincode.value);
+    this.toggleSelectStore();
+    event.preventDefault();
   };
   render() {
     return (
@@ -140,7 +168,9 @@ class Header extends Component {
           </div>
           <div className="row">
             <div className="col pt-3">
-              <button className="btnn">Location</button>
+              <button className="btnn" onClick={() => this.toggleLocModal()}>
+                Location
+              </button>
             </div>
             <div className="col pt-3">
               <input
@@ -537,9 +567,38 @@ class Header extends Component {
             </NavLink>
           </ModalBody>
         </Modal>
+        <Modal isOpen={this.state.locationModal} toggle={this.toggleLocModal}>
+          <ModalHeader toggle={this.toggleLocModal}>
+            Enter Your Pincode
+          </ModalHeader>
+          <ModalBody>
+            <Form onSubmit={this.handleLocation}>
+              <FormGroup>
+                <Input
+                  type="number"
+                  id="pincode"
+                  name="pincode"
+                  innerRef={(input) => (this.pincode = input)}
+                />
+              </FormGroup>
+              <Button type="submit" value="submit" color="primary">
+                Login
+              </Button>
+            </Form>
+          </ModalBody>
+        </Modal>
+        <Modal isOpen={this.state.storeModal} toggle={this.toggleSelectStore}>
+          <ModalHeader toggle={this.toggleSelectStore}>
+            Avaliable stores at your location
+          </ModalHeader>
+
+          <ModalBody>
+            <RecievedStores stores={this.props.stores} />
+          </ModalBody>
+        </Modal>
       </React.Fragment>
     );
   }
 }
 
-export default Header;
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
