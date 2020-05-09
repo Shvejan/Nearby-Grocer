@@ -2,32 +2,21 @@ import { Loading } from "./Loading";
 import React from "react";
 import "./css/recievedStores.css";
 import { Card } from "react-bootstrap";
+import { fetchMainCat } from "../redux/ActionCreators";
+import { connect } from "react-redux";
 
-const StoresCard = (props) => {
-  if (props.store.product_count !== "0") {
-    return (
-      <div className="justify-content-center">
-        <Card className="storeCard">
-          <div className="row justify-content-center">
-            <div className="col-5 align-items-center">
-              <img src={props.store.logo} className="storeImage" />
-            </div>
-            <div className="col">
-              <h6>{props.store.branch_name}</h6>
-              <p>Phone: {props.store.phone}</p>
-              <p>{props.store.operation_time}</p>
-              <p>Total avaliable products {props.store.product_count}</p>
-            </div>
-          </div>
-        </Card>
-      </div>
-    );
-  } else {
-    return <div></div>;
-  }
+const mapStateToProps = (state) => {
+  return {};
 };
+const mapDispatchToProps = (dispatch) => ({
+  fetchMainCat: (branch_id) => dispatch(fetchMainCat(branch_id)),
+});
 
 const RecievedStores = (props) => {
+  const storeSelected = (branch_id) => {
+    props.toggleStoresModal();
+    props.fetchMainCat(branch_id);
+  };
   if (props.stores.isLoading) {
     return <Loading />;
   } else if (props.stores.stores.STATUS == "Failure") {
@@ -36,10 +25,27 @@ const RecievedStores = (props) => {
     return (
       <div>
         {props.stores.stores.DATA.map((s) => (
-          <StoresCard store={s} />
+          <div
+            className="justify-content-center"
+            onClick={() => storeSelected(s.branch_id)}
+          >
+            <Card className="storeCard">
+              <div className="row justify-content-center">
+                <div className="col-5 align-items-center">
+                  <img src={s.logo} className="storeImage" />
+                </div>
+                <div className="col">
+                  <h6>{s.branch_name}</h6>
+                  <p>Phone: {s.phone}</p>
+                  <p>{s.operation_time}</p>
+                  <p>Total avaliable products {s.product_count}</p>
+                </div>
+              </div>
+            </Card>
+          </div>
         ))}
       </div>
     );
   }
 };
-export default RecievedStores;
+export default connect(mapStateToProps, mapDispatchToProps)(RecievedStores);

@@ -21,7 +21,7 @@ class WhyChoose extends Component {
               "margin-right": "10px",
             }}
           />
-          <h1 className="col-4">Why choose StarQuik?</h1>
+          <h1 className="col-5">Why choose NearbyGrocer?</h1>
           <hr
             className="col-1"
             style={{

@@ -53,7 +53,7 @@ class Header extends Component {
       loginModel: false,
       activeTab: "1",
       cartModal: false,
-      locationModal: false,
+      locationModal: true,
       storeModal: false,
     };
   }
@@ -593,7 +593,10 @@ class Header extends Component {
           </ModalHeader>
 
           <ModalBody>
-            <RecievedStores stores={this.props.stores} />
+            <RecievedStores
+              stores={this.props.stores}
+              toggleStoresModal={this.toggleSelectStore}
+            />
           </ModalBody>
         </Modal>
       </React.Fragment>

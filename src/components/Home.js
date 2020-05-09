@@ -7,7 +7,7 @@ import b3 from "./images/banner3.png";
 import Slide from "./Slide";
 import Header from "./Header";
 import Footer from "./Footer";
-
+import TopCat from "./TopCat";
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -17,7 +17,8 @@ class Home extends Component {
       <React.Fragment>
         <Header />
         <Slide banners={[b1, b2, b3]} />
-        <AllProducts />
+        <TopCat />
+
         <WhyChoose />
         <Footer />
       </React.Fragment>
