@@ -42,7 +42,12 @@ class Main extends Component {
   }
   render() {
     const categorySelected = ({ match }) => {
-      return <CategoryProducts catId={parseInt(match.params.catId, 10)} />;
+      return (
+        <CategoryProducts
+          catId={parseInt(match.params.catId, 10)}
+          subCatId={parseInt(match.params.subCatId, 10)}
+        />
+      );
     };
     return (
       <React.Fragment>
@@ -67,7 +72,10 @@ class Main extends Component {
           <Route exact path="/checkout/" component={() => <Checkout />} />
           <Route exact path="/loading/" component={() => <Loading />} />
           <Route exact path="/test/" component={() => <Test />} />
-          <Route path="/categories/:catId" component={categorySelected} />
+          <Route
+            path="/categories/:catId/:subCatId"
+            component={categorySelected}
+          />
         </Switch>
       </React.Fragment>
     );

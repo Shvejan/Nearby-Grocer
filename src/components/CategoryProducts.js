@@ -5,6 +5,7 @@ import { fetchMainCat, fetchSubCat } from "../redux/ActionCreators";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { Loading } from "./Loading";
+import Products from "./Products";
 const mapStateToProps = (state) => {
   return {
     mainCat: state.mainCat,
@@ -24,10 +25,7 @@ const CatNav = (props) => {
     return (
       <div class="scrollmenu">
         {props.mainCat.mainCat.DATA.map((c) => (
-          <NavLink
-            to={`/categories/${c.category_id}`}
-            style={{ textDecoration: "none", fontSize: "15px" }}
-          >
+          <NavLink to={`/categories/${c.category_id}/subcategories`}>
             <a>{c.category_name}</a>
           </NavLink>
         ))}
@@ -42,11 +40,17 @@ class SubCatNav extends Component {
       return <Loading />;
     } else {
       return (
-        <div class="scrollmenu">
-          {this.props.subCat.subCat.DATA.map((s) => (
-            <a>{s.sub_category_name}</a>
-          ))}
-        </div>
+        <React.Fragment>
+          <div class="scrollmenu">
+            {this.props.subCat.subCat.DATA.map((s) => (
+              <NavLink
+                to={`/categories/${this.props.mainCat}/${s.sub_category_id}`}
+              >
+                <a>{s.sub_category_name}</a>
+              </NavLink>
+            ))}
+          </div>
+        </React.Fragment>
       );
     }
   }
@@ -55,10 +59,6 @@ class SubCatNav extends Component {
 class CategoryProducts extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      cat: 1,
-      subCat: 1,
-    };
   }
   componentDidMount() {
     const branch = sessionStorage.getItem("branch_id");
@@ -70,7 +70,12 @@ class CategoryProducts extends Component {
       <React.Fragment>
         <Header />
         <CatNav mainCat={this.props.mainCat} />
-        <SubCatNav subCat={this.props.subCat} />
+        <SubCatNav subCat={this.props.subCat} mainCat={this.props.catId} />
+        <Products
+          branch_id={sessionStorage.getItem("branch_id")}
+          subCatId={this.props.subCatId}
+          subCatIdList={this.props.subCat}
+        />
       </React.Fragment>
     );
   }

@@ -5,6 +5,7 @@ import logger from "redux-logger";
 import { MainCat } from "./mainCat";
 import { Pincode } from "./pincode";
 import { SubCat } from "./subCat";
+import { Products } from "./products";
 export const ConfigureStore = () => {
   const store = createStore(
     combineReducers({
@@ -12,6 +13,7 @@ export const ConfigureStore = () => {
       mainCat: MainCat,
       pincode: Pincode,
       subCat: SubCat,
+      products: Products,
     }),
     applyMiddleware(thunk, logger)
   );

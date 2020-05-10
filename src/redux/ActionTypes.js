@@ -8,3 +8,6 @@ export const PINCODE_ADD = "PINCODE_ADD";
 export const SUBCAT_ADD = "SUBCAT_ADD";
 export const SUBCAT_LOADING = "SUBCAT_LOADING";
 export const SUBCAT_FAILED = "SUBCAT_FAILED";
+export const PRODUCTS_ADD = "PRODUCTS_ADD";
+export const PRODUCTS_LOADING = "PRODUCTS_LOADING";
+export const PRODUCTS_FAILED = "PRODUCTS_FAILED";

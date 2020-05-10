@@ -29,7 +29,7 @@ class TopCat extends Component {
             if (c.image)
               return (
                 <Link
-                  to={`/categories/${c.category_id}`}
+                  to={`/categories/${c.category_id}/subcategories`}
                   style={{ textDecoration: "none", fontSize: "15px" }}
                 >
                   <div className="col-3" style={{ marginBottom: "20px" }}>

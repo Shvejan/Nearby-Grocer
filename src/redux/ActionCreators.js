@@ -129,3 +129,52 @@ export const SubCatAdd = (mainCat) => ({
   type: ActionTypes.SUBCAT_ADD,
   payload: mainCat,
 });
+export const fetchProducts = (branch_id, sub_category_id) => (dispatch) => {
+  dispatch(productsLoading(true));
+  return fetch(baseUrl + "subcategoryproducts", {
+    method: "POST",
+    body: JSON.stringify({
+      sub_category_id: sub_category_id,
+      branch_id: branch_id,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "same-origin",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((products) => {
+      dispatch(productsAdd(products));
+    })
+    .catch((error) => dispatch(productsFailed(error.message)));
+};
+
+export const productsLoading = () => ({
+  type: ActionTypes.PRODUCTS_LOADING,
+});
+
+export const productsFailed = (errmess) => ({
+  type: ActionTypes.PRODUCTS_FAILED,
+  payload: errmess,
+});
+export const productsAdd = (products) => ({
+  type: ActionTypes.PRODUCTS_ADD,
+  payload: products,
+});
