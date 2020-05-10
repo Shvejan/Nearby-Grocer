@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Card } from "reactstrap";
 import { Loading } from "./Loading";
+import { Link } from "react-router-dom";
+
 const mapStateToProps = (state) => {
   return {
     mainCat: state.mainCat,
@@ -26,14 +28,19 @@ class TopCat extends Component {
           {this.props.mainCat.mainCat.DATA.map((c) => {
             if (c.image)
               return (
-                <div className="col-3">
-                  <Card style={{ width: "200px", height: "300px" }}>
-                    <div className="align-items-center">
-                      <img src={c.image} style={{ width: "199px" }} />
-                    </div>
-                  </Card>
-                  <h6>{c.category_name}</h6>
-                </div>
+                <Link
+                  to={`/categories/${c.category_id}`}
+                  style={{ textDecoration: "none", fontSize: "15px" }}
+                >
+                  <div className="col-3" style={{ marginBottom: "20px" }}>
+                    <Card style={{ width: "200px", height: "200px" }}>
+                      <div className="align-items-center">
+                        <img src={c.image} style={{ width: "199px" }} />
+                      </div>
+                    </Card>
+                    <h6>{c.category_name}</h6>
+                  </div>
+                </Link>
               );
           })}
         </div>

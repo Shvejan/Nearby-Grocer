@@ -12,11 +12,38 @@ import Beverages from "./routes/Beverages";
 import FrozenVeg from "./routes/FrozenVeg";
 import { Loading } from "./Loading";
 import Test from "../test";
+import CategoryProducts from "./CategoryProducts";
+import { connect } from "react-redux";
+import { fetchMainCat } from "../redux/ActionCreators";
+
+const mapStateToProps = (state) => {
+  return {
+    mainCat: state.mainCat,
+  };
+};
+const mapDispatchToProps = (dispatch) => ({
+  fetchMainCat: (branch_id) => dispatch(fetchMainCat(branch_id)),
+});
 class Main extends Component {
   constructor(props) {
     super(props);
   }
+  componentDidMount() {
+    const pin = sessionStorage.getItem("pincode");
+    const branch = sessionStorage.getItem("branch_id");
+    if (pin && branch) {
+      console.log("session storeagadf");
+      console.log(pin);
+      console.log(branch);
+      this.props.fetchMainCat(branch);
+    } else {
+      console.log("no sellion data");
+    }
+  }
   render() {
+    const categorySelected = ({ match }) => {
+      return <CategoryProducts catId={parseInt(match.params.catId, 10)} />;
+    };
     return (
       <React.Fragment>
         <Switch>
@@ -40,10 +67,11 @@ class Main extends Component {
           <Route exact path="/checkout/" component={() => <Checkout />} />
           <Route exact path="/loading/" component={() => <Loading />} />
           <Route exact path="/test/" component={() => <Test />} />
+          <Route path="/categories/:catId" component={categorySelected} />
         </Switch>
       </React.Fragment>
     );
   }
 }
 
-export default withRouter(Main);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

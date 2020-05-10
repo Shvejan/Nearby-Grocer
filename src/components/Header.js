@@ -22,15 +22,17 @@ import {
   Button,
 } from "reactstrap";
 import { NavLink } from "react-router-dom";
-import { fetchStores } from "../redux/ActionCreators";
+import { fetchStores, addPincode } from "../redux/ActionCreators";
 import RecievedStores from "./RecievedStores";
 const mapStateToProps = (state) => {
   return {
     stores: state.stores,
+    pincode: state.pincode,
   };
 };
 const mapDispatchToProps = (dispatch) => ({
   fetchStores: (pincode) => dispatch(fetchStores(pincode)),
+  addPincode: (pincode) => dispatch(addPincode),
 });
 
 class Header extends Component {
@@ -53,10 +55,15 @@ class Header extends Component {
       loginModel: false,
       activeTab: "1",
       cartModal: false,
-      locationModal: true,
+      locationModal: false,
       storeModal: false,
     };
   }
+  /*componentDidMount() {
+    if (this.props.pincode.pincode === "") {
+      this.toggleLocModal();
+    }
+  }*/
 
   toggle(id) {
     this.setState((prevState) => ({
@@ -147,6 +154,9 @@ class Header extends Component {
     this.setState({ storeModal: !this.state.storeModal });
   };
   handleLocation = (event) => {
+    //this.setState({ pincode: this.pincode.value });
+    sessionStorage.setItem("pincode", this.pincode.value);
+    console.log("session pin set");
     this.toggleLocModal();
     this.props.fetchStores(this.pincode.value);
     this.toggleSelectStore();
@@ -191,7 +201,7 @@ class Header extends Component {
             </div>
           </div>
         </div>
-        <Navbar light expand="md" className="mainNav">
+        {/*<Navbar light expand="md" className="mainNav">
           <div className="container just-content-center">
             <NavbarToggler onClick={this.toggleNav} />
             <Collapse isOpen={this.state.toggleNav} navbar>
@@ -448,7 +458,7 @@ class Header extends Component {
               </Nav>
             </Collapse>
           </div>
-        </Navbar>
+        </Navbar>*/}
         <Modal isOpen={this.state.loginModel} toggle={this.toggleLoginModel}>
           <div className="justify-content-center">
             <Tabs

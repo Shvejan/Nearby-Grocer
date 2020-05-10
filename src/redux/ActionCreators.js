@@ -78,3 +78,54 @@ export const mainCatAdd = (mainCat) => ({
   type: ActionTypes.MAINCAT_ADD,
   payload: mainCat,
 });
+export const addPincode = (pincode) => ({
+  type: ActionTypes.PINCODE_ADD,
+  payload: pincode,
+});
+
+export const fetchSubCat = (branch_id, category_id) => (dispatch) => {
+  dispatch(SubCatLoading(true));
+  return fetch(baseUrl + "subcategories", {
+    method: "POST",
+    body: JSON.stringify({ category_id: category_id, branch_id: branch_id }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "same-origin",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((subCat) => {
+      dispatch(SubCatAdd(subCat));
+    })
+    .catch((error) => dispatch(SubCatFailed(error.message)));
+};
+
+export const SubCatLoading = () => ({
+  type: ActionTypes.SUBCAT_LOADING,
+});
+
+export const SubCatFailed = (errmess) => ({
+  type: ActionTypes.SUBCAT_FAILED,
+  payload: errmess,
+});
+export const SubCatAdd = (mainCat) => ({
+  type: ActionTypes.SUBCAT_ADD,
+  payload: mainCat,
+});

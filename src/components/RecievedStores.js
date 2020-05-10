@@ -14,6 +14,9 @@ const mapDispatchToProps = (dispatch) => ({
 
 const RecievedStores = (props) => {
   const storeSelected = (branch_id) => {
+    sessionStorage.setItem("branch_id", branch_id);
+    console.log("session branch set");
+
     props.toggleStoresModal();
     props.fetchMainCat(branch_id);
   };
