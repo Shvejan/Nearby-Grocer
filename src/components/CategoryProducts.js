@@ -71,11 +71,14 @@ class CategoryProducts extends Component {
         <Header />
         <CatNav mainCat={this.props.mainCat} />
         <SubCatNav subCat={this.props.subCat} mainCat={this.props.catId} />
-        <Products
-          branch_id={sessionStorage.getItem("branch_id")}
-          subCatId={this.props.subCatId}
-          subCatIdList={this.props.subCat}
-        />
+        <div className="productsDiv">
+          <div className="container">
+            <Products
+              branch_id={sessionStorage.getItem("branch_id")}
+              subCatId={this.props.subCatId}
+            />
+          </div>
+        </div>
       </React.Fragment>
     );
   }

@@ -72,6 +72,7 @@ class Main extends Component {
           <Route exact path="/checkout/" component={() => <Checkout />} />
           <Route exact path="/loading/" component={() => <Loading />} />
           <Route exact path="/test/" component={() => <Test />} />
+
           <Route
             path="/categories/:catId/:subCatId"
             component={categorySelected}
