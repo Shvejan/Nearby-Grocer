@@ -178,3 +178,6 @@ export const productsAdd = (products) => ({
   type: ActionTypes.PRODUCTS_ADD,
   payload: products,
 });
+export const productsClear = () => ({
+  type: ActionTypes.PRODUCTS_CLEAR,
+});

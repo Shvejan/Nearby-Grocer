@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchProducts } from "../redux/ActionCreators";
+import { fetchProducts, productsClear } from "../redux/ActionCreators";
+import { Loading } from "./Loading";
+import { Redirect } from "react-router-dom";
 const mapStateToProps = (state) => ({
   products: state.products,
 });
 const mapDispatchToProps = (dispatch) => ({
   fetchProducts: (branch_id, sub_category_id) =>
     dispatch(fetchProducts(branch_id, sub_category_id)),
+  productsClear: () => dispatch(productsClear()),
 });
 
 class Products extends Component {
@@ -14,28 +17,13 @@ class Products extends Component {
     super(props);
     this.state = {};
   }
-  componentDidMount() {
-    this.verify(this.props.subCatId);
-  }
-  verify = (id) => {
-    if (isNaN(id)) {
-      if (!this.props.subCatIdList.isLoading) {
-        try {
-          const x = this.props.subCatIdList.subCat.DATA[0].sub_category_id;
-          this.avaliableProducts(this.props.branch_id, x);
-        } catch (e) {
-          return <h1>No products avaliable</h1>;
-        }
-      }
-    } else {
-      this.avaliableProducts(this.props.branch_id, this.props.subCatId);
-    }
-  };
-  avaliableProducts = (branch_id, subCatId) => {
-    this.props.fetchProducts(branch_id, subCatId);
-  };
+
   render() {
-    return <div>this.verify(this.props.subCatId)</div>;
+    return <h3>padoijaodijaodkjdcts</h3>;
   }
 }
+const ProductCard = (props) => {
+  return <h3>{props.p.product_name}</h3>;
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(Products);
