@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { fetchBrandProducts } from "../redux/ActionCreators";
 import { connect } from "react-redux";
+import { Loading } from "./Loading";
+import Header from "./Header";
+import ProductCard from "./ProductCard";
 const mapStateToProps = (state) => {
   return {
-    brandProducts: state.brandProducts,
+    brandWiseProducts: state.brandWiseProducts,
   };
 };
 const mapDispatchToProps = (dispatch) => ({
@@ -17,7 +20,6 @@ class BrandProducts extends Component {
     this.state = {};
   }
   componentDidMount() {
-    alert();
     this.props.fetchBrandProducts(
       sessionStorage.getItem("branch_id"),
       this.props.b_id,
@@ -25,7 +27,33 @@ class BrandProducts extends Component {
     );
   }
   render() {
-    return <h1>{this.props.b_id}</h1>;
+    if (this.props.brandWiseProducts.isLoading) {
+      return (
+        <div>
+          <Header />
+          <Loading />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <Header />
+          <div className="productsDiv">
+            <div className="container">
+              <h5>Results</h5>
+
+              <div className="row">
+                {this.props.brandWiseProducts.brandWiseProducts.DATA.map(
+                  (p) => (
+                    <ProductCard p={p} />
+                  )
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
   }
 }
 

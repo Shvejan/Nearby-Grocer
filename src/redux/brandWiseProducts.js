@@ -1,7 +1,7 @@
 import * as ActionTypes from "./ActionTypes";
 
-export const BrandProducts = (
-  state = { isLoading: true, errMess: null, brandProducts: [] },
+export const BrandWiseProducts = (
+  state = { isLoading: true, errMess: null, brandWiseProducts: [] },
   action
 ) => {
   switch (action.type) {
@@ -10,11 +10,16 @@ export const BrandProducts = (
         ...state,
         isLoading: false,
         errMess: null,
-        brandProducts: action.payload,
+        brandWiseProducts: action.payload,
       };
 
     case ActionTypes.BRANDPRODUCTS_LOADING:
-      return { ...state, isLoading: true, errMess: null, brandProducts: [] };
+      return {
+        ...state,
+        isLoading: true,
+        errMess: null,
+        brandWiseProducts: [],
+      };
 
     case ActionTypes.BRANDPRODUCTS_FAILED:
       return { ...state, isLoading: false, errMess: action.payload };

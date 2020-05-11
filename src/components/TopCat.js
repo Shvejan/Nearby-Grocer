@@ -25,36 +25,29 @@ class TopCat extends Component {
           style={{ "margin-top": "100px", "margin-bottom": "100px" }}
         >
           <h3 style={{ marginBottom: "50px" }}>Top Categories</h3>
-          <div className="row">
-            {this.props.mainCat.mainCat.DATA.map((c) => {
-              if (c.image)
-                return (
-                  <div className="col-3" style={{ marginBottom: "20px" }}>
-                    <Link
-                      to={`/categories/${c.category_id}/subcategories`}
-                      style={{ textDecoration: "none", fontSize: "15px" }}
-                    >
-                      <Card style={{ width: "200px", height: "200px" }}>
-                        <div className="align-items-center">
-                          <img
-                            src={c.image}
-                            style={{ width: "199px", height: "199px" }}
-                          />
-                        </div>
-                      </Card>
-                    </Link>
-                    <h6>{c.category_name}</h6>
-                  </div>
-                );
-            })}
-          </div>
-
-          <div class="collapse" id="collapseExample">
-            <div class="card card-body">
-              Anim pariatur cliche reprehenderit, enim eiusmod high life
-              accusamus terry richardson ad squid. Nihil anim keffiyeh
-              helvetica, craft beer labore wes anderson cred nesciunt sapiente
-              ea proident.
+          <div>
+            <div className="row">
+              {this.props.mainCat.mainCat.DATA.map((c) => {
+                if (c.image)
+                  return (
+                    <div className="col-3" style={{ marginBottom: "20px" }}>
+                      <Link
+                        to={`/categories/${c.category_id}/subcategories`}
+                        style={{ textDecoration: "none", fontSize: "15px" }}
+                      >
+                        <Card style={{ width: "200px", height: "200px" }}>
+                          <div className="align-items-center">
+                            <img
+                              src={c.image}
+                              style={{ width: "199px", height: "199px" }}
+                            />
+                          </div>
+                        </Card>
+                      </Link>
+                      <h6>{c.category_name}</h6>
+                    </div>
+                  );
+              })}
             </div>
           </div>
         </div>
