@@ -18,3 +18,6 @@ export const BRANDS_ADD = "BRANDS_ADD";
 export const BANNERS_LOADING = "BANNERS_LOADING";
 export const BANNERS_FAILED = "BANNERS_FAILED";
 export const BANNERS_ADD = "BANNERS_ADD";
+export const SEARCH_LOADING = "SEARCH_LOADING";
+export const SEARCH_FAILED = "SEARCH_FAILED";
+export const SEARCH_ADD = "SEARCH_ADD";

@@ -279,3 +279,53 @@ export const bannersAdd = (banners) => ({
   type: ActionTypes.BANNERS_ADD,
   payload: banners,
 });
+export const fetchSearch = (branch_id, keyword, limit) => (dispatch) => {
+  dispatch(searchLoading(true));
+  return fetch(baseUrl + "searchproduct", {
+    method: "POST",
+    body: JSON.stringify({
+      keyword: keyword,
+      limit: limit,
+      branch_id: branch_id,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "same-origin",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((search) => {
+      dispatch(searchAdd(search));
+    })
+    .catch((error) => dispatch(searchFailed(error.message)));
+};
+
+export const searchLoading = () => ({
+  type: ActionTypes.SEARCH_LOADING,
+});
+
+export const searchFailed = (errmess) => ({
+  type: ActionTypes.SEARCH_FAILED,
+  payload: errmess,
+});
+export const searchAdd = (search) => ({
+  type: ActionTypes.SEARCH_ADD,
+  payload: search,
+});

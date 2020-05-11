@@ -22,8 +22,8 @@ import {
   Label,
   Button,
 } from "reactstrap";
-import { NavLink } from "react-router-dom";
-import { fetchStores, addPincode } from "../redux/ActionCreators";
+import { NavLink, Redirect } from "react-router-dom";
+import { fetchStores, addPincode, fetchSearch } from "../redux/ActionCreators";
 import RecievedStores from "./RecievedStores";
 const mapStateToProps = (state) => {
   return {
@@ -33,6 +33,9 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => ({
   fetchStores: (pincode) => dispatch(fetchStores(pincode)),
+  fetchSearch: (branch_id, keyword, limit) =>
+    dispatch(fetchSearch(branch_id, keyword, limit)),
+
   addPincode: (pincode) => dispatch(addPincode),
 });
 
@@ -244,7 +247,13 @@ class Header extends Component {
     this.toggleOtpModal();
   };
   search = () => {
-    alert(document.getElementById("search").value);
+    const key = document.getElementById("search").value;
+
+    this.props.fetchSearch(
+      sessionStorage.getItem("branch_id"),
+      document.getElementById("search").value,
+      50
+    );
   };
   render() {
     return (
@@ -284,7 +293,9 @@ class Header extends Component {
               className="col pt-3"
               style={{ marginLeft: "-30px", marginTop: "5px" }}
             >
-              <Button onClick={this.search}>go!</Button>
+              <NavLink to="/searchresults/">
+                <Button onClick={this.search}>go!</Button>
+              </NavLink>
             </div>
             <div className="col pt-3 ">
               <button className="login" onClick={this.toggleLoginModel}>
@@ -335,9 +346,11 @@ class Header extends Component {
                   innerRef={(input) => (this.otp = input)}
                 />
               </FormGroup>
-              <Button type="submit" value="submit" color="primary">
-                Submit
-              </Button>
+              <NavLink to="/searchresults">
+                <Button type="submit" value="submit" color="primary">
+                  Submit
+                </Button>
+              </NavLink>
             </Form>
           </div>
         </Modal>
