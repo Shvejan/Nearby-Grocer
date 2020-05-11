@@ -231,3 +231,51 @@ export const brandsAdd = (brands) => ({
   type: ActionTypes.BRANDS_ADD,
   payload: brands,
 });
+export const fetchBanners = (branch_id) => (dispatch) => {
+  dispatch(brandsLoading(true));
+  return fetch(baseUrl + "banners", {
+    method: "POST",
+    body: JSON.stringify({
+      branch_id: branch_id,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "same-origin",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((banners) => {
+      dispatch(bannersAdd(banners));
+    })
+    .catch((error) => dispatch(bannersFailed(error.message)));
+};
+
+export const bannersLoading = () => ({
+  type: ActionTypes.BANNERS_LOADING,
+});
+
+export const bannersFailed = (errmess) => ({
+  type: ActionTypes.BANNERS_FAILED,
+  payload: errmess,
+});
+export const bannersAdd = (banners) => ({
+  type: ActionTypes.BANNERS_ADD,
+  payload: banners,
+});

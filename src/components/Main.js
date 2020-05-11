@@ -14,7 +14,11 @@ import { Loading } from "./Loading";
 import Test from "../test";
 import CategoryProducts from "./CategoryProducts";
 import { connect } from "react-redux";
-import { fetchMainCat, fetchBrands } from "../redux/ActionCreators";
+import {
+  fetchMainCat,
+  fetchBrands,
+  fetchBanners,
+} from "../redux/ActionCreators";
 
 const mapStateToProps = (state) => {
   return {
@@ -24,6 +28,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   fetchMainCat: (branch_id) => dispatch(fetchMainCat(branch_id)),
   fetchBrands: (branch_id, limit) => dispatch(fetchBrands(branch_id, limit)),
+  fetchBanners: (branch_id) => dispatch(fetchBanners(branch_id)),
 });
 class Main extends Component {
   constructor(props) {
@@ -42,6 +47,7 @@ class Main extends Component {
       console.log(branch_name);
       console.log(branch_logo);
       this.props.fetchMainCat(branch);
+      this.props.fetchBanners(branch);
       this.props.fetchBrands(branch, 12);
     } else {
       console.log("no sellion data");
