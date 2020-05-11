@@ -9,6 +9,7 @@ import { Products } from "./products";
 import { Brands } from "./brands";
 import { Banners } from "./banners";
 import { Search } from "./search";
+import BrandProducts from "../components/BrandProducts";
 export const ConfigureStore = () => {
   const store = createStore(
     combineReducers({
@@ -20,6 +21,7 @@ export const ConfigureStore = () => {
       brands: Brands,
       banners: Banners,
       search: Search,
+      brandProducts: BrandProducts,
     }),
     applyMiddleware(thunk, logger)
   );

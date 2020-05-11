@@ -329,3 +329,55 @@ export const searchAdd = (search) => ({
   type: ActionTypes.SEARCH_ADD,
   payload: search,
 });
+export const fetchBrandProducts = (branch_id, brand_id, limit) => (
+  dispatch
+) => {
+  dispatch(brandProductsLoading(true));
+  return fetch(baseUrl + "brandproducts", {
+    method: "POST",
+    body: JSON.stringify({
+      brand_id: brand_id,
+      limit: limit,
+      branch_id: branch_id,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "same-origin",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((bp) => {
+      dispatch(brandProductsAdd(bp));
+    })
+    .catch((error) => dispatch(brandProductsFailed(error.message)));
+};
+
+export const brandProductsLoading = () => ({
+  type: ActionTypes.BRANDPRODUCTS_LOADING,
+});
+
+export const brandProductsFailed = (errmess) => ({
+  type: ActionTypes.BRANDPRODUCTS_FAILED,
+  payload: errmess,
+});
+export const brandProductsAdd = (bp) => ({
+  type: ActionTypes.BRANDPRODUCTS_ADD,
+  payload: bp,
+});
