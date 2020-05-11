@@ -19,6 +19,7 @@ import {
   fetchBrands,
   fetchBanners,
 } from "../redux/ActionCreators";
+import SearchResults from "./SearchResults";
 
 const mapStateToProps = (state) => {
   return {
@@ -85,6 +86,11 @@ class Main extends Component {
           <Route exact path="/checkout/" component={() => <Checkout />} />
           <Route exact path="/loading/" component={() => <Loading />} />
           <Route exact path="/test/" component={() => <Test />} />
+          <Route
+            exact
+            path="/searchresults/"
+            component={() => <SearchResults />}
+          />
 
           <Route
             path="/categories/:catId/:subCatId"

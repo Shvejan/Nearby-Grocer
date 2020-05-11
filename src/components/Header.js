@@ -243,6 +243,9 @@ class Header extends Component {
       .catch((error) => alert("wrong details"));
     this.toggleOtpModal();
   };
+  search = () => {
+    alert(document.getElementById("search").value);
+  };
   render() {
     return (
       <React.Fragment>
@@ -260,7 +263,10 @@ class Header extends Component {
               <Label>{sessionStorage.getItem("branch_name")}</Label>
             </div>
           </div>
-          <div className="row">
+          <div
+            className="row"
+            style={{ marginTop: "-100px", marginLeft: "180px" }}
+          >
             <div className="col pt-3">
               <button className="btnn" onClick={() => this.toggleLocModal()}>
                 Location
@@ -268,10 +274,17 @@ class Header extends Component {
             </div>
             <div className="col pt-3">
               <input
+                id="search"
                 type="text"
                 placeholder="search"
                 className="search"
               ></input>
+            </div>
+            <div
+              className="col pt-3"
+              style={{ marginLeft: "-30px", marginTop: "5px" }}
+            >
+              <Button onClick={this.search}>go!</Button>
             </div>
             <div className="col pt-3 ">
               <button className="login" onClick={this.toggleLoginModel}>

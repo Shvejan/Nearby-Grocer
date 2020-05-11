@@ -32,8 +32,11 @@ class Slides extends Component {
           <Slide {...properties}>
             {this.props.banners.banners.DATA.map((b) => (
               <div className="each-slide">
-                <div>
-                  <img src={b.banner_image} style={{ width: "100%" }} />
+                <div style={{ height: "400px" }}>
+                  <img
+                    src={b.banner_image}
+                    style={{ width: "100%", marginTop: "-60px" }}
+                  />
                 </div>
               </div>
             ))}
