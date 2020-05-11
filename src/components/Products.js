@@ -9,7 +9,7 @@ import {
   Modal,
   ModalBody,
   ModalHeader,
-  Label,
+  Badge,
 } from "reactstrap";
 const mapStateToProps = (state) => ({
   products: state.products,
@@ -62,11 +62,29 @@ class ProductCard extends Component {
   handleAdd = () => {
     if (this.state.quantity < this.props.p.quantity) {
       this.setState({ quantity: this.state.quantity + 1 });
+    } else {
+      alert("out of stock");
     }
   };
   handleSub = () => {
     this.setState({ quantity: this.state.quantity - 1 });
   };
+
+  discount = () => {
+    if (this.props.p.mrp - this.props.p.selling_price) {
+      return (
+        <Badge color="success">
+          {Math.round(
+            ((this.props.p.mrp - this.props.p.selling_price) /
+              this.props.p.mrp) *
+              100
+          )}
+          %
+        </Badge>
+      );
+    }
+  };
+
   buttons = () => {
     if (this.state.quantity === 0) {
       return (
@@ -137,6 +155,7 @@ class ProductCard extends Component {
             style={{ height: "18rem", width: "13rem" }}
             onClick={this.toggleModal}
           >
+            <h6>{this.discount()}</h6>
             <div
               style={{
                 height: "200px",
@@ -160,11 +179,7 @@ class ProductCard extends Component {
                 className="cardText"
                 style={{ color: "#7fd638", height: "30px" }}
               >
-                <span
-                  class="fas fa-rupee-sign"
-                  style={{ marginRight: "5px" }}
-                ></span>
-                {this.props.p.selling_price}
+                Rs. {this.props.p.selling_price}
               </h6>
             </CardBody>
           </Card>
@@ -184,6 +199,7 @@ class ProductCard extends Component {
               <div className="col-3">
                 <img
                   height="150px"
+                  width="150px"
                   src={this.props.p.image}
                   alt="Card image cap"
                 ></img>
@@ -194,11 +210,7 @@ class ProductCard extends Component {
                   className="cardText"
                   style={{ color: "#e78536", height: "30px" }}
                 >
-                  <span
-                    class="fa fa-percent"
-                    style={{ marginRight: "5px" }}
-                  ></span>
-                  {this.props.p.selling_price}
+                  Rs. {this.props.p.selling_price}
                 </h6>
                 {this.buttons()}
               </div>
