@@ -4,6 +4,7 @@ import { Card, CardImg, CardImgOverlay, CardText, CardTitle } from "reactstrap";
 import { fetchBrands } from "../redux/ActionCreators";
 import { connect } from "react-redux";
 import { Loading } from "./Loading";
+import { Link } from "react-router-dom";
 const mapStateToProps = (state) => {
   return {
     brands: state.brands,
@@ -41,9 +42,11 @@ class TopBrands extends Component {
 const BrandsCard = (props) => {
   return (
     <div className="col-2">
-      <Card inverse style={{ height: "100px" }}>
-        <CardImg height="100%" src={props.brand.image} alt="Card image cap" />
-      </Card>
+      <Link to={"brands/" + props.brand.brand_id}>
+        <Card inverse style={{ height: "100px" }}>
+          <CardImg height="100%" src={props.brand.image} alt="Card image cap" />
+        </Card>
+      </Link>
     </div>
   );
 };

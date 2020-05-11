@@ -20,7 +20,7 @@ import {
   fetchBanners,
 } from "../redux/ActionCreators";
 import SearchResults from "./SearchResults";
-
+import BrandProducts from "./BrandProducts";
 const mapStateToProps = (state) => {
   return {
     mainCat: state.mainCat,
@@ -63,6 +63,9 @@ class Main extends Component {
         />
       );
     };
+    const brands = ({ match }) => {
+      return <BrandProducts b_id={match.params.b_id} />;
+    };
     return (
       <React.Fragment>
         <Switch>
@@ -91,6 +94,7 @@ class Main extends Component {
             path="/searchresults/"
             component={() => <SearchResults />}
           />
+          <Route exact path="/brands/:b_id" component={brands} />
 
           <Route
             path="/categories/:catId/:subCatId"
