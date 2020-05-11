@@ -29,19 +29,22 @@ class TopCat extends Component {
             {this.props.mainCat.mainCat.DATA.map((c) => {
               if (c.image)
                 return (
-                  <Link
-                    to={`/categories/${c.category_id}/subcategories`}
-                    style={{ textDecoration: "none", fontSize: "15px" }}
-                  >
-                    <div className="col-3" style={{ marginBottom: "20px" }}>
+                  <div className="col-3" style={{ marginBottom: "20px" }}>
+                    <Link
+                      to={`/categories/${c.category_id}/subcategories`}
+                      style={{ textDecoration: "none", fontSize: "15px" }}
+                    >
                       <Card style={{ width: "200px", height: "200px" }}>
                         <div className="align-items-center">
-                          <img src={c.image} style={{ width: "199px" }} />
+                          <img
+                            src={c.image}
+                            style={{ width: "199px", height: "199px" }}
+                          />
                         </div>
                       </Card>
-                      <h6>{c.category_name}</h6>
-                    </div>
-                  </Link>
+                    </Link>
+                    <h6>{c.category_name}</h6>
+                  </div>
                 );
             })}
           </div>

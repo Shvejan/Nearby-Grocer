@@ -6,6 +6,8 @@ import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { Loading } from "./Loading";
 import Products from "./Products";
+import ScrollMenu from "react-horizontal-scrolling-menu";
+
 const mapStateToProps = (state) => {
   return {
     mainCat: state.mainCat,
@@ -18,23 +20,77 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchSubCat(branch_id, category_id)),
 });
 
-const CatNav = (props) => {
-  if (props.mainCat.isLoading) {
-    return <Loading />;
-  } else {
-    return (
-      <div class="scrollmenu">
-        {props.mainCat.mainCat.DATA.map((c) => (
-          <NavLink to={`/categories/${c.category_id}/subcategories`}>
-            <a>{c.category_name}</a>
-          </NavLink>
-        ))}
-      </div>
-    );
-  }
+const MenuItem = ({ text, selected }) => {
+  return <div className="menu-item">{text}</div>;
 };
 
+export const Menu = (list) =>
+  list.map((el) => {
+    const { name } = el;
+
+    return <MenuItem text={name} key={name} />;
+  });
+
+const Arrow = ({ text, className }) => {
+  return <div className={className}>{text}</div>;
+};
+
+const ArrowLeft = Arrow({ text: "<", className: "arrow-prev" });
+const ArrowRight = Arrow({ text: ">", className: "arrow-next" });
+
+class CatNav extends Component {
+  state = {
+    selected: 0,
+    list: [],
+  };
+
+  onSelect = (key) => {
+    this.setState({ selected: key });
+  };
+  /*<div class="scrollmenu">
+          {this.props.mainCat.mainCat.DATA.map((c) => (
+            <NavLink to={`/categories/${c.category_id}/subcategories`}>
+              <a>{c.category_name}</a>
+            </NavLink>
+          ))}
+          </div>*/
+  render() {
+    if (this.props.mainCat.isLoading) {
+      return <Loading />;
+    } else {
+      return (
+        <div class="scrollmenu">
+          {this.props.mainCat.mainCat.DATA.map((c) => (
+            <NavLink to={`/categories/${c.category_id}/subcategories`}>
+              <a>{c.category_name}</a>
+            </NavLink>
+          ))}
+        </div>
+      );
+    }
+  }
+}
+
 class SubCatNav extends Component {
+  state = {
+    selected: 0,
+    list: [
+      { name: "item1" },
+      { name: "item2" },
+      { name: "item3" },
+      { name: "item4" },
+      { name: "item5" },
+      { name: "item6" },
+      { name: "item7" },
+      { name: "item8" },
+      { name: "item9" },
+    ],
+  };
+
+  onSelect = (key) => {
+    this.setState({ selected: key });
+  };
+
   render() {
     if (this.props.subCat.isLoading) {
       return <Loading />;

@@ -169,7 +169,7 @@
 
 .hoverImages {
   height: 140px;
-  width: auto;
+  width: 140px;
   -webkit-transition: all 2s ease;
   -moz-transition: all 2s ease;
   -ms-transition: all 0.3s ease;
@@ -178,7 +178,7 @@
 .hoverImages:hover {
   cursor: pointer;
   height: 155px;
-  width: auto;
+  width: 155px;
 }
 .cart-modal {
   height: 700px;

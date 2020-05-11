@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import logo from "./images/logo-big.png";
 import { Tab, Tabs } from "react-bootstrap";
+import { baseUrl } from "../shared/baseUrl";
 import { connect } from "react-redux";
 import {
   Dropdown,
@@ -57,6 +58,8 @@ class Header extends Component {
       cartModal: false,
       locationModal: false,
       storeModal: false,
+      otpModal: false,
+      loginData: {},
     };
   }
   /*componentDidMount() {
@@ -150,6 +153,9 @@ class Header extends Component {
   toggleLocModal = () => {
     this.setState({ locationModal: !this.state.locationModal });
   };
+  toggleOtpModal = () => {
+    this.setState({ otpModal: !this.state.otpModal });
+  };
   toggleSelectStore = () => {
     this.setState({ storeModal: !this.state.storeModal });
   };
@@ -161,6 +167,82 @@ class Header extends Component {
     this.props.fetchStores(this.pincode.value);
     this.toggleSelectStore();
     event.preventDefault();
+  };
+  handleMobile = (event) => {
+    this.toggleLoginModel();
+    this.toggleOtpModal();
+    fetch(baseUrl + "custsignin", {
+      method: "POST",
+      body: JSON.stringify({
+        mobile_no: this.mobile.value,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "same-origin",
+    })
+      .then(
+        (response) => {
+          if (response.ok) {
+            return response;
+          } else {
+            var error = new Error(
+              "Error " + response.status + ": " + response.statusText
+            );
+            error.response = response;
+            throw error;
+          }
+        },
+        (error) => {
+          var errmess = new Error(error.message);
+          throw errmess;
+        }
+      )
+      .then((response) => response.json())
+      .then((jres) => {
+        this.setState({ loginData: jres.DATA });
+      })
+      .catch((error) => alert(error));
+    event.preventDefault();
+  };
+  handleOtp = (event) => {
+    alert(JSON.stringify(this.state.loginData));
+    this.setState({ loginData: this.state.loginData });
+    this.setState({
+      loginData: { ...this.state.loginData, otp: this.otp.value },
+    });
+    alert(JSON.stringify(this.state.loginData));
+    event.preventDefault();
+
+    fetch(baseUrl + "custsignin", {
+      method: "POST",
+      body: JSON.stringify(this.state.loginData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "same-origin",
+    })
+      .then(
+        (response) => {
+          if (response.STATUS === "Success") {
+            return response;
+          } else {
+            var error = new Error(
+              "Error " + response.status + ": " + response.statusText
+            );
+            error.response = response;
+            throw error;
+          }
+        },
+        (error) => {
+          var errmess = new Error(error.message);
+          throw errmess;
+        }
+      )
+      .then((response) => response.json())
+      .then((jres) => alert(jres.STATUS))
+      .catch((error) => alert("wrong details"));
+    this.toggleOtpModal();
   };
   render() {
     return (
@@ -458,102 +540,45 @@ class Header extends Component {
               </Nav>
             </Collapse>
           </div>
-        </Navbar>*/}
+    </Navbar>*/}
         <Modal isOpen={this.state.loginModel} toggle={this.toggleLoginModel}>
+          <ModalHeader toggle={this.toggleLoginModel}>
+            Mobile Number
+          </ModalHeader>
+
           <div className="justify-content-center">
-            <Tabs
-              defaultActiveKey="home"
-              transition={false}
-              id="noanim-tab-example"
-            >
-              <Tab eventKey="home" title="Home">
-                <ModalHeader toggle={this.toggleLoginModel}>Login</ModalHeader>
-                <ModalBody>
-                  <Form onSubmit={this.handleLogin}>
-                    <FormGroup>
-                      <Label htmlFor="username">Username</Label>
-                      <Input
-                        type="text"
-                        id="username"
-                        name="username"
-                        innerRef={(input) => (this.username = input)}
-                      />
-                    </FormGroup>
-                    <FormGroup>
-                      <Label htmlFor="password">Password</Label>
-                      <Input
-                        type="password"
-                        id="password"
-                        name="password"
-                        innerRef={(input) => (this.password = input)}
-                      />
-                    </FormGroup>
-                    <FormGroup check>
-                      <Label check>
-                        <Input
-                          type="checkbox"
-                          name="remember"
-                          innerRef={(input) => (this.remember = input)}
-                        />
-                        Remember me
-                      </Label>
-                    </FormGroup>
-                    <Button type="submit" value="submit" color="primary">
-                      Login
-                    </Button>
-                  </Form>
-                </ModalBody>
-              </Tab>
-              <Tab eventKey="Register" title="Register">
-                <ModalHeader toggle={this.toggleLoginModel}>
-                  Register
-                </ModalHeader>
-                <ModalBody>
-                  <Form onSubmit={this.handleLogin}>
-                    <FormGroup>
-                      <Label htmlFor="username">Username</Label>
-                      <Input
-                        type="text"
-                        id="username"
-                        name="username"
-                        innerRef={(input) => (this.username = input)}
-                      />
-                    </FormGroup>
-                    <FormGroup>
-                      <Label htmlFor="password">Password</Label>
-                      <Input
-                        type="password"
-                        id="password"
-                        name="password"
-                        innerRef={(input) => (this.password = input)}
-                      />
-                    </FormGroup>
-                    <FormGroup>
-                      <Label htmlFor="password">Retype Password</Label>
-                      <Input
-                        type="password"
-                        id="password2"
-                        name="password2"
-                        innerRef={(input) => (this.password2 = input)}
-                      />
-                    </FormGroup>
-                    <FormGroup check>
-                      <Label check>
-                        <Input
-                          type="checkbox"
-                          name="remember"
-                          innerRef={(input) => (this.remember = input)}
-                        />
-                        Remember me
-                      </Label>
-                    </FormGroup>
-                    <Button type="submit" value="submit" color="primary">
-                      Register
-                    </Button>
-                  </Form>
-                </ModalBody>
-              </Tab>
-            </Tabs>
+            <Form onSubmit={this.handleMobile}>
+              <FormGroup>
+                <Input
+                  type="number"
+                  id="mobile"
+                  name="mobile"
+                  innerRef={(input) => (this.mobile = input)}
+                />
+              </FormGroup>
+              <Button type="submit" value="submit" color="primary">
+                Request OTP
+              </Button>
+            </Form>
+          </div>
+        </Modal>
+        <Modal isOpen={this.state.otpModal} toggle={this.toggleOtpModal}>
+          <ModalHeader toggle={this.toggleOtpModal}>OTP</ModalHeader>
+
+          <div className="justify-content-center">
+            <Form onSubmit={this.handleOtp}>
+              <FormGroup>
+                <Input
+                  type="number"
+                  id="otp"
+                  name="otp"
+                  innerRef={(input) => (this.otp = input)}
+                />
+              </FormGroup>
+              <Button type="submit" value="submit" color="primary">
+                Submit
+              </Button>
+            </Form>
           </div>
         </Modal>
         <Modal

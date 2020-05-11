@@ -6,6 +6,7 @@ import { MainCat } from "./mainCat";
 import { Pincode } from "./pincode";
 import { SubCat } from "./subCat";
 import { Products } from "./products";
+import { Brands } from "./brands";
 export const ConfigureStore = () => {
   const store = createStore(
     combineReducers({
@@ -14,6 +15,7 @@ export const ConfigureStore = () => {
       pincode: Pincode,
       subCat: SubCat,
       products: Products,
+      brands: Brands,
     }),
     applyMiddleware(thunk, logger)
   );

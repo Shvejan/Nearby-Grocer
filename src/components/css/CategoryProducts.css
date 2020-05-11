@@ -1,17 +1,46 @@
 div.scrollmenu {
-  background-color: #333;
+  background-color: rgb(82, 204, 33);
   overflow: auto;
   white-space: nowrap;
+  margin-bottom: 5px;
 }
 
 div.scrollmenu a {
   display: inline-block;
   color: white;
   text-align: center;
-  padding: 14px;
+  padding: 6px;
   text-decoration: none;
 }
 
 div.scrollmenu a:hover {
-  background-color: #777;
+  background-color: rgb(143, 136, 136);
+}
+.menu-item {
+  padding: 0 40px;
+  margin: 5px 10px;
+  user-select: none;
+  cursor: pointer;
+  border: none;
+}
+.menu-item-wrapper.active {
+  border: 1px blue solid;
+}
+.menu-item.active {
+  border: 1px green solid;
+}
+
+.scroll-menu-arrow {
+  padding: 100px;
+  cursor: pointer;
+}
+div ::-webkit-scrollbar {
+  width: 10px;
+}
+div::-webkit-scrollbar-button:single-button {
+  background-color: #bbbbbb;
+  display: block;
+  border-style: solid;
+  height: 13px;
+  width: 16px;
 }
