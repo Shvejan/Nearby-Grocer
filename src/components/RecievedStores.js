@@ -13,7 +13,10 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const RecievedStores = (props) => {
-  const storeSelected = (branch_id) => {
+  const storeSelected = (branch_id, branch_name, branch_logo) => {
+    sessionStorage.setItem("branch_logo", branch_logo);
+    sessionStorage.setItem("branch_name", branch_name);
+
     sessionStorage.setItem("branch_id", branch_id);
     console.log("session branch set");
 
@@ -30,7 +33,7 @@ const RecievedStores = (props) => {
         {props.stores.stores.DATA.map((s) => (
           <div
             className="justify-content-center"
-            onClick={() => storeSelected(s.branch_id)}
+            onClick={() => storeSelected(s.branch_id, s.branch_name, s.logo)}
           >
             <Card className="storeCard">
               <div className="row justify-content-center">

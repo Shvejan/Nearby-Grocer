@@ -14,7 +14,7 @@ import { Loading } from "./Loading";
 import Test from "../test";
 import CategoryProducts from "./CategoryProducts";
 import { connect } from "react-redux";
-import { fetchMainCat } from "../redux/ActionCreators";
+import { fetchMainCat, fetchBrands } from "../redux/ActionCreators";
 
 const mapStateToProps = (state) => {
   return {
@@ -23,6 +23,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => ({
   fetchMainCat: (branch_id) => dispatch(fetchMainCat(branch_id)),
+  fetchBrands: (branch_id, limit) => dispatch(fetchBrands(branch_id, limit)),
 });
 class Main extends Component {
   constructor(props) {
@@ -31,11 +32,17 @@ class Main extends Component {
   componentDidMount() {
     const pin = sessionStorage.getItem("pincode");
     const branch = sessionStorage.getItem("branch_id");
+    const branch_name = sessionStorage.getItem("branch_name");
+    const branch_logo = sessionStorage.getItem("branch_logo");
+
     if (pin && branch) {
       console.log("session storeagadf");
       console.log(pin);
       console.log(branch);
+      console.log(branch_name);
+      console.log(branch_logo);
       this.props.fetchMainCat(branch);
+      this.props.fetchBrands(branch, 12);
     } else {
       console.log("no sellion data");
     }

@@ -181,3 +181,53 @@ export const productsAdd = (products) => ({
 export const productsClear = () => ({
   type: ActionTypes.PRODUCTS_CLEAR,
 });
+
+export const fetchBrands = (branch_id, limit) => (dispatch) => {
+  dispatch(brandsLoading(true));
+  return fetch(baseUrl + "brandslist", {
+    method: "POST",
+    body: JSON.stringify({
+      limit: limit,
+      branch_id: branch_id,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "same-origin",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((brands) => {
+      dispatch(brandsAdd(brands));
+    })
+    .catch((error) => dispatch(brandsFailed(error.message)));
+};
+
+export const brandsLoading = () => ({
+  type: ActionTypes.BRANDS_LOADING,
+});
+
+export const brandsFailed = (errmess) => ({
+  type: ActionTypes.BRANDS_FAILED,
+  payload: errmess,
+});
+export const brandsAdd = (brands) => ({
+  type: ActionTypes.BRANDS_ADD,
+  payload: brands,
+});

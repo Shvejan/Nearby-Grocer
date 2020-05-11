@@ -60,6 +60,7 @@ class Header extends Component {
       storeModal: false,
       otpModal: false,
       loginData: {},
+      mobile: "",
     };
   }
   /*componentDidMount() {
@@ -171,6 +172,7 @@ class Header extends Component {
   handleMobile = (event) => {
     this.toggleLoginModel();
     this.toggleOtpModal();
+    this.setState({ mobile: this.mobile.value });
     fetch(baseUrl + "custsignin", {
       method: "POST",
       body: JSON.stringify({
@@ -206,14 +208,11 @@ class Header extends Component {
     event.preventDefault();
   };
   handleOtp = (event) => {
-    alert(JSON.stringify(this.state.loginData));
-    this.setState({ loginData: this.state.loginData });
-    this.setState({
-      loginData: { ...this.state.loginData, otp: this.otp.value },
-    });
-    alert(JSON.stringify(this.state.loginData));
     event.preventDefault();
-
+    const response = this.state.loginData;
+    response.put("mobile_no", this.state.mobile);
+    response.put("otp", this.otp.value);
+    alert(response);
     fetch(baseUrl + "custsignin", {
       method: "POST",
       body: JSON.stringify(this.state.loginData),
@@ -251,12 +250,15 @@ class Header extends Component {
           <div className=" p-4 col-2 col-sm-2">
             <NavLink to="/">
               <img
-                src={logo}
+                src={sessionStorage.getItem("branch_logo")}
                 alt="Logo"
                 className="fluid"
-                style={{ width: 100, height: 50, "margin-top": "-20px" }}
+                style={{ width: 50, height: 50, "margin-top": "-20px" }}
               />
             </NavLink>
+            <div style={{ marginTop: "-55px", marginLeft: "70px" }}>
+              <Label>{sessionStorage.getItem("branch_name")}</Label>
+            </div>
           </div>
           <div className="row">
             <div className="col pt-3">
@@ -277,13 +279,116 @@ class Header extends Component {
               </button>
             </div>
             <div className="col pt-3">
-              <button className="cart" onClick={this.toggleCartModal}>
-                Cart
-              </button>
+              <NavLink to="/checkout">
+                <button className="cart" onClick={this.toggleCartModal}>
+                  Cart
+                </button>
+              </NavLink>
             </div>
           </div>
         </div>
-        {/*<Navbar light expand="md" className="mainNav">
+        {/*nav bar*/}
+        <Modal isOpen={this.state.loginModel} toggle={this.toggleLoginModel}>
+          <ModalHeader toggle={this.toggleLoginModel}>
+            Mobile Number
+          </ModalHeader>
+
+          <div className="justify-content-center">
+            <Form onSubmit={this.handleMobile}>
+              <FormGroup>
+                <Input
+                  type="number"
+                  id="mobile"
+                  name="mobile"
+                  innerRef={(input) => (this.mobile = input)}
+                />
+              </FormGroup>
+              <Button type="submit" value="submit" color="primary">
+                Request OTP
+              </Button>
+            </Form>
+          </div>
+        </Modal>
+        <Modal isOpen={this.state.otpModal} toggle={this.toggleOtpModal}>
+          <ModalHeader toggle={this.toggleOtpModal}>OTP</ModalHeader>
+
+          <div className="justify-content-center">
+            <Form onSubmit={this.handleOtp}>
+              <FormGroup>
+                <Input
+                  type="number"
+                  id="otp"
+                  name="otp"
+                  innerRef={(input) => (this.otp = input)}
+                />
+              </FormGroup>
+              <Button type="submit" value="submit" color="primary">
+                Submit
+              </Button>
+            </Form>
+          </div>
+        </Modal>
+        <Modal
+          isOpen={this.state.cartModal}
+          toggle={this.toggleCartModal}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          dialogClassName="cart-modal"
+        >
+          <ModalHeader toggle={this.toggleCartModal}>Your Cart</ModalHeader>
+          <ModalBody>
+            <div className="container">
+              <p> item1</p>
+              <p> item2</p>
+              <p> item3</p>
+            </div>
+            <hr />
+            <NavLink to="/checkout">
+              <Button color="success">Checkout</Button>
+            </NavLink>
+          </ModalBody>
+        </Modal>
+        <Modal isOpen={this.state.locationModal} toggle={this.toggleLocModal}>
+          <ModalHeader toggle={this.toggleLocModal}>
+            Enter Your Pincode
+          </ModalHeader>
+          <ModalBody>
+            <Form onSubmit={this.handleLocation}>
+              <FormGroup>
+                <Input
+                  type="number"
+                  id="pincode"
+                  name="pincode"
+                  innerRef={(input) => (this.pincode = input)}
+                />
+              </FormGroup>
+              <Button type="submit" value="submit" color="primary">
+                Search
+              </Button>
+            </Form>
+          </ModalBody>
+        </Modal>
+        <Modal isOpen={this.state.storeModal} toggle={this.toggleSelectStore}>
+          <ModalHeader toggle={this.toggleSelectStore}>
+            Avaliable stores at your location
+          </ModalHeader>
+
+          <ModalBody>
+            <RecievedStores
+              stores={this.props.stores}
+              toggleStoresModal={this.toggleSelectStore}
+            />
+          </ModalBody>
+        </Modal>
+      </React.Fragment>
+    );
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
+{
+  /*<Navbar light expand="md" className="mainNav">
           <div className="container just-content-center">
             <NavbarToggler onClick={this.toggleNav} />
             <Collapse isOpen={this.state.toggleNav} navbar>
@@ -540,103 +645,5 @@ class Header extends Component {
               </Nav>
             </Collapse>
           </div>
-    </Navbar>*/}
-        <Modal isOpen={this.state.loginModel} toggle={this.toggleLoginModel}>
-          <ModalHeader toggle={this.toggleLoginModel}>
-            Mobile Number
-          </ModalHeader>
-
-          <div className="justify-content-center">
-            <Form onSubmit={this.handleMobile}>
-              <FormGroup>
-                <Input
-                  type="number"
-                  id="mobile"
-                  name="mobile"
-                  innerRef={(input) => (this.mobile = input)}
-                />
-              </FormGroup>
-              <Button type="submit" value="submit" color="primary">
-                Request OTP
-              </Button>
-            </Form>
-          </div>
-        </Modal>
-        <Modal isOpen={this.state.otpModal} toggle={this.toggleOtpModal}>
-          <ModalHeader toggle={this.toggleOtpModal}>OTP</ModalHeader>
-
-          <div className="justify-content-center">
-            <Form onSubmit={this.handleOtp}>
-              <FormGroup>
-                <Input
-                  type="number"
-                  id="otp"
-                  name="otp"
-                  innerRef={(input) => (this.otp = input)}
-                />
-              </FormGroup>
-              <Button type="submit" value="submit" color="primary">
-                Submit
-              </Button>
-            </Form>
-          </div>
-        </Modal>
-        <Modal
-          isOpen={this.state.cartModal}
-          toggle={this.toggleCartModal}
-          size="lg"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-          dialogClassName="cart-modal"
-        >
-          <ModalHeader toggle={this.toggleCartModal}>Your Cart</ModalHeader>
-          <ModalBody>
-            <div className="container">
-              <p> item1</p>
-              <p> item2</p>
-              <p> item3</p>
-            </div>
-            <hr />
-            <NavLink to="/checkout">
-              <Button color="success">Checkout</Button>
-            </NavLink>
-          </ModalBody>
-        </Modal>
-        <Modal isOpen={this.state.locationModal} toggle={this.toggleLocModal}>
-          <ModalHeader toggle={this.toggleLocModal}>
-            Enter Your Pincode
-          </ModalHeader>
-          <ModalBody>
-            <Form onSubmit={this.handleLocation}>
-              <FormGroup>
-                <Input
-                  type="number"
-                  id="pincode"
-                  name="pincode"
-                  innerRef={(input) => (this.pincode = input)}
-                />
-              </FormGroup>
-              <Button type="submit" value="submit" color="primary">
-                Search
-              </Button>
-            </Form>
-          </ModalBody>
-        </Modal>
-        <Modal isOpen={this.state.storeModal} toggle={this.toggleSelectStore}>
-          <ModalHeader toggle={this.toggleSelectStore}>
-            Avaliable stores at your location
-          </ModalHeader>
-
-          <ModalBody>
-            <RecievedStores
-              stores={this.props.stores}
-              toggleStoresModal={this.toggleSelectStore}
-            />
-          </ModalBody>
-        </Modal>
-      </React.Fragment>
-    );
-  }
+    </Navbar>*/
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
