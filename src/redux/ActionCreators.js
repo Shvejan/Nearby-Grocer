@@ -62,6 +62,7 @@ export const fetchMainCat = (branchId) => (dispatch) => {
     .then((response) => response.json())
     .then((mainCat) => {
       dispatch(mainCatAdd(mainCat));
+      dispatch(fetchCatmix(mainCat.DATA[0].category_id, branchId, 20));
     })
     .catch((error) => dispatch(mainCatFailed(error.message)));
 };
@@ -380,4 +381,56 @@ export const brandProductsFailed = (errmess) => ({
 export const brandProductsAdd = (bp) => ({
   type: ActionTypes.BRANDPRODUCTS_ADD,
   payload: bp,
+});
+export const fetchCatmix = (main_category_id, branch_id, limit) => (
+  dispatch
+) => {
+  dispatch(catmixLoading(true));
+  return fetch(baseUrl + "categorymixproduct", {
+    method: "POST",
+    body: JSON.stringify({
+      main_category_id: main_category_id,
+      limit: limit,
+      branch_id: branch_id,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "same-origin",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((bp) => {
+      dispatch(catmixAdd(bp));
+    })
+    .catch((error) => dispatch(catmixFailed(error.message)));
+};
+
+export const catmixLoading = () => ({
+  type: ActionTypes.CATMIX_LOADING,
+});
+
+export const catmixFailed = (errmess) => ({
+  type: ActionTypes.CATMIX_FAILED,
+  payload: errmess,
+});
+export const catmixAdd = (catmix) => ({
+  type: ActionTypes.CATMIX_ADD,
+  payload: catmix,
 });

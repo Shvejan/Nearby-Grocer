@@ -10,6 +10,7 @@ import { Brands } from "./brands";
 import { Banners } from "./banners";
 import { Search } from "./search";
 import { BrandWiseProducts } from "./brandWiseProducts";
+import { Catmix } from "./catmix";
 export const ConfigureStore = () => {
   const store = createStore(
     combineReducers({
@@ -22,6 +23,7 @@ export const ConfigureStore = () => {
       banners: Banners,
       search: Search,
       brandWiseProducts: BrandWiseProducts,
+      catmix: Catmix,
     }),
     applyMiddleware(thunk, logger)
   );

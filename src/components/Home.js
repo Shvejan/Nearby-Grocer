@@ -9,6 +9,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import TopCat from "./TopCat";
 import TopBrands from "./TopBrands";
+import Catmix from "./Catmix";
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -20,6 +21,7 @@ class Home extends Component {
         <Slide banners={[b1, b2, b3]} />
         <TopCat />
         <TopBrands />
+        <Catmix />
         <WhyChoose />
         <Footer />
       </React.Fragment>
