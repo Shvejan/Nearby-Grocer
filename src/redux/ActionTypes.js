@@ -30,3 +30,6 @@ export const CATMIX_ADD = "CATMIX_ADD";
 export const PRIVATE_LOADING = "PRIVATE_LOADING";
 export const PRIVATE_FAILED = "PRIVATE_FAILED";
 export const PRIVATE_ADD = "PRIVATE_ADD";
+export const CART_ADD = "CART_ADD";
+export const CART_REMOVE = "CART_REMOVE";
+export const CART_CLEAR = "CART_CLEAR";

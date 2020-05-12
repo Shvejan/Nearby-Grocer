@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchProducts, productsClear } from "../redux/ActionCreators";
+import {
+  fetchProducts,
+  productsClear,
+  cartAdd,
+  cartRemove,
+} from "../redux/ActionCreators";
 import { Loading } from "./Loading";
 import { Redirect } from "react-router-dom";
 import {
@@ -19,6 +24,8 @@ const mapDispatchToProps = (dispatch) => ({
   fetchProducts: (branch_id, sub_category_id) =>
     dispatch(fetchProducts(branch_id, sub_category_id)),
   productsClear: () => dispatch(productsClear()),
+  cartAdd: (data) => dispatch(cartAdd(data)),
+  cartRemove: (id) => dispatch(cartRemove(id)),
 });
 
 class Products extends Component {

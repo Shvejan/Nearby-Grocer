@@ -483,3 +483,16 @@ export const privateAdd = (store) => ({
   type: ActionTypes.PRIVATE_ADD,
   payload: store,
 });
+
+export const cartAdd = (data) => ({
+  type: ActionTypes.CART_ADD,
+  payload: data,
+});
+
+export const cartRemove = (id) => ({
+  type: ActionTypes.CART_REMOVE,
+  payload: id,
+});
+export const cartClear = () => ({
+  type: ActionTypes.CART_CLEAR,
+});

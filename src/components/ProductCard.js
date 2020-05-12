@@ -8,6 +8,13 @@ import {
   ModalHeader,
   Badge,
 } from "reactstrap";
+import { cartAdd, cartRemove } from "../redux/ActionCreators";
+import { connect } from "react-redux";
+const mapStateToProps = (state) => ({});
+const mapDispatchToProps = (dispatch) => ({
+  cartAdd: (data) => dispatch(cartAdd(data)),
+  cartRemove: (id) => dispatch(cartRemove(id)),
+});
 class ProductCard extends Component {
   constructor(props) {
     super(props);
@@ -22,12 +29,19 @@ class ProductCard extends Component {
   handleAdd = () => {
     if (this.state.quantity < this.props.p.quantity) {
       this.setState({ quantity: this.state.quantity + 1 });
+      const data = {
+        id: this.props.p.product_id,
+        product: this.props.p,
+        quantity: this.state.quantity + 1,
+      };
+      this.props.cartAdd(data);
     } else {
       alert("out of stock");
     }
   };
   handleSub = () => {
     this.setState({ quantity: this.state.quantity - 1 });
+    this.props.cartRemove("removing");
   };
 
   discount = () => {
@@ -197,4 +211,20 @@ class ProductCard extends Component {
     );
   }
 }
-export default ProductCard;
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCard);
+/*{
+            "product_id": "4086",
+            "product_name": "LIJJAT PUNJ MASA PAPAD 200GM",
+            "upc_code": "",
+            "product_description": "",
+            "product_specification": "",
+            "keywords": null,
+            "status": "1",
+            "variant_code": "",
+            "product_type": "Simple",
+            "variants": [],
+            "mrp": "72.00",
+            "selling_price": "68.40",
+            "quantity": 22,
+            "image": "http://nearbygrocer.com/images/product/prod4086.jpg"
+        },*/
