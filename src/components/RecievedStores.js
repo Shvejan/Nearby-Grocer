@@ -19,7 +19,7 @@ const RecievedStores = (props) => {
 
     sessionStorage.setItem("branch_id", branch_id);
     console.log("session branch set");
-
+    window.location.reload(true);
     props.toggleStoresModal();
     props.fetchMainCat(branch_id);
   };

@@ -22,7 +22,9 @@ const mapDispatchToProps = (dispatch) => ({
 class PrivateUrl extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      reload: true,
+    };
   }
 
   componentDidMount() {
@@ -61,24 +63,5 @@ class PrivateUrl extends Component {
     }
   }
 }
-/*{
-    "STATUS": "Success",
-    "MESSAGE": "Records Found",
-    "DATA": {
-        "url_code": "art15317rw10",
-        "default_branch_id": "35",
-        "branch_list": [
-            {
-                "branch_id": "35",
-                "branch_name": "MANGAOO MART",
-                "phone": "7499914583",
-                "logo": null,
-                "minimum_order_value": "200.00",
-                "maximum_order_value": "1500.00",
-                "product_count": "7566",
-                "operation_time": "10:00 AM To 08:00 PM"
-            }
-        ]
-    }
-}*/
+
 export default connect(mapStateToProps, mapDispatchToProps)(PrivateUrl);
