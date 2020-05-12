@@ -66,11 +66,11 @@ class Header extends Component {
       mobile: "",
     };
   }
-  /*componentDidMount() {
-    if (this.props.pincode.pincode === "") {
+  componentDidMount() {
+    if (sessionStorage.getItem("pincode") === "false") {
       this.toggleLocModal();
     }
-  }*/
+  }
 
   toggle(id) {
     this.setState((prevState) => ({

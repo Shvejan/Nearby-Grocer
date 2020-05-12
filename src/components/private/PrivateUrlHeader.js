@@ -255,12 +255,16 @@ class PrivateUrlHeader extends Component {
       <React.Fragment>
         <div className="row row-content " style={{ height: "70px" }}>
           <div className=" p-4 col-2 col-sm-2">
-            <NavLink to="/store/this.props.urlCode">
+            <NavLink to={`/store/${this.props.urlCode}`}>
               <img
                 src={sessionStorage.getItem("branch_logo")}
                 alt="Logo"
                 className="fluid"
-                style={{ width: 50, height: 50, "margin-top": "-20px" }}
+                style={{
+                  width: 50,
+                  height: 50,
+                  "margin-top": "-20px",
+                }}
               />
             </NavLink>
             <div style={{ marginTop: "-55px", marginLeft: "70px" }}>

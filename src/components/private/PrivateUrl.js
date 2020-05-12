@@ -29,6 +29,7 @@ class PrivateUrl extends Component {
     this.props.fetchPrivate(this.props.urlCode);
   }
   storeSelected = (branch_id, branch_name, branch_logo) => {
+    sessionStorage.setItem("private", true);
     sessionStorage.setItem("branch_logo", branch_logo);
     sessionStorage.setItem("branch_name", branch_name);
 

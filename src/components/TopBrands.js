@@ -23,7 +23,9 @@ class TopBrands extends Component {
     //this.props.fetchBrands(sessionStorage.getItem("branch_id"), 12);
   }
   render() {
-    if (this.props.brands.isLoading) {
+    if (this.props.brands.isLoading || !sessionStorage.getItem("pincode")) {
+      return <Loading />;
+    } else if (this.props.brands.errMess) {
       return <Loading />;
     } else {
       return (
