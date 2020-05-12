@@ -434,3 +434,52 @@ export const catmixAdd = (catmix) => ({
   type: ActionTypes.CATMIX_ADD,
   payload: catmix,
 });
+export const fetchPrivate = (url_code) => (dispatch) => {
+  dispatch(privateLoading(true));
+  return fetch(baseUrl + "privatestores", {
+    method: "POST",
+    body: JSON.stringify({
+      url_type: "store",
+      url_code: url_code,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "same-origin",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((store) => {
+      dispatch(privateAdd(store));
+    })
+    .catch((error) => dispatch(privateFailed(error.message)));
+};
+
+export const privateLoading = () => ({
+  type: ActionTypes.PRIVATE_LOADING,
+});
+
+export const privateFailed = (errmess) => ({
+  type: ActionTypes.PRIVATE_FAILED,
+  payload: errmess,
+});
+export const privateAdd = (store) => ({
+  type: ActionTypes.PRIVATE_ADD,
+  payload: store,
+});

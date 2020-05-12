@@ -21,6 +21,7 @@ import {
 } from "../redux/ActionCreators";
 import SearchResults from "./SearchResults";
 import BrandProducts from "./BrandProducts";
+import PrivateUrl from "./private/PrivateUrl";
 const mapStateToProps = (state) => {
   return {
     mainCat: state.mainCat,
@@ -66,6 +67,9 @@ class Main extends Component {
     const brands = ({ match }) => {
       return <BrandProducts b_id={match.params.b_id} />;
     };
+    const privateUrl = ({ match }) => {
+      return <PrivateUrl urlCode={match.params.store_id} />;
+    };
     return (
       <React.Fragment>
         <Switch>
@@ -95,7 +99,8 @@ class Main extends Component {
             component={() => <SearchResults />}
           />
           <Route exact path="/brands/:b_id" component={brands} />
-
+          <Route exact path="/store/:store_id" component={privateUrl} />
+          store/art15317rw10
           <Route
             path="/categories/:catId/:subCatId"
             component={categorySelected}

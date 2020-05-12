@@ -213,12 +213,12 @@ class Header extends Component {
   handleOtp = (event) => {
     event.preventDefault();
     const response = this.state.loginData;
-    response.put("mobile_no", this.state.mobile);
-    response.put("otp", this.otp.value);
-    alert(response);
+    response["mobile_no"] = this.state.mobile;
+    response["otp"] = this.otp.value;
+    alert(JSON.stringify(response));
     fetch(baseUrl + "custsignin", {
       method: "POST",
-      body: JSON.stringify(this.state.loginData),
+      body: JSON.stringify(response),
       headers: {
         "Content-Type": "application/json",
       },
@@ -346,11 +346,9 @@ class Header extends Component {
                   innerRef={(input) => (this.otp = input)}
                 />
               </FormGroup>
-              <NavLink to="/searchresults">
-                <Button type="submit" value="submit" color="primary">
-                  Submit
-                </Button>
-              </NavLink>
+              <Button type="submit" value="submit" color="primary">
+                Submit
+              </Button>
             </Form>
           </div>
         </Modal>
