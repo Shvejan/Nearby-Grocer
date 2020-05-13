@@ -205,7 +205,9 @@ class Header extends Component {
       )
       .then((response) => response.json())
       .then((jres) => {
+        alert(JSON.stringify(jres.DATA));
         this.setState({ loginData: jres.DATA });
+        alert("OTP sent");
       })
       .catch((error) => alert(error));
     event.preventDefault();
@@ -226,7 +228,7 @@ class Header extends Component {
     })
       .then(
         (response) => {
-          if (response.STATUS === "Success") {
+          if (response.ok) {
             return response;
           } else {
             var error = new Error(
@@ -241,9 +243,8 @@ class Header extends Component {
           throw errmess;
         }
       )
-      .then((response) => response.json())
-      .then((jres) => alert(jres.STATUS))
-      .catch((error) => alert("wrong details"));
+      .then((response) => alert(JSON.stringify(response)))
+      .catch((error) => alert(error.message));
     this.toggleOtpModal();
   };
   search = () => {

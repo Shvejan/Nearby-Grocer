@@ -15,9 +15,48 @@ import {
   FormGroup,
   Input,
 } from "reactstrap";
-import { NavLink } from "react-router-dom";
+import { cartAdd, cartRemove, cartClear } from "../redux/ActionCreators";
 
-import back from "./images/back.png";
+import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
+const mapStateToProps = (state) => ({
+  cart: state.cart,
+});
+const mapDispatchToProps = (dispatch) => ({
+  cartAdd: (data) => dispatch(cartAdd(data)),
+  cartRemove: (id) => dispatch(cartRemove(id)),
+  cartClear: () => dispatch(cartClear()),
+});
+
+class ProductsList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <div className="row" style={{ color: "black" }}>
+        <div className="col-6">
+          <span>{this.props.product.product.product_name} </span>
+        </div>
+        <div className="col">
+          <span>{this.props.product.product.selling_price}</span>
+        </div>
+        <div className="col">
+          <span>{this.props.product.quantity} </span>
+        </div>
+        <div className="col">
+          <span>
+            {this.props.product.product.selling_price *
+              this.props.product.quantity}
+          </span>
+        </div>
+      </div>
+    );
+  }
+}
+
 class Checkout extends Component {
   constructor(props) {
     super(props);
@@ -46,7 +85,9 @@ class Checkout extends Component {
               <h1 className="checkoutHeader">Let's review your order</h1>
             </div>
             <div className="col-2">
-              <Button className="clearCartbtn">Clear Cart</Button>
+              <Button className="clearCartbtn" onClick={this.props.cartClear}>
+                Clear Cart
+              </Button>
             </div>
           </div>
           <Row>
@@ -55,27 +96,38 @@ class Checkout extends Component {
                 <CardHeader className="total">Cart items</CardHeader>
                 <CardBody>
                   <CardTitle className="total">
-                    <span style={{ "margin-right": "200px" }}>Product </span>
-                    <span style={{ "margin-right": "100px" }}>Unit Price </span>
-                    <span style={{ "margin-right": "100px" }}>Quantity </span>
-                    <span> Price</span>
+                    <div className="row">
+                      <div className="col-6">
+                        <span>Product </span>
+                      </div>
+                      <div className="col">
+                        <span>Unit Price </span>
+                      </div>
+                      <div className="col">
+                        <span>Quantity </span>
+                      </div>
+                      <div className="col">
+                        <span> Price</span>
+                      </div>
+                    </div>
                   </CardTitle>
                   <CardText>
-                    With supporting text below as a natural lead-in to
-                    additional content.
+                    {this.props.cart.products.map((p) => (
+                      <ProductsList product={p} />
+                    ))}
                   </CardText>
                 </CardBody>
                 <CardFooter>
                   <span className="total">Total: </span>
                   <span className="total">Rs. 500</span>
                   <Button className="placeOrder" color="warning">
-                    placeOrder
+                    Shipping Details
                   </Button>
                 </CardFooter>
               </Card>
             </Col>
             <Col sm="4">
-              <Card>
+              {/* <Card>
                 <CardHeader className="total">Shipping Address</CardHeader>
                 <CardBody>
                   <CardText>
@@ -111,7 +163,7 @@ class Checkout extends Component {
                 <CardFooter>
                   <Button color="primary">Delever to this address</Button>
                 </CardFooter>
-              </Card>
+              </Card>*/}
             </Col>
           </Row>
         </div>
@@ -120,4 +172,4 @@ class Checkout extends Component {
   }
 }
 
-export default Checkout;
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

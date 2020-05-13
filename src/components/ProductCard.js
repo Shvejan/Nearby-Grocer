@@ -41,7 +41,7 @@ class ProductCard extends Component {
   };
   handleSub = () => {
     this.setState({ quantity: this.state.quantity - 1 });
-    this.props.cartRemove("removing");
+    this.props.cartRemove(this.props.p.product_id);
   };
 
   discount = () => {

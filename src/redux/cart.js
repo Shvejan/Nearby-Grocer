@@ -18,7 +18,15 @@ export const Cart = (state = { products: [] }, action) => {
       }
 
     case ActionTypes.CART_REMOVE:
-      return state;
+      const rprod = state.products;
+
+      rprod.map((p) => {
+        if (p.id === action.payload) {
+          p.quantity -= 1;
+        }
+      });
+
+      return { ...state, products: rprod };
 
     case ActionTypes.CART_CLEAR:
       return { ...state, products: [] };
