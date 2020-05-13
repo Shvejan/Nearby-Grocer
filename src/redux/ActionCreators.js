@@ -618,3 +618,55 @@ export const shipchargesAdd = (charges) => ({
   type: ActionTypes.SHIPCHARGES_ADD,
   payload: charges,
 });
+
+export const placeOrder = (
+  branch_id,
+  customer_id,
+  cart_id,
+  shipping_address_id,
+  shipping_charges,
+  payment_mode,
+  order_channel,
+  order_notes
+) => (dispatch) => {
+  dispatch(brandProductsLoading(true));
+  return fetch(baseUrl + "ordrplc", {
+    method: "POST",
+    body: JSON.stringify({
+      branch_id: branch_id,
+      customer_id: customer_id,
+      cart_id: cart_id,
+      shipping_address_id: shipping_address_id,
+      shipping_charges: shipping_charges,
+      payment_mode: payment_mode,
+      order_channel: order_channel,
+      order_notes: order_notes,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "same-origin",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((bp) => {
+      alert("Order placed successfully");
+    })
+    .catch((error) => alert(error.message));
+};

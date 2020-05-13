@@ -15,7 +15,11 @@ import {
   FormGroup,
   Input,
 } from "reactstrap";
-import { fetchAddress, fetchShipcharges } from "../redux/ActionCreators";
+import {
+  fetchAddress,
+  fetchShipcharges,
+  placeOrder,
+} from "../redux/ActionCreators";
 import { Loading } from "./Loading";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -28,6 +32,28 @@ const mapDispatchToProps = (dispatch) => ({
   fetchAddress: (customer_id) => dispatch(fetchAddress(customer_id)),
   fetchShipcharges: (branch_id, pincode, cart_id) =>
     dispatch(fetchShipcharges(branch_id, pincode, cart_id)),
+  placeOrder: (
+    branch_id,
+    customer_id,
+    cart_id,
+    shipping_address_id,
+    shipping_charges,
+    payment_mode,
+    order_channel,
+    order_notes
+  ) =>
+    dispatch(
+      placeOrder(
+        branch_id,
+        customer_id,
+        cart_id,
+        shipping_address_id,
+        shipping_charges,
+        payment_mode,
+        order_channel,
+        order_notes
+      )
+    ),
 });
 
 class AddressList extends Component {
@@ -53,13 +79,17 @@ class AddressList extends Component {
             <Input
               type="radio"
               name={this.props.index + 1}
-              onClick={() =>
+              onClick={() => {
+                sessionStorage.setItem(
+                  "shipping_address_id",
+                  this.props.address.shipping_address_id
+                );
                 this.props.fetchcharges(
                   sessionStorage.getItem("branch_id"),
                   this.props.address.pincode,
                   sessionStorage.getItem("cart_id")
-                )
-              }
+                );
+              }}
             />
           </div>
         </div>
@@ -106,6 +136,18 @@ class Shipping extends Component {
         </span>
       );
     }
+  };
+  placeOrder = () => {
+    this.props.placeOrder(
+      sessionStorage.getItem("branch_id"),
+      285,
+      sessionStorage.getItem("cart_id"),
+      sessionStorage.getItem("shipping_address_id"),
+      this.props.shipcharges.shipcharges.DATA.shipping_charges,
+      "COD",
+      "Web",
+      "order_notes"
+    );
   };
   render() {
     return (
@@ -160,7 +202,11 @@ class Shipping extends Component {
                   </CardText>
                 </CardBody>
                 <CardFooter>
-                  <Button color="primary">Place Order</Button>
+                  <NavLink to="/">
+                    <Button color="primary" onClick={this.placeOrder}>
+                      Place Order
+                    </Button>
+                  </NavLink>
                 </CardFooter>
               </Card>
             </Col>

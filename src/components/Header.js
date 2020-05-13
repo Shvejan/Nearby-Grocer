@@ -256,6 +256,27 @@ class Header extends Component {
       50
     );
   };
+  userDetails = () => {
+    if (true) {
+      return (
+        <NavLink to="/account">
+          <div className="col pt-3 ">
+            <button className="login" onClick={this.toggleLoginModel}>
+              Your Account
+            </button>
+          </div>
+        </NavLink>
+      );
+    } else {
+      return (
+        <div className="col pt-3 ">
+          <button className="login" onClick={this.toggleLoginModel}>
+            Login/Register
+          </button>
+        </div>
+      );
+    }
+  };
   render() {
     return (
       <React.Fragment>
@@ -298,11 +319,7 @@ class Header extends Component {
                 <Button onClick={this.search}>go!</Button>
               </NavLink>
             </div>
-            <div className="col pt-3 ">
-              <button className="login" onClick={this.toggleLoginModel}>
-                Login/Register
-              </button>
-            </div>
+            {this.userDetails()}
             <div className="col pt-3">
               <NavLink to="/checkout">
                 <button className="cart" onClick={this.toggleCartModal}>
