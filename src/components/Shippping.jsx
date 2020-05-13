@@ -15,15 +15,63 @@ import {
   FormGroup,
   Input,
 } from "reactstrap";
-import { cartAdd, cartRemove, cartClear } from "../redux/ActionCreators";
-
+import { fetchAddress } from "../redux/ActionCreators";
+import { Loading } from "./Loading";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
+
+const mapStateToProps = (state) => ({
+  address: state.address,
+});
+const mapDispatchToProps = (dispatch) => ({
+  fetchAddress: (customer_id) => dispatch(fetchAddress(customer_id)),
+});
+
+class AddressList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  render() {
+    return (
+      <div className="row">
+        <div className="col-6">
+          <span>Address {this.props.index + 1} </span>
+          <br />
+          <span>{this.props.address.first_name} </span>
+          <span>{this.props.address.last_name} </span>
+          <br />
+          <p>{this.props.address.line_1}</p>
+        </div>
+        <div className="col offset-3">
+          <Input type="radio" name={this.props.index + 1} />
+        </div>
+      </div>
+    );
+  }
+}
+
 class Shipping extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
+  componentDidMount() {
+    this.props.fetchAddress(285);
+  }
+  addressSection = () => {
+    if (this.props.address.isLoading) {
+      return <Loading />;
+    } else {
+      return (
+        <React.Fragment>
+          {this.props.address.address.DATA.map((address, index) => (
+            <AddressList address={address} index={index} />
+          ))}
+        </React.Fragment>
+      );
+    }
+  };
   render() {
     return (
       <div className="mainDiv">
@@ -55,20 +103,14 @@ class Shipping extends Component {
                 <CardHeader className="total">Shipping Adderess</CardHeader>
                 <CardBody>
                   <CardTitle className="total">
-                    <div className="row">
-                      <div className="col-6">
-                        <span>Address 1 </span>
-                      </div>
-                    </div>
+                    {this.addressSection()}
                   </CardTitle>
                   <CardText></CardText>
                 </CardBody>
                 <CardFooter>
-                  <span className="total">Total: </span>
-                  <span className="total">Rs. 500</span>
                   <NavLink to="/shipping">
                     <Button className="placeOrder" color="warning">
-                      Shipping Details
+                      Ship to this address
                     </Button>
                   </NavLink>
                 </CardFooter>
@@ -92,4 +134,4 @@ class Shipping extends Component {
   }
 }
 
-export default Shipping;
+export default connect(mapStateToProps, mapDispatchToProps)(Shipping);

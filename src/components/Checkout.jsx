@@ -79,6 +79,10 @@ class Checkout extends Component {
     this.props.cartTemporary(sessionStorage.getItem("branch_id"), productsList);
   };
   render() {
+    let total = 0;
+    this.props.cart.products.map((p) => {
+      total += p.product.selling_price * p.quantity;
+    });
     return (
       <div className="mainDiv">
         <div className="container mainDiv">
@@ -136,7 +140,7 @@ class Checkout extends Component {
                 </CardBody>
                 <CardFooter>
                   <span className="total">Total: </span>
-                  <span className="total">Rs. 500</span>
+                  <span className="total">Rs. {total}</span>
                   <NavLink to="/shipping">
                     <Button
                       className="placeOrder"
