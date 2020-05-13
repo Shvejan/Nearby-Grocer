@@ -1,5 +1,6 @@
 import WhyChoose from "./WhyChoose";
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import Slide from "./Slide";
 import Header from "./Header";
@@ -7,6 +8,12 @@ import Footer from "./Footer";
 import TopCat from "./TopCat";
 import TopBrands from "./TopBrands";
 import Catmix from "./Catmix";
+import CatNav from "./CatNav";
+const mapStateToProps = (state) => {
+  return {
+    mainCat: state.mainCat,
+  };
+};
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -15,6 +22,7 @@ class Home extends Component {
     return (
       <React.Fragment>
         <Header />
+        <CatNav mainCat={this.props.mainCat} />
         <Slide />
         <TopCat />
         <TopBrands />
@@ -25,4 +33,4 @@ class Home extends Component {
     );
   }
 }
-export default Home;
+export default connect(mapStateToProps)(Home);

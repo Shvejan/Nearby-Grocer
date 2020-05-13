@@ -1,8 +1,8 @@
 div.scrollmenu {
-  background-color: rgb(82, 204, 33);
+  background-color: rgb(46, 177, 52);
   overflow: auto;
   white-space: nowrap;
-  margin-bottom: 5px;
+  height: 50px;
 }
 
 div.scrollmenu a {
@@ -31,16 +31,17 @@ div.scrollmenu a:hover {
 }
 
 .scroll-menu-arrow {
-  padding: 100px;
   cursor: pointer;
 }
 div ::-webkit-scrollbar {
   width: 10px;
 }
 div::-webkit-scrollbar-button:single-button {
-  background-color: #bbbbbb;
-  display: block;
+  background-color: #eee0e0;
   border-style: solid;
-  height: 13px;
+  height: 0px;
   width: 16px;
+}
+.line {
+  margin: 0px;
 }

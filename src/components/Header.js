@@ -291,7 +291,7 @@ class Header extends Component {
           <div className="col-3">
             <NavLink to="/">
               <div className="row">
-                <div className="col-3">
+                <div className="col-2">
                   <img
                     src={sessionStorage.getItem("branch_logo")}
                     alt="Logo"
@@ -301,7 +301,7 @@ class Header extends Component {
                     }}
                   />
                 </div>
-                <div className="col">
+                <div className="col-7">
                   <Label
                     style={{
                       color: "black",
