@@ -56,6 +56,14 @@
   margin-left: 60px;
   border: 1px solid rgb(207, 190, 190);
 }
+.btnlocation {
+  height: 40px;
+  border-radius: 50px;
+  margin-top: -20px;
+  margin-left: 60px;
+  border: 1px solid rgb(255, 255, 255);
+  background-color: #fff;
+}
 .cardText {
   font-size: smaller;
 }
@@ -68,10 +76,9 @@
 }
 .login {
   height: 45px;
-  width: 150px;
   border-radius: 50px;
-  background-color: #61dafb;
-  border: 1px solid rgb(207, 190, 190);
+  background-color: #fff;
+  border-color: #fff;
   margin-left: 100px;
 }
 .cart {
@@ -85,12 +92,20 @@
 .search {
   height: 45px;
   width: 350px;
-  border-radius: 70px;
+  border-radius: 75px 0px 0px 75px;
   border: 1px solid rgb(207, 190, 190);
   margin-left: 50px;
   padding: 0px 30px 0px 30px;
 }
+.searchbtn {
+  border-radius: 0px 75px 75px 0px;
+  background-color: rgb(140, 240, 231);
+  width: 50px;
 
+  height: 45px;
+  border: 1px solid rgb(207, 190, 190);
+  padding-bottom: 5px;
+}
 .mainNav {
   background-color: #1b1b2a;
 }

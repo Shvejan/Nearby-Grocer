@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Slide from "../Slide";
+import Slide from "../../Slide";
 import SubProducts from "./SubProducts";
 class RenderSubCat extends Component {
   constructor(props) {

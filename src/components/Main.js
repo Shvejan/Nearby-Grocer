@@ -1,15 +1,7 @@
 import React, { Component } from "react";
 import Checkout from "./Checkout";
 import Home from "./Home";
-import BrandedFood from "./routes/BrandedFood";
-import DiaryBakery from "./routes/DiaryBakery";
-import FruitsVegitables from "./routes/FruitsVegitables";
-import NonVeg from "./routes/NonVeg";
-import HomeCare from "./routes/HomeCare";
-import PersonalCare from "./routes/PersonalCare";
 import { Switch, Route, withRouter } from "react-router-dom";
-import Beverages from "./routes/Beverages";
-import FrozenVeg from "./routes/FrozenVeg";
 import { Loading } from "./Loading";
 import Test from "../test";
 import CategoryProducts from "./CategoryProducts";

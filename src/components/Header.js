@@ -4,6 +4,9 @@ import { Tab, Tabs } from "react-bootstrap";
 import { baseUrl } from "../shared/baseUrl";
 import { connect } from "react-redux";
 import cart from "./images/cart.png";
+import avatar from "./images/avatar.png";
+import searchimg from "./images/searchimg.png";
+
 import {
   Dropdown,
   DropdownToggle,
@@ -24,6 +27,7 @@ import {
   Button,
 } from "reactstrap";
 import { NavLink, Redirect } from "react-router-dom";
+import location from "./images/location.png";
 import { fetchStores, addPincode, fetchSearch } from "../redux/ActionCreators";
 import RecievedStores from "./RecievedStores";
 const mapStateToProps = (state) => {
@@ -258,10 +262,10 @@ class Header extends Component {
     );
   };
   userDetails = () => {
-    if (true) {
+    if (false) {
       return (
         <NavLink to="/account">
-          <div className="col pt-3 ">
+          <div className="col-1 pt-3 ">
             <button className="login" onClick={this.toggleLoginModel}>
               Your Account
             </button>
@@ -270,10 +274,12 @@ class Header extends Component {
       );
     } else {
       return (
-        <div className="col pt-3 ">
-          <button className="login" onClick={this.toggleLoginModel}>
-            Login/Register
-          </button>
+        <div className="col">
+          <img
+            src={avatar}
+            style={{ height: "40px" }}
+            onClick={this.toggleLoginModel}
+          />
         </div>
       );
     }
@@ -281,53 +287,74 @@ class Header extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="row row-content " style={{ height: "70px" }}>
-          <div className=" p-4 col-2 col-sm-2">
+        <div className="row" style={{ height: "80px", padding: "20px" }}>
+          <div className="col-3">
             <NavLink to="/">
-              <img
-                src={sessionStorage.getItem("branch_logo")}
-                alt="Logo"
-                className="fluid"
-                style={{ width: 50, height: 50, "margin-top": "-20px" }}
-              />
-              <div style={{ marginTop: "-55px", marginLeft: "70px" }}>
-                <Label>{sessionStorage.getItem("branch_name")}</Label>
+              <div className="row">
+                <div className="col-3">
+                  <img
+                    src={sessionStorage.getItem("branch_logo")}
+                    alt="Logo"
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                    }}
+                  />
+                </div>
+                <div className="col">
+                  <Label
+                    style={{
+                      color: "black",
+                      fontWeight: "bold",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {sessionStorage.getItem("branch_name")}
+                  </Label>
+                </div>
               </div>
             </NavLink>
           </div>
-          <div
-            className="row"
-            style={{ marginTop: "-100px", marginLeft: "180px" }}
-          >
-            <div className="col pt-3">
-              <button className="btnn" onClick={() => this.toggleLocModal()}>
-                Location
+          <div className="col-4 ">
+            <input
+              id="search"
+              type="text"
+              placeholder="search"
+              className="search"
+            ></input>
+          </div>
+          <div className="col-2" style={{ marginLeft: "-55px" }}>
+            <NavLink to="/searchresults/">
+              <button onClick={this.search} className="searchbtn">
+                {" "}
+                <img
+                  src={searchimg}
+                  style={{ height: "20px", width: "20px" }}
+                  onClick={() => this.toggleLocModal()}
+                />
               </button>
-            </div>
-            <div className="col pt-3">
-              <input
-                id="search"
-                type="text"
-                placeholder="search"
-                className="search"
-              ></input>
-            </div>
-            <div
-              className="col pt-3"
-              style={{ marginLeft: "-30px", marginTop: "5px" }}
-            >
-              <NavLink to="/searchresults/">
-                <Button onClick={this.search}>go!</Button>
-              </NavLink>
-            </div>
-            {this.userDetails()}
-            <div className="col pt-3">
-              <NavLink to="/checkout">
-                <div>
-                  <img src={cart} style={{ height: "40px", width: "40px" }} />
-                </div>
-              </NavLink>
-            </div>
+            </NavLink>
+          </div>
+          <div className="col-1">
+            <img
+              src={location}
+              style={{ height: "40px", width: "40px", cursor: "pointer" }}
+              onClick={() => this.toggleLocModal()}
+            />
+          </div>
+          <div className="col-1">
+            <img
+              src={avatar}
+              style={{ height: "40px", cursor: "pointer" }}
+              onClick={this.toggleLoginModel}
+            />
+          </div>
+          <div className="col-1">
+            <NavLink to="/checkout">
+              <div>
+                <img src={cart} style={{ height: "40px", width: "40px" }} />
+              </div>
+            </NavLink>
           </div>
         </div>
         {/*nav bar*/}
