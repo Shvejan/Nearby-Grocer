@@ -670,3 +670,40 @@ export const placeOrder = (
     })
     .catch((error) => alert(error.message));
 };
+export const fetchOrders = (c_id) => (dispatch) => {
+  dispatch(ordersLoading(true));
+  return fetch(baseUrl + "ordrhistry/" + c_id)
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((orders) => dispatch(ordersAdd(orders)))
+    .catch((error) => dispatch(ordersFailed(error.message)));
+};
+
+export const ordersLoading = () => ({
+  type: ActionTypes.ORDERS_LOADING,
+});
+
+export const ordersFailed = (errmess) => ({
+  type: ActionTypes.ORDERS_FAILED,
+  payload: errmess,
+});
+export const ordersAdd = (orders) => ({
+  type: ActionTypes.ORDERS_ADD,
+  payload: orders,
+});

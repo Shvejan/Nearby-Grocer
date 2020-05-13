@@ -1,0 +1,17 @@
+.mainDiv {
+  background-color: #2d3c44;
+  color: #fff;
+  height: 100%;
+}
+.checkoutHeader {
+  margin-top: 50px;
+  font-family: customfont;
+}
+
+.total {
+  color: black;
+  font-weight: bold;
+}
+.placeOrder {
+  margin-left: 400px;
+}

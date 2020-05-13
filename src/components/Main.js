@@ -23,6 +23,7 @@ import SearchResults from "./SearchResults";
 import BrandProducts from "./BrandProducts";
 import PrivateUrl from "./private/PrivateUrl";
 import Shipping from "./Shippping";
+import UserAccount from "./UserAccount";
 const mapStateToProps = (state) => {
   return {
     mainCat: state.mainCat,
@@ -101,6 +102,7 @@ class Main extends Component {
           />
           <Route exact path="/brands/:b_id" component={brands} />
           <Route exact path="/store/:store_id" component={privateUrl} />
+          <Route exact path="/account" component={() => <UserAccount />} />
           <Route exact path="/shipping" component={() => <Shipping />} />
           store/art15317rw10
           <Route

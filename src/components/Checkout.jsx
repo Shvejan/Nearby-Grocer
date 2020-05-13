@@ -36,11 +36,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class ProductsList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   render() {
     return (
       <div className="row" style={{ color: "black" }}>
