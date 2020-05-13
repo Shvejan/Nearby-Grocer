@@ -531,7 +531,7 @@ export const cartTemporary = (branch_id, productsList) => (dispatch) => {
     )
     .then((response) => response.json())
     .then((store) => {
-      alert(JSON.stringify(store));
+      sessionStorage.setItem("cart_id", store.DATA.cart_id);
     })
     .catch((error) => alert(error));
 };
@@ -572,4 +572,49 @@ export const addressFailed = (errmess) => ({
 export const addressAdd = (address) => ({
   type: ActionTypes.ADDRESS_ADD,
   payload: address,
+});
+
+export const fetchShipcharges = (branch_id, pincode, cart_id) => (dispatch) => {
+  dispatch(shipchargesLoading(true));
+  return fetch(
+    "http://peril3as3a4.nearbygrocer.com/shpcharges/" +
+      branch_id +
+      "/" +
+      pincode +
+      "/" +
+      cart_id
+  )
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((charges) => dispatch(shipchargesAdd(charges)))
+    .catch((error) => dispatch(shipchargesFailed(error.message)));
+};
+
+export const shipchargesLoading = () => ({
+  type: ActionTypes.SHIPCHARGES_LOADING,
+});
+
+export const shipchargesFailed = (errmess) => ({
+  type: ActionTypes.SHIPCHARGES_FAILED,
+  payload: errmess,
+});
+export const shipchargesAdd = (charges) => ({
+  type: ActionTypes.SHIPCHARGES_ADD,
+  payload: charges,
 });

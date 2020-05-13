@@ -15,16 +15,19 @@ import {
   FormGroup,
   Input,
 } from "reactstrap";
-import { fetchAddress } from "../redux/ActionCreators";
+import { fetchAddress, fetchShipcharges } from "../redux/ActionCreators";
 import { Loading } from "./Loading";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 const mapStateToProps = (state) => ({
   address: state.address,
+  shipcharges: state.shipcharges,
 });
 const mapDispatchToProps = (dispatch) => ({
   fetchAddress: (customer_id) => dispatch(fetchAddress(customer_id)),
+  fetchShipcharges: (branch_id, pincode, cart_id) =>
+    dispatch(fetchShipcharges(branch_id, pincode, cart_id)),
 });
 
 class AddressList extends Component {
@@ -34,19 +37,33 @@ class AddressList extends Component {
   }
   render() {
     return (
-      <div className="row">
-        <div className="col-6">
-          <span>Address {this.props.index + 1} </span>
-          <br />
-          <span>{this.props.address.first_name} </span>
-          <span>{this.props.address.last_name} </span>
-          <br />
-          <p>{this.props.address.line_1}</p>
+      <FormGroup check>
+        <div className="row">
+          <div className="col-6">
+            <span>Address {this.props.index + 1} </span>
+            <br />
+            <span>{this.props.address.first_name} </span>
+            <span>{this.props.address.last_name} </span>
+            <br />
+            <span>{this.props.address.pincode}</span>
+            <p>{this.props.address.line_1}</p>
+            <hr />
+          </div>
+          <div className="col offset-3">
+            <Input
+              type="radio"
+              name={this.props.index + 1}
+              onClick={() =>
+                this.props.fetchcharges(
+                  sessionStorage.getItem("branch_id"),
+                  this.props.address.pincode,
+                  sessionStorage.getItem("cart_id")
+                )
+              }
+            />
+          </div>
         </div>
-        <div className="col offset-3">
-          <Input type="radio" name={this.props.index + 1} />
-        </div>
-      </div>
+      </FormGroup>
     );
   }
 }
@@ -66,9 +83,27 @@ class Shipping extends Component {
       return (
         <React.Fragment>
           {this.props.address.address.DATA.map((address, index) => (
-            <AddressList address={address} index={index} />
+            <AddressList
+              address={address}
+              index={index}
+              fetchcharges={this.props.fetchShipcharges}
+            />
           ))}
         </React.Fragment>
+      );
+    }
+  };
+  shippingCharges = () => {
+    if (this.props.shipcharges.isLoading) {
+      return <span>Select address</span>;
+    } else if (this.props.shipcharges.shipcharges.STATUS === "Failure") {
+      return <span>{this.props.shipcharges.shipcharges.MESSAGE}</span>;
+    } else {
+      return (
+        <span>
+          shipping charges:{" "}
+          {this.props.shipcharges.shipcharges.DATA.shipping_charges}
+        </span>
       );
     }
   };
@@ -120,7 +155,9 @@ class Shipping extends Component {
               <Card>
                 <CardHeader className="total">Bill</CardHeader>
                 <CardBody>
-                  <CardText></CardText>
+                  <CardText style={{ color: "black" }}>
+                    {this.shippingCharges()}
+                  </CardText>
                 </CardBody>
                 <CardFooter>
                   <Button color="primary">Place Order</Button>

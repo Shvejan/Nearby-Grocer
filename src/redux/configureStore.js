@@ -14,6 +14,7 @@ import { Catmix } from "./catmix";
 import { PrivateStore } from "./privateStore";
 import { Cart } from "./cart";
 import { Address } from "./Address";
+import { Shipcharges } from "./shipcharges";
 export const ConfigureStore = () => {
   const store = createStore(
     combineReducers({
@@ -30,6 +31,7 @@ export const ConfigureStore = () => {
       privateStore: PrivateStore,
       cart: Cart,
       address: Address,
+      shipcharges: Shipcharges,
     }),
     applyMiddleware(thunk, logger)
   );
