@@ -33,3 +33,6 @@ export const PRIVATE_ADD = "PRIVATE_ADD";
 export const CART_ADD = "CART_ADD";
 export const CART_REMOVE = "CART_REMOVE";
 export const CART_CLEAR = "CART_CLEAR";
+export const ADDRESS_LOADING = "ADDRESS_LOADING";
+export const ADDRESS_FAILED = "ADDRESS_FAILED";
+export const ADDRESS_ADD = "ADDRESS_ADD";

@@ -15,7 +15,12 @@ import {
   FormGroup,
   Input,
 } from "reactstrap";
-import { cartAdd, cartRemove, cartClear } from "../redux/ActionCreators";
+import {
+  cartAdd,
+  cartRemove,
+  cartClear,
+  cartTemporary,
+} from "../redux/ActionCreators";
 
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -26,6 +31,8 @@ const mapDispatchToProps = (dispatch) => ({
   cartAdd: (data) => dispatch(cartAdd(data)),
   cartRemove: (id) => dispatch(cartRemove(id)),
   cartClear: () => dispatch(cartClear()),
+  cartTemporary: (branch_id, productsList) =>
+    dispatch(cartTemporary(branch_id, productsList)),
 });
 
 class ProductsList extends Component {
@@ -61,6 +68,16 @@ class Checkout extends Component {
   constructor(props) {
     super(props);
   }
+  tempCart = () => {
+    const productsList = this.props.cart.products.map((p) => {
+      return {
+        product_id: p.id,
+        variant_id: p.product.variant_code,
+        quantity: p.quantity,
+      };
+    });
+    this.props.cartTemporary(sessionStorage.getItem("branch_id"), productsList);
+  };
   render() {
     return (
       <div className="mainDiv">
@@ -120,9 +137,15 @@ class Checkout extends Component {
                 <CardFooter>
                   <span className="total">Total: </span>
                   <span className="total">Rs. 500</span>
-                  <Button className="placeOrder" color="warning">
-                    Shipping Details
-                  </Button>
+                  <NavLink to="/shipping">
+                    <Button
+                      className="placeOrder"
+                      color="warning"
+                      onClick={this.tempCart}
+                    >
+                      Shipping Details
+                    </Button>
+                  </NavLink>
                 </CardFooter>
               </Card>
             </Col>

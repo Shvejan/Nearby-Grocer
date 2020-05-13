@@ -496,3 +496,80 @@ export const cartRemove = (id) => ({
 export const cartClear = () => ({
   type: ActionTypes.CART_CLEAR,
 });
+
+export const cartTemporary = (branch_id, productsList) => (dispatch) => {
+  return fetch(baseUrl + "carttemp", {
+    method: "POST",
+    body: JSON.stringify([
+      {
+        cart_id: "cart12345",
+        branch_id: branch_id,
+        product_list: productsList,
+      },
+    ]),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "same-origin",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((store) => {
+      alert(JSON.stringify(store));
+    })
+    .catch((error) => alert(error));
+};
+
+export const fetchAddress = (customer_id) => (dispatch) => {
+  dispatch(addressLoading(true));
+  return fetch(baseUrl + "shpaddrlist/" + customer_id + "?business_id=1")
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((address) => dispatch(addressAdd(address)))
+    .catch((error) => dispatch(addressFailed(error.message)));
+};
+
+export const addressLoading = () => ({
+  type: ActionTypes.ADDRESS_LOADING,
+});
+
+export const addressFailed = (errmess) => ({
+  type: ActionTypes.ADDRESS_FAILED,
+  payload: errmess,
+});
+export const addressAdd = (address) => ({
+  type: ActionTypes.ADDRESS_ADD,
+  payload: address,
+});
