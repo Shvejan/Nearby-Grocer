@@ -262,25 +262,23 @@ class Header extends Component {
     );
   };
   userDetails = () => {
-    if (false) {
+    if (true) {
       return (
         <NavLink to="/account">
-          <div className="col-1 pt-3 ">
-            <button className="login" onClick={this.toggleLoginModel}>
-              Your Account
-            </button>
-          </div>
+          <img
+            src={avatar}
+            style={{ height: "40px", cursor: "pointer" }}
+            onClick={this.toggleLoginModel}
+          />
         </NavLink>
       );
     } else {
       return (
-        <div className="col">
-          <img
-            src={avatar}
-            style={{ height: "40px" }}
-            onClick={this.toggleLoginModel}
-          />
-        </div>
+        <img
+          src={avatar}
+          style={{ height: "40px", cursor: "pointer" }}
+          onClick={this.toggleLoginModel}
+        />
       );
     }
   };
@@ -342,13 +340,7 @@ class Header extends Component {
               onClick={() => this.toggleLocModal()}
             />
           </div>
-          <div className="col-1">
-            <img
-              src={avatar}
-              style={{ height: "40px", cursor: "pointer" }}
-              onClick={this.toggleLoginModel}
-            />
-          </div>
+          <div className="col-1">{this.userDetails()}</div>
           <div className="col-1">
             <NavLink to="/checkout">
               <div>
