@@ -22,7 +22,7 @@ class TopCat extends Component {
       <div className="productsDiv">
         <div
           className="container"
-          style={{ "margin-top": "100px", "margin-bottom": "100px" }}
+          style={{ "margin-top": "20px", "margin-bottom": "100px" }}
         >
           <h3 style={{ marginBottom: "50px" }}>Top Categories</h3>
           <div>

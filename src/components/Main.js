@@ -76,7 +76,7 @@ class Main extends Component {
       <React.Fragment>
         <Switch>
           <Route exact path="/" component={() => <Home />} />
-          <Route exact path="/beverages/" component={() => <Beverages />} />
+          {/*<Route exact path="/beverages/" component={() => <Beverages />} />
           <Route exact path="/brandedFood/" component={() => <BrandedFood />} />
           <Route exact path="/diaryBakery/" component={() => <DiaryBakery />} />
           <Route
@@ -91,7 +91,7 @@ class Main extends Component {
             exact
             path="/personalCare"
             component={() => <PersonalCare />}
-          />
+    />*/}
           <Route exact path="/checkout/" component={() => <Checkout />} />
           <Route exact path="/loading/" component={() => <Loading />} />
           <Route exact path="/test/" component={() => <Test />} />

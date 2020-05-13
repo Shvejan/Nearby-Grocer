@@ -3,6 +3,7 @@ import logo from "./images/logo-big.png";
 import { Tab, Tabs } from "react-bootstrap";
 import { baseUrl } from "../shared/baseUrl";
 import { connect } from "react-redux";
+import cart from "./images/cart.png";
 import {
   Dropdown,
   DropdownToggle,
@@ -289,10 +290,10 @@ class Header extends Component {
                 className="fluid"
                 style={{ width: 50, height: 50, "margin-top": "-20px" }}
               />
+              <div style={{ marginTop: "-55px", marginLeft: "70px" }}>
+                <Label>{sessionStorage.getItem("branch_name")}</Label>
+              </div>
             </NavLink>
-            <div style={{ marginTop: "-55px", marginLeft: "70px" }}>
-              <Label>{sessionStorage.getItem("branch_name")}</Label>
-            </div>
           </div>
           <div
             className="row"
@@ -322,9 +323,9 @@ class Header extends Component {
             {this.userDetails()}
             <div className="col pt-3">
               <NavLink to="/checkout">
-                <button className="cart" onClick={this.toggleCartModal}>
-                  Cart
-                </button>
+                <div>
+                  <img src={cart} style={{ height: "40px", width: "40px" }} />
+                </div>
               </NavLink>
             </div>
           </div>
