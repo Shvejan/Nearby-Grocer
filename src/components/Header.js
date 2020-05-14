@@ -25,6 +25,7 @@ import {
   Input,
   Label,
   Button,
+  Badge,
 } from "reactstrap";
 import { NavLink, Redirect } from "react-router-dom";
 import location from "./images/location.png";
@@ -34,6 +35,7 @@ const mapStateToProps = (state) => {
   return {
     stores: state.stores,
     pincode: state.pincode,
+    cart: state.cart,
   };
 };
 const mapDispatchToProps = (dispatch) => ({
@@ -167,6 +169,14 @@ class Header extends Component {
   };
   toggleSelectStore = () => {
     this.setState({ storeModal: !this.state.storeModal });
+  };
+
+  cartTotal = () => {
+    let total = 0;
+    this.props.cart.products.map((p) => {
+      total += p.quantity;
+    });
+    return total;
   };
   handleLocation = (event) => {
     //this.setState({ pincode: this.pincode.value });
@@ -345,6 +355,7 @@ class Header extends Component {
             <NavLink to="/checkout">
               <div>
                 <img src={cart} style={{ height: "40px", width: "40px" }} />
+                <Badge color="secondary">{this.cartTotal()}</Badge>
               </div>
             </NavLink>
           </div>

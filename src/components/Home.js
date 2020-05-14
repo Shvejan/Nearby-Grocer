@@ -22,7 +22,6 @@ class Home extends Component {
     return (
       <React.Fragment>
         <Header />
-        <CatNav mainCat={this.props.mainCat} />
         <Slide />
         <TopCat />
         <TopBrands />
@@ -34,3 +33,4 @@ class Home extends Component {
   }
 }
 export default connect(mapStateToProps)(Home);
+//        <CatNav mainCat={this.props.mainCat} />

@@ -27,6 +27,11 @@ export const BRANDPRODUCTS_ADD = "BRANDPRODUCTS_ADD";
 export const CATMIX_LOADING = "CATMIX_LOADING";
 export const CATMIX_FAILED = "CATMIX_FAILED";
 export const CATMIX_ADD = "CATMIX_ADD";
+export const CATMIX1_ADD = "CATMIX_ADD";
+export const CATMIX2_ADD = "CATMIX_ADD";
+export const CATMIX3_ADD = "CATMIX_ADD";
+export const CATMIX4_ADD = "CATMIX_ADD";
+
 export const PRIVATE_LOADING = "PRIVATE_LOADING";
 export const PRIVATE_FAILED = "PRIVATE_FAILED";
 export const PRIVATE_ADD = "PRIVATE_ADD";

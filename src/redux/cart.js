@@ -25,6 +25,9 @@ export const Cart = (state = { products: [] }, action) => {
           p.quantity -= 1;
         }
       });
+      rprod.filter((p) => {
+        return p.quantity !== 0;
+      });
 
       return { ...state, products: rprod };
 
