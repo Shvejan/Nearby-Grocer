@@ -16,6 +16,7 @@ import { Cart } from "./cart";
 import { Address } from "./Address";
 import { Shipcharges } from "./shipcharges";
 import { Orders } from "./orders";
+import { Orderdetails } from "./orderdetails";
 export const ConfigureStore = () => {
   const store = createStore(
     combineReducers({
@@ -34,6 +35,7 @@ export const ConfigureStore = () => {
       address: Address,
       shipcharges: Shipcharges,
       orders: Orders,
+      orderdetails: Orderdetails,
     }),
     applyMiddleware(thunk, logger)
   );

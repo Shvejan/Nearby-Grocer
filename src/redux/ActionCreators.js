@@ -850,6 +850,7 @@ export const placeOrder = (
     .then((response) => response.json())
     .then((bp) => {
       alert("Order placed successfully");
+      dispatch(cartClear());
     })
     .catch((error) => alert(error.message));
 };
@@ -889,4 +890,41 @@ export const ordersFailed = (errmess) => ({
 export const ordersAdd = (orders) => ({
   type: ActionTypes.ORDERS_ADD,
   payload: orders,
+});
+export const fetchOrderdetails = (order_id) => (dispatch) => {
+  dispatch(orderdetailsLoading(true));
+  return fetch(baseUrl + "ordrdetails/" + order_id)
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((orderdetails) => dispatch(orderdetailsAdd(orderdetails)))
+    .catch((error) => dispatch(orderdetailsFailed(error.message)));
+};
+
+export const orderdetailsLoading = () => ({
+  type: ActionTypes.ORDERSDETAILS_LOADING,
+});
+
+export const orderdetailsFailed = (errmess) => ({
+  type: ActionTypes.ORDERSDETAILS_FAILED,
+  payload: errmess,
+});
+export const orderdetailsAdd = (orderdetails) => ({
+  type: ActionTypes.ORDERSDETAILS_ADD,
+  payload: orderdetails,
 });

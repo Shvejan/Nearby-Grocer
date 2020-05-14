@@ -10,27 +10,183 @@ import {
   Col,
   CardHeader,
   CardBody,
-  CardFooter,
-  Form,
-  FormGroup,
-  Input,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  Label,
 } from "reactstrap";
-import { fetchOrders } from "../redux/ActionCreators";
+import { fetchOrders, fetchOrderdetails } from "../redux/ActionCreators";
 import { Loading } from "./Loading";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 const mapStateToProps = (state) => ({
   orders: state.orders,
+  orderdetails: state.orderdetails,
 });
 const mapDispatchToProps = (dispatch) => ({
   fetchOrders: (customer_id) => dispatch(fetchOrders(customer_id)),
+  fetchOrderdetails: (order_id) => dispatch(fetchOrderdetails(order_id)),
 });
 
-class OrderList extends Component {
+class ProdList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
   render() {
     return (
-      <div>
+      <div className="row">
+        <div className="col-1">
+          <img
+            src={this.props.p.image}
+            alt="Logo"
+            style={{
+              width: "50px",
+              height: "50px",
+            }}
+          />
+        </div>
+        <div className="col-7">
+          <Label>{this.props.p.product_name}</Label> <br />
+          <Label>
+            Quantity:
+            {this.props.p.quantity}
+          </Label>{" "}
+          <br />
+          <Label>
+            Total Price:
+            {this.props.p.amount}
+          </Label>{" "}
+        </div>
+      </div>
+    );
+  }
+}
+
+class OrderList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isModalOpen: false,
+    };
+  }
+  toggleModal = () => {
+    this.setState({ isModalOpen: !this.state.isModalOpen });
+    this.props.fetchOrderdetails(this.props.order.order_id);
+  };
+
+  orderDetail = () => {
+    if (this.props.orderdetails.isLoading) {
+      return <Loading />;
+    } else {
+      return (
+        <ModalBody>
+          <div className="container">
+            <h6
+              style={{
+                color: "black",
+                fontWeight: "bold",
+              }}
+            >
+              Branch Details
+            </h6>
+            <div className="row">
+              <div className="col-1">
+                <img
+                  src={
+                    this.props.orderdetails.orderdetails.DATA.branch_info.logo
+                  }
+                  alt="Logo"
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                  }}
+                />
+              </div>
+              <div className="col-7">
+                <Label>
+                  {
+                    this.props.orderdetails.orderdetails.DATA.branch_info
+                      .branch_name
+                  }
+                </Label>{" "}
+                <Label>
+                  PH:
+                  {
+                    this.props.orderdetails.orderdetails.DATA.branch_info
+                      .contact_no
+                  }
+                </Label>{" "}
+                <Label>
+                  {
+                    this.props.orderdetails.orderdetails.DATA.branch_info
+                      .address
+                  }
+                </Label>
+              </div>
+            </div>
+            <h6
+              style={{
+                color: "black",
+                fontWeight: "bold",
+              }}
+            >
+              Order Details
+            </h6>
+            <Label>
+              Order Number:
+              {this.props.orderdetails.orderdetails.DATA.order_info.order_no}
+            </Label>{" "}
+            <br />
+            <Label>
+              Payment mode:
+              {
+                this.props.orderdetails.orderdetails.DATA.order_info
+                  .payment_mode
+              }
+            </Label>{" "}
+            <br />
+            <Label>
+              Date:
+              {
+                this.props.orderdetails.orderdetails.DATA.order_info
+                  .order_date_time
+              }
+            </Label>
+            <br />
+            <Label>
+              Sub total:
+              {this.props.orderdetails.orderdetails.DATA.order_info.sub_total}
+            </Label>
+            <br />
+            <Label>
+              Shipping charges:
+              {
+                this.props.orderdetails.orderdetails.DATA.order_info
+                  .shipping_charges
+              }
+            </Label>
+            <h6
+              style={{
+                color: "black",
+                fontWeight: "bold",
+              }}
+            >
+              Products
+            </h6>
+            {this.props.orderdetails.orderdetails.DATA.product_list.map((p) => (
+              <ProdList p={p} />
+            ))}
+          </div>
+        </ModalBody>
+      );
+    }
+  };
+  render() {
+    return (
+      <div onClick={this.toggleModal} style={{ cursor: "pointer" }}>
         <span>order id: {this.props.order.order_no}</span>
         <br />
         <span>order time: {this.props.order.order_date_time}</span>
@@ -40,6 +196,17 @@ class OrderList extends Component {
         <span>Branch: {this.props.order.branch_name}</span>
         <br />
         <hr />
+        <Modal
+          isOpen={this.state.isModalOpen}
+          toggle={this.toggleModal}
+          scrollable={true}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <ModalHeader toggle={this.toggleModal}>Order details</ModalHeader>
+          {this.orderDetail()}
+        </Modal>
       </div>
     );
   }
@@ -60,7 +227,11 @@ class UserAddress extends Component {
       return (
         <React.Fragment>
           {this.props.orders.orders.DATA.map((order) => (
-            <OrderList order={order} />
+            <OrderList
+              order={order}
+              fetchOrderdetails={this.props.fetchOrderdetails}
+              orderdetails={this.props.orderdetails}
+            />
           ))}
         </React.Fragment>
       );
@@ -90,7 +261,9 @@ class UserAddress extends Component {
             <div className="col-6">
               <h1 className="checkoutHeader">Account</h1>
             </div>
-            <div className="col-2"></div>
+            <div className="col-2">
+              <Button className="clearCartbtn">Logout</Button>
+            </div>
           </div>
           <Row>
             <Col sm="8">
