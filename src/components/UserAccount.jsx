@@ -19,6 +19,7 @@ import { fetchOrders, fetchOrderdetails } from "../redux/ActionCreators";
 import { Loading } from "./Loading";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
+import Header from "./Header";
 
 const mapStateToProps = (state) => ({
   orders: state.orders,
@@ -240,43 +241,47 @@ class UserAddress extends Component {
 
   render() {
     return (
-      <div className="mainDiv">
-        <div className="container mainDiv">
-          <div className="row">
-            <div className="col-4">
-              <NavLink to="/" style={{ color: "#fff" }}>
-                <span
-                  className="fa fa-arrow-left fa-10x"
-                  style={{ marginRight: "50px" }}
-                >
-                  Go back
-                </span>
-              </NavLink>
-              <img
-                src={logo}
-                className="fluid"
-                style={{ width: 150, height: 75, marginTop: "50px" }}
-              />
+      <React.Fragment>
+        <Header />
+        <div className="mainDiv">
+          <div className="container mainDiv">
+            <div className="row">
+              <div className="col-4">
+                <NavLink to="/" style={{ color: "#fff" }}>
+                  <span
+                    className="fa fa-arrow-left fa-10x"
+                    style={{ marginRight: "50px" }}
+                  >
+                    Go back
+                  </span>
+                </NavLink>
+                <img
+                  src={logo}
+                  className="fluid"
+                  style={{ width: 150, height: 75, marginTop: "50px" }}
+                />
+              </div>
+              <div className="col-6">
+                <h1 className="checkoutHeader">Account</h1>
+              </div>
+              <div className="col-2">
+                <Button className="clearCartbtn">Logout</Button>
+              </div>
             </div>
-            <div className="col-6">
-              <h1 className="checkoutHeader">Account</h1>
-            </div>
-            <div className="col-2">
-              <Button className="clearCartbtn">Logout</Button>
-            </div>
-          </div>
-          <Row>
-            <Col sm="8">
-              <Card>
-                <CardHeader className="total">Order History</CardHeader>
-                <CardBody>
-                  <CardTitle className="total">{this.orderDetails()}</CardTitle>
-                  <CardText></CardText>
-                </CardBody>
-              </Card>
-            </Col>
-            <Col sm="4">
-              {/*<Card>
+            <Row>
+              <Col sm="8">
+                <Card>
+                  <CardHeader className="total">Order History</CardHeader>
+                  <CardBody>
+                    <CardTitle className="total">
+                      {this.orderDetails()}
+                    </CardTitle>
+                    <CardText></CardText>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col sm="4">
+                {/*<Card>
                 <CardHeader className="total">Bill</CardHeader>
                 <CardBody>
                   <CardText style={{ color: "black" }}>
@@ -291,10 +296,11 @@ class UserAddress extends Component {
                   </NavLink>
                 </CardFooter>
               </Card>*/}
-            </Col>
-          </Row>
+              </Col>
+            </Row>
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

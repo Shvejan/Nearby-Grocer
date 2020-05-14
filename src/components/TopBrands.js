@@ -49,6 +49,11 @@ const BrandsCard = (props) => {
         <Link to={"brands/" + props.brand.brand_id}>
           <Card inverse style={{ height: "100px" }}>
             <CardImg height="100%" src={brandImg} alt="Card image cap" />
+            <CardImgOverlay>
+              <CardTitle style={{ color: "black" }}>
+                {props.brand.brand_name}
+              </CardTitle>
+            </CardImgOverlay>
           </Card>
         </Link>
       </div>

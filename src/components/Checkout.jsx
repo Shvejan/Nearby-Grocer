@@ -24,6 +24,7 @@ import {
 
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
+import Header from "./Header";
 const mapStateToProps = (state) => ({
   cart: state.cart,
 });
@@ -79,77 +80,79 @@ class Checkout extends Component {
       total += p.product.selling_price * p.quantity;
     });
     return (
-      <div className="mainDiv">
-        <div className="container mainDiv">
-          <div className="row">
-            <div className="col-4">
-              <NavLink to="/" style={{ color: "#fff" }}>
-                <span
-                  className="fa fa-arrow-left fa-10x"
-                  style={{ marginRight: "50px" }}
-                >
-                  Go back
-                </span>
-              </NavLink>
-              <img
-                src={logo}
-                className="fluid"
-                style={{ width: 150, height: 75, marginTop: "50px" }}
-              />
+      <React.Fragment>
+        <Header />
+        <div className="mainDiv">
+          <div className="container mainDiv">
+            <div className="row">
+              <div className="col-4">
+                <NavLink to="/" style={{ color: "#fff" }}>
+                  <span
+                    className="fa fa-arrow-left fa-10x"
+                    style={{ marginRight: "50px" }}
+                  >
+                    Go back
+                  </span>
+                </NavLink>
+                <img
+                  src={logo}
+                  className="fluid"
+                  style={{ width: 150, height: 75, marginTop: "50px" }}
+                />
+              </div>
+              <div className="col-6">
+                <h1 className="checkoutHeader">Let's review your order</h1>
+              </div>
+              <div className="col-2">
+                <Button className="clearCartbtn" onClick={this.props.cartClear}>
+                  Clear Cart
+                </Button>
+              </div>
             </div>
-            <div className="col-6">
-              <h1 className="checkoutHeader">Let's review your order</h1>
-            </div>
-            <div className="col-2">
-              <Button className="clearCartbtn" onClick={this.props.cartClear}>
-                Clear Cart
-              </Button>
-            </div>
-          </div>
-          <Row>
-            <Col sm="8">
-              <Card>
-                <CardHeader className="total">Cart items</CardHeader>
-                <CardBody>
-                  <CardTitle className="total">
-                    <div className="row">
-                      <div className="col-6">
-                        <span>Product </span>
+            <Row>
+              <Col sm="8">
+                <Card>
+                  <CardHeader className="total">Cart items</CardHeader>
+                  <CardBody>
+                    <CardTitle className="total">
+                      <div className="row">
+                        <div className="col-6">
+                          <span>Product </span>
+                        </div>
+                        <div className="col">
+                          <span>Unit Price </span>
+                        </div>
+                        <div className="col">
+                          <span>Quantity </span>
+                        </div>
+                        <div className="col">
+                          <span> Price</span>
+                        </div>
                       </div>
-                      <div className="col">
-                        <span>Unit Price </span>
-                      </div>
-                      <div className="col">
-                        <span>Quantity </span>
-                      </div>
-                      <div className="col">
-                        <span> Price</span>
-                      </div>
-                    </div>
-                  </CardTitle>
-                  <CardText>
-                    {this.props.cart.products.map((p) => (
-                      <ProductsList product={p} />
-                    ))}
-                  </CardText>
-                </CardBody>
-                <CardFooter>
-                  <span className="total">Total: </span>
-                  <span className="total">Rs. {total}</span>
-                  <NavLink to="/shipping">
-                    <Button
-                      className="placeOrder"
-                      color="warning"
-                      onClick={this.tempCart}
-                    >
-                      Shipping Details
-                    </Button>
-                  </NavLink>
-                </CardFooter>
-              </Card>
-            </Col>
-            <Col sm="4">
-              {/* <Card>
+                    </CardTitle>
+                    <CardText>
+                      {this.props.cart.products.map((p) => (
+                        <ProductsList product={p} />
+                      ))}
+                    </CardText>
+                  </CardBody>
+                  <CardFooter>
+                    <span className="total">Total: </span>
+                    <span className="total">Rs. {total}</span>
+                    <NavLink to="/shipping">
+                      <Button
+                        className="placeOrder"
+                        color="warning"
+                        onClick={this.tempCart}
+                      >
+                        Shipping Details
+                      </Button>
+                    </NavLink>
+                  </CardFooter>
+                </Card>
+              </Col>
+              <Col sm="4">
+                {/* <Card>
                 <CardHeader className="total">Shipping Address</CardHeader>
                 <CardBody>
                   <CardText>
@@ -186,10 +189,11 @@ class Checkout extends Component {
                   <Button color="primary">Delever to this address</Button>
                 </CardFooter>
               </Card>*/}
-            </Col>
-          </Row>
+              </Col>
+            </Row>
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

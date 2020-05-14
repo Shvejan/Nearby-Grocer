@@ -44,7 +44,7 @@ class Main extends Component {
       console.log(branch_logo);
       this.props.fetchMainCat(branch);
       this.props.fetchBanners(branch);
-      this.props.fetchBrands(branch, 12);
+      this.props.fetchBrands(branch, 30);
     } else {
       console.log("no sellion data");
     }

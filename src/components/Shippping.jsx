@@ -23,6 +23,7 @@ import {
 import { Loading } from "./Loading";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
+import Header from "./Header";
 
 const mapStateToProps = (state) => ({
   address: state.address,
@@ -151,68 +152,71 @@ class Shipping extends Component {
   };
   render() {
     return (
-      <div className="mainDiv">
-        <div className="container mainDiv">
-          <div className="row">
-            <div className="col-4">
-              <NavLink to="/checkout" style={{ color: "#fff" }}>
-                <span
-                  className="fa fa-arrow-left fa-10x"
-                  style={{ marginRight: "50px" }}
-                >
-                  Go back
-                </span>
-              </NavLink>
-              <img
-                src={logo}
-                className="fluid"
-                style={{ width: 150, height: 75, marginTop: "50px" }}
-              />
+      <React.Fragment>
+        <Header />
+        <div className="mainDiv">
+          <div className="container mainDiv">
+            <div className="row">
+              <div className="col-4">
+                <NavLink to="/checkout" style={{ color: "#fff" }}>
+                  <span
+                    className="fa fa-arrow-left fa-10x"
+                    style={{ marginRight: "50px" }}
+                  >
+                    Go back
+                  </span>
+                </NavLink>
+                <img
+                  src={logo}
+                  className="fluid"
+                  style={{ width: 150, height: 75, marginTop: "50px" }}
+                />
+              </div>
+              <div className="col-6">
+                <h1 className="checkoutHeader">Shipping Details</h1>
+              </div>
+              <div className="col-2"></div>
             </div>
-            <div className="col-6">
-              <h1 className="checkoutHeader">Shipping Details</h1>
-            </div>
-            <div className="col-2"></div>
+            <Row>
+              <Col sm="8">
+                <Card>
+                  <CardHeader className="total">Shipping Adderess</CardHeader>
+                  <CardBody>
+                    <CardTitle className="total">
+                      {this.addressSection()}
+                    </CardTitle>
+                    <CardText></CardText>
+                  </CardBody>
+                  <CardFooter>
+                    <NavLink to="/shipping">
+                      <Button className="placeOrder" color="warning">
+                        Ship to this address
+                      </Button>
+                    </NavLink>
+                  </CardFooter>
+                </Card>
+              </Col>
+              <Col sm="4">
+                <Card>
+                  <CardHeader className="total">Bill</CardHeader>
+                  <CardBody>
+                    <CardText style={{ color: "black" }}>
+                      {this.shippingCharges()}
+                    </CardText>
+                  </CardBody>
+                  <CardFooter>
+                    <NavLink to="/">
+                      <Button color="primary" onClick={this.placeOrder}>
+                        Place Order
+                      </Button>
+                    </NavLink>
+                  </CardFooter>
+                </Card>
+              </Col>
+            </Row>
           </div>
-          <Row>
-            <Col sm="8">
-              <Card>
-                <CardHeader className="total">Shipping Adderess</CardHeader>
-                <CardBody>
-                  <CardTitle className="total">
-                    {this.addressSection()}
-                  </CardTitle>
-                  <CardText></CardText>
-                </CardBody>
-                <CardFooter>
-                  <NavLink to="/shipping">
-                    <Button className="placeOrder" color="warning">
-                      Ship to this address
-                    </Button>
-                  </NavLink>
-                </CardFooter>
-              </Card>
-            </Col>
-            <Col sm="4">
-              <Card>
-                <CardHeader className="total">Bill</CardHeader>
-                <CardBody>
-                  <CardText style={{ color: "black" }}>
-                    {this.shippingCharges()}
-                  </CardText>
-                </CardBody>
-                <CardFooter>
-                  <NavLink to="/">
-                    <Button color="primary" onClick={this.placeOrder}>
-                      Place Order
-                    </Button>
-                  </NavLink>
-                </CardFooter>
-              </Card>
-            </Col>
-          </Row>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
