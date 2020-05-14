@@ -292,6 +292,19 @@ class Header extends Component {
       );
     }
   };
+  click = () => {
+    try {
+      const key = document.getElementById("search").value;
+
+      this.props.fetchSearch(
+        sessionStorage.getItem("branch_id"),
+        document.getElementById("search").value,
+        50
+      );
+    } catch (error) {
+      alert(error);
+    }
+  };
   render() {
     return (
       <React.Fragment>
@@ -323,27 +336,35 @@ class Header extends Component {
               </div>
             </NavLink>
           </div>
-          <div className="col-4 ">
-            <input
-              id="search"
-              type="text"
-              placeholder="search"
-              className="search"
-            ></input>
-          </div>
-          <div className="col-2" style={{ marginLeft: "-55px" }}>
-            <NavLink to="/searchresults/">
-              <button onClick={this.search} className="searchbtn">
-                {" "}
-                <img
-                  src={searchimg}
-                  style={{ height: "20px", width: "20px" }}
-                  onClick={() => this.toggleLocModal()}
-                />
-              </button>
-            </NavLink>
-          </div>
-          <div className="col-1">
+          <form action="/searchresults" method="get">
+            <div className="row">
+              <div className="col-9 ">
+                <input
+                  id="search"
+                  type="text"
+                  placeholder="search"
+                  className="search"
+                ></input>
+              </div>
+              <div className="col-3">
+                <NavLink to="/searchresults/">
+                  <button
+                    onClick={this.search}
+                    type="submit"
+                    className="searchbtn"
+                  >
+                    {" "}
+                    <img
+                      src={searchimg}
+                      style={{ height: "20px", width: "20px" }}
+                    />
+                  </button>
+                </NavLink>
+              </div>
+            </div>
+          </form>
+
+          <div className="col-1 offset-1">
             <img
               src={location}
               style={{ height: "40px", width: "40px", cursor: "pointer" }}
