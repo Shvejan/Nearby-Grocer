@@ -4,8 +4,9 @@ import { Card, CardImg, CardImgOverlay, CardText, CardTitle } from "reactstrap";
 import { fetchBrands } from "../redux/ActionCreators";
 import { connect } from "react-redux";
 import { Loading } from "./Loading";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import brandImg from "./images/only-background.png";
+import { Button } from "react-bootstrap";
 const mapStateToProps = (state) => {
   return {
     brands: state.brands,
@@ -36,6 +37,13 @@ class TopBrands extends Component {
             {this.props.brands.brands.DATA.map((b) => (
               <BrandsCard brand={b} />
             ))}
+          </div>
+          <div className="justify-content-center">
+            <NavLink to="/allbrands">
+              <Button color="primary" style={{ marginLeft: "500px" }}>
+                View More
+              </Button>
+            </NavLink>
           </div>
         </div>
       );

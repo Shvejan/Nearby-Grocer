@@ -813,6 +813,7 @@ export const placeOrder = (
   order_notes
 ) => (dispatch) => {
   dispatch(brandProductsLoading(true));
+  alert(cart_id);
   return fetch(baseUrl + "ordrplc", {
     method: "POST",
     body: JSON.stringify({
