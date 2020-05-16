@@ -63,10 +63,13 @@ export const fetchMainCat = (branchId) => (dispatch) => {
     .then((mainCat) => {
       dispatch(mainCatAdd(mainCat));
       dispatch(fetchCatmix(mainCat.DATA[0].category_id, branchId, 20));
+      alert(mainCat.DATA[0].category_id);
       dispatch(fetchCatmix1(mainCat.DATA[1].category_id, branchId, 20));
-      dispatch(fetchCatmix2(mainCat.DATA[2].category_id, branchId, 20));
-      dispatch(fetchCatmix3(mainCat.DATA[3].category_id, branchId, 20));
-      dispatch(fetchCatmix4(mainCat.DATA[4].category_id, branchId, 20));
+      alert(mainCat.DATA[1].category_id);
+
+      //dispatch(fetchCatmix2(mainCat.DATA[2].category_id, branchId, 20));
+      //dispatch(fetchCatmix3(mainCat.DATA[3].category_id, branchId, 20));
+      //dispatch(fetchCatmix4(mainCat.DATA[4].category_id, branchId, 20));
     })
     .catch((error) => dispatch(mainCatFailed(error.message)));
 };
@@ -431,7 +434,7 @@ export const fetchCatmix = (main_category_id, branch_id, limit) => (
 export const fetchCatmix1 = (main_category_id, branch_id, limit) => (
   dispatch
 ) => {
-  dispatch(catmixLoading(true));
+  dispatch(catmix1Loading(true));
   return fetch(baseUrl + "categorymixproduct", {
     method: "POST",
     body: JSON.stringify({
@@ -463,9 +466,10 @@ export const fetchCatmix1 = (main_category_id, branch_id, limit) => (
     )
     .then((response) => response.json())
     .then((catmix1) => {
+      alert("catmix1");
       dispatch(catmixAdd1(catmix1));
     })
-    .catch((error) => dispatch(catmixFailed(error.message)));
+    .catch((error) => dispatch(catmixFailed1(error.message)));
 };
 
 export const fetchCatmix2 = (main_category_id, branch_id, limit) => (
@@ -596,7 +600,14 @@ export const catmixFailed = (errmess) => ({
   type: ActionTypes.CATMIX_FAILED,
   payload: errmess,
 });
+export const catmix1Loading = () => ({
+  type: ActionTypes.CATMIX_LOADING,
+});
 
+export const catmixFailed1 = (errmess) => ({
+  type: ActionTypes.CATMIX_FAILED,
+  payload: errmess,
+});
 export const catmixAdd = (catmix) => ({
   type: ActionTypes.CATMIX_ADD,
   payload: catmix,

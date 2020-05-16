@@ -20,13 +20,7 @@ export const Catmix = (
         errMess: null,
         catmix: action.payload,
       };
-    case ActionTypes.CATMIX1_ADD:
-      return {
-        ...state,
-        isLoading: false,
-        errMess: null,
-        catmix1: action.payload,
-      };
+
     case ActionTypes.CATMIX2_ADD:
       return {
         ...state,
@@ -50,7 +44,7 @@ export const Catmix = (
       };
 
     case ActionTypes.CATMIX_LOADING:
-      return { ...state, isLoading: true, errMess: null, catmix: [] };
+      return { ...state, isLoading: true, errMess: null };
 
     case ActionTypes.CATMIX_FAILED:
       return { ...state, isLoading: false, errMess: action.payload };
