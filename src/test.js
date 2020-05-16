@@ -1,29 +1,27 @@
-import React, { Component, useState } from "react";
-import { Collapse, Button } from "react-bootstrap";
-import "./test.css";
+import React, { useState } from "react";
+import { Collapse, Button, CardBody, Card } from "reactstrap";
 
-function Test() {
-  const [open, setOpen] = useState(false);
+const Test = (props) => {
+  const [collapse, setCollapse] = useState(false);
+
+  const toggle = () => setCollapse(!collapse);
 
   return (
     <div>
-      <button
-        onClick={() => setOpen(!open)}
-        aria-controls="example-collapse-text"
-        aria-expanded={open}
-        style={{ width: "100%" }}
-      >
-        click
-      </button>
-      <Collapse in={open}>
-        <div id="example-collapse-text">
-          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-          terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
-          labore wes anderson cred nesciunt sapiente ea proident.
-        </div>
+      <Button color="primary" onClick={toggle} style={{ marginBottom: "1rem" }}>
+        Toggle
+      </Button>
+      <Collapse isOpen={collapse}>
+        <Card>
+          <CardBody>
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+            terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
+            labore wes anderson cred nesciunt sapiente ea proident.
+          </CardBody>
+        </Card>
       </Collapse>
     </div>
   );
-}
+};
 
 export default Test;
