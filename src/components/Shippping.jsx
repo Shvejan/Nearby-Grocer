@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import "./css/Checkout.css";
 import logo from "./images/logo-big.png";
 import {
@@ -6,6 +6,7 @@ import {
   Button,
   CardTitle,
   CardText,
+  Collapse,
   Row,
   Col,
   CardHeader,
@@ -100,6 +101,63 @@ class AddressList extends Component {
   }
 }
 
+const AddressSection = (props) => {
+  const [collapse, setCollapse] = useState(false);
+
+  const toggle = () => setCollapse(!collapse);
+
+  return (
+    <div>
+      <Button
+        color="primary"
+        onClick={toggle}
+        style={{ marginBottom: "1rem", width: "100%" }}
+      >
+        Shipping Adderess
+      </Button>
+      <Collapse isOpen={collapse}>
+        <Card>
+          <CardBody>
+            <CardTitle className="total">{props.addressSection()}</CardTitle>
+            <CardText></CardText>
+          </CardBody>
+        </Card>
+      </Collapse>
+    </div>
+  );
+};
+const TimeSlots = () => {
+  const [collapse, setCollapse] = useState(false);
+
+  const toggle = () => setCollapse(!collapse);
+
+  return (
+    <div>
+      <Button
+        color="primary"
+        onClick={toggle}
+        style={{ marginBottom: "1rem", width: "100%" }}
+      >
+        Shipping Timings
+      </Button>
+      <Collapse isOpen={collapse}>
+        <Card>
+          <CardBody>
+            <CardText>timeslot 1</CardText>
+          </CardBody>
+          <CardFooter>
+            <NavLink to="/shipping">
+              <Button className="placeOrder" color="warning">
+                Place Order
+              </Button>
+            </NavLink>
+          </CardFooter>
+        </Card>
+      </Collapse>
+    </div>
+  );
+};
+
 class Shipping extends Component {
   constructor(props) {
     super(props);
@@ -185,20 +243,8 @@ class Shipping extends Component {
             <Row>
               <Col sm="8">
                 <Card>
-                  <CardHeader className="total">Shipping Adderess</CardHeader>
-                  <CardBody>
-                    <CardTitle className="total">
-                      {this.addressSection()}
-                    </CardTitle>
-                    <CardText></CardText>
-                  </CardBody>
-                  <CardFooter>
-                    <NavLink to="/shipping">
-                      <Button className="placeOrder" color="warning">
-                        Ship to this address
-                      </Button>
-                    </NavLink>
-                  </CardFooter>
+                  <AddressSection addressSection={this.addressSection} />
+                  <TimeSlots />
                 </Card>
               </Col>
               <Col sm="4">
