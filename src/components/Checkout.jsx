@@ -145,7 +145,7 @@ class Checkout extends Component {
                         color="warning"
                         onClick={this.tempCart}
                       >
-                        Shipping Details
+                        Continue >
                       </Button>
                     </NavLink>
                   </CardFooter>

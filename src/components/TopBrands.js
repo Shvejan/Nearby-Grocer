@@ -38,13 +38,6 @@ class TopBrands extends Component {
               <BrandsCard brand={b} />
             ))}
           </div>
-          <div className="justify-content-center">
-            <NavLink to="/allbrands">
-              <Button color="primary" style={{ marginLeft: "500px" }}>
-                View More
-              </Button>
-            </NavLink>
-          </div>
         </div>
       );
     }
@@ -69,7 +62,7 @@ const BrandsCard = (props) => {
   } else {
     return (
       <div className="col-2">
-        <Link to={"brands/" + props.brand.brand_id}>
+        <Link exact to={"brands/" + props.brand.brand_id}>
           <Card inverse style={{ height: "100px" }}>
             <CardImg
               height="100%"

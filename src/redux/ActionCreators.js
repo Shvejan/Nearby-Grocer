@@ -187,13 +187,14 @@ export const productsClear = () => ({
   type: ActionTypes.PRODUCTS_CLEAR,
 });
 
-export const fetchBrands = (branch_id, limit) => (dispatch) => {
+export const fetchBrands = (branch_id, limit, page_no) => (dispatch) => {
   dispatch(brandsLoading(true));
   return fetch(baseUrl + "brandslist", {
     method: "POST",
     body: JSON.stringify({
       limit: limit,
       branch_id: branch_id,
+      page_no: page_no,
     }),
     headers: {
       "Content-Type": "application/json",

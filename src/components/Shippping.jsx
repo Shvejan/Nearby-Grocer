@@ -28,6 +28,7 @@ import Header from "./Header";
 const mapStateToProps = (state) => ({
   address: state.address,
   shipcharges: state.shipcharges,
+  cart: state.cart,
 });
 const mapDispatchToProps = (dispatch) => ({
   fetchAddress: (customer_id) => dispatch(fetchAddress(customer_id)),
@@ -79,7 +80,7 @@ class AddressList extends Component {
           <div className="col offset-3">
             <Input
               type="radio"
-              name={this.props.index + 1}
+              name="address"
               onClick={() => {
                 sessionStorage.setItem(
                   "shipping_address_id",
@@ -151,6 +152,10 @@ class Shipping extends Component {
     );
   };
   render() {
+    let total = 0;
+    this.props.cart.products.map((p) => {
+      total += p.product.selling_price * p.quantity;
+    });
     return (
       <React.Fragment>
         <Header />
@@ -201,6 +206,11 @@ class Shipping extends Component {
                   <CardHeader className="total">Bill</CardHeader>
                   <CardBody>
                     <CardText style={{ color: "black" }}>
+                      <span>Products Total : </span>
+                      {total}
+                    </CardText>
+                    <CardText style={{ color: "black" }}>
+                      <span>Shipping Charges: </span>
                       {this.shippingCharges()}
                     </CardText>
                   </CardBody>

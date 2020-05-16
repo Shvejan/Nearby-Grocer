@@ -24,7 +24,8 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => ({
   fetchMainCat: (branch_id) => dispatch(fetchMainCat(branch_id)),
-  fetchBrands: (branch_id, limit) => dispatch(fetchBrands(branch_id, limit)),
+  fetchBrands: (branch_id, limit, page_no) =>
+    dispatch(fetchBrands(branch_id, limit, page_no)),
   fetchBanners: (branch_id) => dispatch(fetchBanners(branch_id)),
 });
 class Main extends Component {
@@ -45,7 +46,7 @@ class Main extends Component {
       console.log(branch_logo);
       this.props.fetchMainCat(branch);
       this.props.fetchBanners(branch);
-      this.props.fetchBrands(branch, 30);
+      this.props.fetchBrands(branch, 30, 1);
     } else {
       console.log("no sellion data");
     }
@@ -61,6 +62,9 @@ class Main extends Component {
     };
     const brands = ({ match }) => {
       return <BrandProducts b_id={match.params.b_id} />;
+    };
+    const allbrands = ({ match }) => {
+      return <AllBrands p_no={match.params.p_no} />;
     };
     const privateUrl = ({ match }) => {
       return <PrivateUrl urlCode={match.params.store_id} />;
@@ -85,7 +89,7 @@ class Main extends Component {
             path="/personalCare"
             component={() => <PersonalCare />}
     />*/}
-          <Route exact path="/allbrands/" component={() => <AllBrands />} />
+          <Route exact path="/allbrands/:p_no" component={allbrands} />
           <Route exact path="/checkout/" component={() => <Checkout />} />
           <Route exact path="/loading/" component={() => <Loading />} />
           <Route exact path="/test/" component={() => <Test />} />
@@ -95,6 +99,7 @@ class Main extends Component {
             component={() => <SearchResults />}
           />
           <Route exact path="/brands/:b_id" component={brands} />
+          <Route exact path="/allbrands/brands/:b_id" component={brands} />
           <Route exact path="/store/:store_id" component={privateUrl} />
           <Route exact path="/account" component={() => <UserAccount />} />
           <Route exact path="/shipping" component={() => <Shipping />} />
