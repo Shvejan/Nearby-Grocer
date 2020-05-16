@@ -64,6 +64,10 @@ class Checkout extends Component {
   constructor(props) {
     super(props);
   }
+  componentDidMount() {
+    sessionStorage.setItem("shipping_address_id", "");
+    sessionStorage.setItem("timeslot", "");
+  }
   tempCart = () => {
     const productsList = this.props.cart.products.map((p) => {
       return {

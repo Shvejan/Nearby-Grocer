@@ -125,7 +125,7 @@ const AddressSection = (props) => {
           </CardBody>
           <CardFooter>
             <NavLink to="/shipping">
-              <Button className="placeOrder" color="warning">
+              <Button className="placeOrder" color="warning" onClick={toggle}>
                 Continue >
               </Button>
             </NavLink>
@@ -156,7 +156,7 @@ const TimeSlots = (props) => {
           </CardBody>
           <CardFooter>
             <NavLink to="/shipping">
-              <Button className="placeOrder" color="warning">
+              <Button className="placeOrder" color="warning" onClick={toggle}>
                 Continue >
               </Button>
             </NavLink>
@@ -201,8 +201,6 @@ class Shipping extends Component {
   componentDidMount() {
     this.props.fetchAddress(285);
     this.props.fetchTimeslots(sessionStorage.getItem("branch_id"));
-    sessionStorage.setItem("shipping_address_id", "");
-    sessionStorage.setItem("timeslot", "");
   }
   addressSection = () => {
     if (this.props.address.isLoading) {
