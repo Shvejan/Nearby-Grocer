@@ -31,7 +31,7 @@ class AllBrands extends Component {
       <React.Fragment>
         <Header />
         <TopBrands />
-        <div style={{ marginLeft: "600px" }}>
+        <div style={{ marginLeft: "600px", marginTop: "100px" }}>
           <span>Page: </span>
           <Link to="/allbrands/1">
             <span>1</span>

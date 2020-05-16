@@ -268,7 +268,7 @@ class Header extends Component {
     this.props.fetchSearch(
       sessionStorage.getItem("branch_id"),
       document.getElementById("search").value,
-      50
+      52
     );
   };
   userDetails = () => {
