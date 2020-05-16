@@ -20,6 +20,7 @@ import {
   fetchAddress,
   fetchShipcharges,
   placeOrder,
+  fetchTimeslots,
 } from "../redux/ActionCreators";
 import { Loading } from "./Loading";
 import { connect } from "react-redux";
@@ -30,9 +31,12 @@ const mapStateToProps = (state) => ({
   address: state.address,
   shipcharges: state.shipcharges,
   cart: state.cart,
+  timeslots: state.timeslots,
 });
 const mapDispatchToProps = (dispatch) => ({
   fetchAddress: (customer_id) => dispatch(fetchAddress(customer_id)),
+  fetchTimeslots: (branch_id) => dispatch(fetchTimeslots(branch_id)),
+
   fetchShipcharges: (branch_id, pincode, cart_id) =>
     dispatch(fetchShipcharges(branch_id, pincode, cart_id)),
   placeOrder: (
@@ -43,7 +47,8 @@ const mapDispatchToProps = (dispatch) => ({
     shipping_charges,
     payment_mode,
     order_channel,
-    order_notes
+    order_notes,
+    time_slot
   ) =>
     dispatch(
       placeOrder(
@@ -54,16 +59,13 @@ const mapDispatchToProps = (dispatch) => ({
         shipping_charges,
         payment_mode,
         order_channel,
-        order_notes
+        order_notes,
+        time_slot
       )
     ),
 });
 
 class AddressList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
   render() {
     return (
       <FormGroup check>
@@ -121,12 +123,19 @@ const AddressSection = (props) => {
             <CardTitle className="total">{props.addressSection()}</CardTitle>
             <CardText></CardText>
           </CardBody>
+          <CardFooter>
+            <NavLink to="/shipping">
+              <Button className="placeOrder" color="warning">
+                Continue >
+              </Button>
+            </NavLink>
+          </CardFooter>
         </Card>
       </Collapse>
     </div>
   );
 };
-const TimeSlots = () => {
+const TimeSlots = (props) => {
   const [collapse, setCollapse] = useState(false);
 
   const toggle = () => setCollapse(!collapse);
@@ -143,17 +152,43 @@ const TimeSlots = () => {
       <Collapse isOpen={collapse}>
         <Card>
           <CardBody>
-            <CardText>timeslot 1</CardText>
+            <CardTitle className="total">{props.renderTimeslots()}</CardTitle>
           </CardBody>
           <CardFooter>
             <NavLink to="/shipping">
               <Button className="placeOrder" color="warning">
-                Place Order
+                Continue >
               </Button>
             </NavLink>
           </CardFooter>
         </Card>
       </Collapse>
+    </div>
+  );
+};
+const Times = (props) => {
+  return (
+    <div>
+      <div className="row">
+        <div className="col-6">
+          <span>
+            {props.time.start_time}-{props.time.end_time}
+          </span>
+          <hr />
+        </div>
+        <div className="col offset-3">
+          <Input
+            type="radio"
+            name="time"
+            onClick={() => {
+              sessionStorage.setItem(
+                "timeslot",
+                `${props.time.start_time}-${props.time.end_time}`
+              );
+            }}
+          />
+        </div>
+      </div>
     </div>
   );
 };
@@ -165,6 +200,9 @@ class Shipping extends Component {
   }
   componentDidMount() {
     this.props.fetchAddress(285);
+    this.props.fetchTimeslots(sessionStorage.getItem("branch_id"));
+    sessionStorage.setItem("shipping_address_id", "");
+    sessionStorage.setItem("timeslot", "");
   }
   addressSection = () => {
     if (this.props.address.isLoading) {
@@ -198,17 +236,42 @@ class Shipping extends Component {
     }
   };
   placeOrder = () => {
-    this.props.placeOrder(
-      sessionStorage.getItem("branch_id"),
-      285,
-      sessionStorage.getItem("cart_id"),
-      sessionStorage.getItem("shipping_address_id"),
-      this.props.shipcharges.shipcharges.DATA.shipping_charges,
-      "COD",
-      "Web",
-      "order_notes"
-    );
+    if (
+      sessionStorage.getItem("cart_id") !== "" &&
+      sessionStorage.getItem("shipping_address_id") !== "" &&
+      sessionStorage.getItem("timeslot") !== ""
+    ) {
+      this.props.placeOrder(
+        sessionStorage.getItem("branch_id"),
+        285,
+        sessionStorage.getItem("cart_id"),
+        sessionStorage.getItem("shipping_address_id"),
+        this.props.shipcharges.shipcharges.DATA.shipping_charges,
+        "COD",
+        "Web",
+        document.getElementById("note").value,
+        sessionStorage.getItem("timeslot")
+      );
+    } else {
+      alert("select an address and timeslot");
+    }
   };
+
+  renderTimeslots = () => {
+    if (this.props.timeslots.isLoading) {
+      return <Loading />;
+    } else {
+      return (
+        <React.Fragment>
+          {this.props.timeslots.timeslots.DATA.map((timeslot) => (
+            <Times time={timeslot} />
+          ))}
+          <Input placeholder="leave a note" id="note" type="text" />
+        </React.Fragment>
+      );
+    }
+  };
+
   render() {
     let total = 0;
     this.props.cart.products.map((p) => {
@@ -244,7 +307,7 @@ class Shipping extends Component {
               <Col sm="8">
                 <Card>
                   <AddressSection addressSection={this.addressSection} />
-                  <TimeSlots />
+                  <TimeSlots renderTimeslots={this.renderTimeslots} />
                 </Card>
               </Col>
               <Col sm="4">
@@ -255,7 +318,7 @@ class Shipping extends Component {
                       <span>Products Total : </span>
                       {total}
                     </CardText>
-                    <CardText style={{ color: "black" }}>
+                    <CardText style={{ color: "red" }}>
                       <span>Shipping Charges: </span>
                       {this.shippingCharges()}
                     </CardText>

@@ -811,7 +811,8 @@ export const placeOrder = (
   shipping_charges,
   payment_mode,
   order_channel,
-  order_notes
+  order_notes,
+  time_slot
 ) => (dispatch) => {
   dispatch(brandProductsLoading(true));
   alert(cart_id);
@@ -826,6 +827,7 @@ export const placeOrder = (
       payment_mode: payment_mode,
       order_channel: order_channel,
       order_notes: order_notes,
+      time_slot: time_slot,
     }),
     headers: {
       "Content-Type": "application/json",
@@ -929,4 +931,53 @@ export const orderdetailsFailed = (errmess) => ({
 export const orderdetailsAdd = (orderdetails) => ({
   type: ActionTypes.ORDERSDETAILS_ADD,
   payload: orderdetails,
+});
+
+export const fetchTimeslots = (branch_id) => (dispatch) => {
+  dispatch(timeslotsLoading(true));
+  return fetch(baseUrl + "timeslots", {
+    method: "POST",
+    body: JSON.stringify({
+      branch_id: branch_id,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "same-origin",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((timeslots) => {
+      dispatch(timeslotsAdd(timeslots));
+    })
+    .catch((error) => dispatch(timeslotsFailed(error.message)));
+};
+
+export const timeslotsLoading = () => ({
+  type: ActionTypes.TIMESLOT_LOADING,
+});
+
+export const timeslotsFailed = (errmess) => ({
+  type: ActionTypes.TIMESLOT_FAILED,
+  payload: errmess,
+});
+export const timeslotsAdd = (timeslots) => ({
+  type: ActionTypes.TIMESLOT_ADD,
+  payload: timeslots,
 });
