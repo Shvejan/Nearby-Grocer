@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import logo from "./images/logo-big.png";
-import { Tab, Tabs } from "react-bootstrap";
 import { baseUrl } from "../shared/baseUrl";
 import { connect } from "react-redux";
 import cart from "./images/cart.png";
@@ -8,15 +6,6 @@ import avatar from "./images/avatar.png";
 import searchimg from "./images/searchimg.png";
 
 import {
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Nav,
-  Navbar,
-  Collapse,
-  NavItem,
-  NavbarToggler,
   Modal,
   ModalHeader,
   ModalBody,
@@ -27,7 +16,7 @@ import {
   Button,
   Badge,
 } from "reactstrap";
-import { NavLink, Redirect } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import location from "./images/location.png";
 import { fetchStores, addPincode, fetchSearch } from "../redux/ActionCreators";
 import RecievedStores from "./RecievedStores";
@@ -173,6 +162,7 @@ class Header extends Component {
 
   cartTotal = () => {
     let total = 0;
+    // eslint-disable-next-line array-callback-return
     this.props.cart.products.map((p) => {
       total += p.quantity;
     });
@@ -263,8 +253,6 @@ class Header extends Component {
     this.toggleOtpModal();
   };
   search = () => {
-    const key = document.getElementById("search").value;
-
     this.props.fetchSearch(
       sessionStorage.getItem("branch_id"),
       document.getElementById("search").value,
@@ -279,6 +267,7 @@ class Header extends Component {
             src={avatar}
             style={{ height: "40px", cursor: "pointer" }}
             onClick={this.toggleLoginModel}
+            alt=""
           />
         </NavLink>
       );
@@ -288,14 +277,13 @@ class Header extends Component {
           src={avatar}
           style={{ height: "40px", cursor: "pointer" }}
           onClick={this.toggleLoginModel}
+          alt=""
         />
       );
     }
   };
   click = () => {
     try {
-      const key = document.getElementById("search").value;
-
       this.props.fetchSearch(
         sessionStorage.getItem("branch_id"),
         document.getElementById("search").value,
@@ -357,6 +345,7 @@ class Header extends Component {
                     <img
                       src={searchimg}
                       style={{ height: "20px", width: "20px" }}
+                      alt=""
                     />
                   </button>
                 </NavLink>
@@ -369,13 +358,18 @@ class Header extends Component {
               src={location}
               style={{ height: "40px", width: "40px", cursor: "pointer" }}
               onClick={() => this.toggleLocModal()}
+              alt=""
             />
           </div>
           <div className="col-1">{this.userDetails()}</div>
           <div className="col-1">
             <NavLink to="/checkout">
               <div>
-                <img src={cart} style={{ height: "40px", width: "40px" }} />
+                <img
+                  src={cart}
+                  style={{ height: "40px", width: "40px" }}
+                  alt=""
+                />
                 <Badge color="secondary">{this.cartTotal()}</Badge>
               </div>
             </NavLink>
@@ -481,6 +475,7 @@ class Header extends Component {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
+// eslint-disable-next-line no-lone-blocks
 {
   /*<Navbar light expand="md" className="mainNav">
           <div className="container just-content-center">
