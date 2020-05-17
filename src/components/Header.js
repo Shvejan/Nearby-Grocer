@@ -231,179 +231,187 @@ class Header extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="row" style={{ height: "80px", padding: "20px" }}>
-          <div className="col-3">
-            <NavLink to="/">
-              <div className="row">
-                <div className="col-2">
-                  <img
-                    src={sessionStorage.getItem("branch_logo")}
-                    alt="Logo"
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                    }}
-                  />
-                </div>
-                <div className="col-7">
-                  <Label
-                    style={{
-                      color: "black",
-                      fontWeight: "bold",
-                      cursor: "pointer",
-                    }}
-                  >
-                    {sessionStorage.getItem("branch_name")}
-                  </Label>
-                </div>
-              </div>
-            </NavLink>
-          </div>
-          <form action="/searchresults" method="get">
-            <div className="row">
-              <div className="col-9 ">
-                <input
-                  id="search"
-                  type="text"
-                  placeholder="search"
-                  className="search"
-                ></input>
-              </div>
-              <div className="col-3">
-                <NavLink to="/searchresults/">
-                  <button
-                    onClick={this.search}
-                    type="submit"
-                    className="searchbtn"
-                  >
-                    {" "}
+        <div className="sticky-top">
+          <div
+            className="row header"
+            style={{
+              height: "80px",
+              padding: "20px",
+            }}
+          >
+            <div className="col-3">
+              <NavLink to="/">
+                <div className="row">
+                  <div className="col-2">
                     <img
-                      src={searchimg}
-                      style={{ height: "20px", width: "20px" }}
-                      alt=""
+                      src={sessionStorage.getItem("branch_logo")}
+                      alt="Logo"
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                      }}
                     />
-                  </button>
-                </NavLink>
-              </div>
+                  </div>
+                  <div className="col-7">
+                    <Label
+                      style={{
+                        color: "black",
+                        fontWeight: "bold",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {sessionStorage.getItem("branch_name")}
+                    </Label>
+                  </div>
+                </div>
+              </NavLink>
             </div>
-          </form>
-
-          <div className="col-1 offset-1">
-            <img
-              src={location}
-              style={{ height: "40px", width: "40px", cursor: "pointer" }}
-              onClick={() => this.toggleLocModal()}
-              alt=""
-            />
-          </div>
-          <div className="col-1">{this.userDetails()}</div>
-          <div className="col-1">
-            <NavLink to="/checkout">
-              <div>
-                <img
-                  src={cart}
-                  style={{ height: "40px", width: "40px" }}
-                  alt=""
-                />
-                <Badge color="secondary">{this.cartTotal()}</Badge>
+            <form action="/searchresults" method="get">
+              <div className="row">
+                <div className="col-9 ">
+                  <input
+                    id="search"
+                    type="text"
+                    placeholder="search"
+                    className="search"
+                  ></input>
+                </div>
+                <div className="col-3">
+                  <NavLink to="/searchresults/">
+                    <button
+                      onClick={this.search}
+                      type="submit"
+                      className="searchbtn"
+                    >
+                      {" "}
+                      <img
+                        src={searchimg}
+                        style={{ height: "20px", width: "20px" }}
+                        alt=""
+                      />
+                    </button>
+                  </NavLink>
+                </div>
               </div>
-            </NavLink>
+            </form>
+
+            <div className="col-1 offset-1">
+              <img
+                src={location}
+                style={{ height: "40px", width: "40px", cursor: "pointer" }}
+                onClick={() => this.toggleLocModal()}
+                alt=""
+              />
+            </div>
+            <div className="col-1">{this.userDetails()}</div>
+            <div className="col-1">
+              <NavLink to="/checkout">
+                <div>
+                  <img
+                    src={cart}
+                    style={{ height: "40px", width: "40px" }}
+                    alt=""
+                  />
+                  <Badge color="secondary">{this.cartTotal()}</Badge>
+                </div>
+              </NavLink>
+            </div>
           </div>
+          {/*nav bar*/}
+          <Modal isOpen={this.state.loginModel} toggle={this.toggleLoginModel}>
+            <ModalHeader toggle={this.toggleLoginModel}>
+              Mobile Number
+            </ModalHeader>
+
+            <div className="justify-content-center">
+              <Form onSubmit={this.handleMobile}>
+                <FormGroup>
+                  <Input
+                    type="number"
+                    id="mobile"
+                    name="mobile"
+                    innerRef={(input) => (this.mobile = input)}
+                  />
+                </FormGroup>
+                <Button type="submit" value="submit" color="primary">
+                  Request OTP
+                </Button>
+              </Form>
+            </div>
+          </Modal>
+          <Modal isOpen={this.state.otpModal} toggle={this.toggleOtpModal}>
+            <ModalHeader toggle={this.toggleOtpModal}>OTP</ModalHeader>
+
+            <div className="justify-content-center">
+              <Form onSubmit={this.handleOtp}>
+                <FormGroup>
+                  <Input
+                    type="number"
+                    id="otp"
+                    name="otp"
+                    innerRef={(input) => (this.otp = input)}
+                  />
+                </FormGroup>
+                <Button type="submit" value="submit" color="primary">
+                  Submit
+                </Button>
+              </Form>
+            </div>
+          </Modal>
+          <Modal
+            isOpen={this.state.cartModal}
+            toggle={this.toggleCartModal}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            dialogClassName="cart-modal"
+          >
+            <ModalHeader toggle={this.toggleCartModal}>Your Cart</ModalHeader>
+            <ModalBody>
+              <div className="container">
+                <p> item1</p>
+                <p> item2</p>
+                <p> item3</p>
+              </div>
+              <hr />
+              <NavLink to="/checkout">
+                <Button color="success">Checkout</Button>
+              </NavLink>
+            </ModalBody>
+          </Modal>
+          <Modal isOpen={this.state.locationModal} toggle={this.toggleLocModal}>
+            <ModalHeader toggle={this.toggleLocModal}>
+              Enter Your Pincode
+            </ModalHeader>
+            <ModalBody>
+              <Form onSubmit={this.handleLocation}>
+                <FormGroup>
+                  <Input
+                    type="number"
+                    id="pincode"
+                    name="pincode"
+                    innerRef={(input) => (this.pincode = input)}
+                  />
+                </FormGroup>
+                <Button type="submit" value="submit" color="primary">
+                  Search
+                </Button>
+              </Form>
+            </ModalBody>
+          </Modal>
+          <Modal isOpen={this.state.storeModal} toggle={this.toggleSelectStore}>
+            <ModalHeader toggle={this.toggleSelectStore}>
+              Avaliable stores at your location
+            </ModalHeader>
+
+            <ModalBody>
+              <RecievedStores
+                stores={this.props.stores}
+                toggleStoresModal={this.toggleSelectStore}
+              />
+            </ModalBody>
+          </Modal>
         </div>
-        {/*nav bar*/}
-        <Modal isOpen={this.state.loginModel} toggle={this.toggleLoginModel}>
-          <ModalHeader toggle={this.toggleLoginModel}>
-            Mobile Number
-          </ModalHeader>
-
-          <div className="justify-content-center">
-            <Form onSubmit={this.handleMobile}>
-              <FormGroup>
-                <Input
-                  type="number"
-                  id="mobile"
-                  name="mobile"
-                  innerRef={(input) => (this.mobile = input)}
-                />
-              </FormGroup>
-              <Button type="submit" value="submit" color="primary">
-                Request OTP
-              </Button>
-            </Form>
-          </div>
-        </Modal>
-        <Modal isOpen={this.state.otpModal} toggle={this.toggleOtpModal}>
-          <ModalHeader toggle={this.toggleOtpModal}>OTP</ModalHeader>
-
-          <div className="justify-content-center">
-            <Form onSubmit={this.handleOtp}>
-              <FormGroup>
-                <Input
-                  type="number"
-                  id="otp"
-                  name="otp"
-                  innerRef={(input) => (this.otp = input)}
-                />
-              </FormGroup>
-              <Button type="submit" value="submit" color="primary">
-                Submit
-              </Button>
-            </Form>
-          </div>
-        </Modal>
-        <Modal
-          isOpen={this.state.cartModal}
-          toggle={this.toggleCartModal}
-          size="lg"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-          dialogClassName="cart-modal"
-        >
-          <ModalHeader toggle={this.toggleCartModal}>Your Cart</ModalHeader>
-          <ModalBody>
-            <div className="container">
-              <p> item1</p>
-              <p> item2</p>
-              <p> item3</p>
-            </div>
-            <hr />
-            <NavLink to="/checkout">
-              <Button color="success">Checkout</Button>
-            </NavLink>
-          </ModalBody>
-        </Modal>
-        <Modal isOpen={this.state.locationModal} toggle={this.toggleLocModal}>
-          <ModalHeader toggle={this.toggleLocModal}>
-            Enter Your Pincode
-          </ModalHeader>
-          <ModalBody>
-            <Form onSubmit={this.handleLocation}>
-              <FormGroup>
-                <Input
-                  type="number"
-                  id="pincode"
-                  name="pincode"
-                  innerRef={(input) => (this.pincode = input)}
-                />
-              </FormGroup>
-              <Button type="submit" value="submit" color="primary">
-                Search
-              </Button>
-            </Form>
-          </ModalBody>
-        </Modal>
-        <Modal isOpen={this.state.storeModal} toggle={this.toggleSelectStore}>
-          <ModalHeader toggle={this.toggleSelectStore}>
-            Avaliable stores at your location
-          </ModalHeader>
-
-          <ModalBody>
-            <RecievedStores
-              stores={this.props.stores}
-              toggleStoresModal={this.toggleSelectStore}
-            />
-          </ModalBody>
-        </Modal>
       </React.Fragment>
     );
   }

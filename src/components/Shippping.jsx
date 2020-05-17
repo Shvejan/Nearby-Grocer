@@ -329,26 +329,28 @@ class Shipping extends Component {
                 </Card>
               </Col>
               <Col sm="4">
-                <Card>
-                  <CardHeader className="total">Bill</CardHeader>
-                  <CardBody>
-                    <CardText style={{ color: "black" }}>
-                      <span>Products Total : </span>
-                      {total}
-                    </CardText>
-                    <CardText style={{ color: "red" }}>
-                      <span>Shipping Charges: </span>
-                      {this.shippingCharges()}
-                    </CardText>
-                  </CardBody>
-                  <CardFooter>
-                    <NavLink to="/">
-                      <Button color="primary" onClick={this.placeOrder}>
-                        Place Order
-                      </Button>
-                    </NavLink>
-                  </CardFooter>
-                </Card>
+                <div className="sticky">
+                  <Card>
+                    <CardHeader className="total">Bill</CardHeader>
+                    <CardBody>
+                      <CardText style={{ color: "black" }}>
+                        <span>Products Total : </span>
+                        {total}
+                      </CardText>
+                      <CardText style={{ color: "red" }}>
+                        <span>Shipping Charges: </span>
+                        {this.shippingCharges()}
+                      </CardText>
+                    </CardBody>
+                    <CardFooter>
+                      <NavLink to="/">
+                        <Button color="primary" onClick={this.placeOrder}>
+                          Place Order
+                        </Button>
+                      </NavLink>
+                    </CardFooter>
+                  </Card>
+                </div>
               </Col>
             </Row>
           </div>

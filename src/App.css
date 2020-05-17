@@ -214,3 +214,11 @@
   height: 220px;
   width: auto;
 }
+div.sticky {
+  top: 100px;
+  position: sticky;
+  width: 100%;
+}
+.header {
+  background-color: #d1ffb6;
+}

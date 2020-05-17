@@ -27,7 +27,7 @@ const RecievedStores = (props) => {
   };
   if (props.stores.isLoading) {
     return <Loading />;
-  } else if (props.stores.stores.STATUS == "Failure") {
+  } else if (props.stores.stores.STATUS === "Failure") {
     return <h4>No stores avaliable at this location</h4>;
   } else {
     return (
@@ -40,7 +40,7 @@ const RecievedStores = (props) => {
             <Card className="storeCard">
               <div className="row justify-content-center">
                 <div className="col-5 align-items-center">
-                  <img src={s.logo} className="storeImage" />
+                  <img src={s.logo} className="storeImage" alt="" />
                 </div>
                 <div className="col">
                   <h6>{s.branch_name}</h6>
