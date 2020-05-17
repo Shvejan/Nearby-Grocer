@@ -13,6 +13,9 @@ import {
   CardBody,
   CardFooter,
   Input,
+  Modal,
+  ModalBody,
+  ModalHeader,
 } from "reactstrap";
 import {
   fetchAddress,
@@ -118,12 +121,20 @@ const AddressSection = (props) => {
       <Collapse isOpen={collapse}>
         <Card>
           <CardBody>
-            <CardTitle className="total">{props.addressSection()}</CardTitle>
-            <CardText></CardText>
+            <CardTitle>
+              <Button
+                color="warning"
+                onClick={() => props.toggleModal()}
+                style={{ marginBottom: "1rem", width: "100%" }}
+              >
+                Add Address
+              </Button>
+            </CardTitle>
+            <CardText className="total">{props.addressSection()}</CardText>
           </CardBody>
           <CardFooter>
             <NavLink to="/shipping">
-              <Button className="placeOrder" color="warning" onClick={toggle}>
+              <Button className="placeOrder" color="warning">
                 Continue >
               </Button>
             </NavLink>
@@ -213,8 +224,13 @@ const Times = (props) => {
 class Shipping extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      isModalOpen: false,
+    };
   }
+  toggleModal = () => {
+    this.setState({ isModalOpen: !this.state.isModalOpen });
+  };
   componentDidMount() {
     this.props.fetchAddress(285);
     this.props.fetchTimeslots(sessionStorage.getItem("branch_id"));
@@ -324,7 +340,10 @@ class Shipping extends Component {
             <Row>
               <Col sm="8">
                 <Card>
-                  <AddressSection addressSection={this.addressSection} />
+                  <AddressSection
+                    toggleModal={this.toggleModal}
+                    addressSection={this.addressSection}
+                  />
                   <TimeSlots renderTimeslots={this.renderTimeslots} />
                 </Card>
               </Col>
@@ -355,6 +374,16 @@ class Shipping extends Component {
             </Row>
           </div>
         </div>
+        <Modal
+          isOpen={this.state.isModalOpen}
+          toggle={this.toggleModal}
+          scrollable={true}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <ModalHeader toggle={this.toggleModal}>Address Details</ModalHeader>
+          <ModalBody>addresseseaeefadf</ModalBody>
+        </Modal>
       </React.Fragment>
     );
   }

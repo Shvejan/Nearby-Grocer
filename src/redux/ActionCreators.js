@@ -991,3 +991,43 @@ export const timeslotsAdd = (timeslots) => ({
   type: ActionTypes.TIMESLOT_ADD,
   payload: timeslots,
 });
+
+export const addAddress = (customer_id, address) => (dispatch) => {
+  return fetch(baseUrl + "shpaddr", {
+    method: "POST",
+    body: JSON.stringify([
+      {
+        shipping_address_id: "",
+        customer_id: customer_id,
+        shipping_address: address,
+      },
+    ]),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "same-origin",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((jresp) => {
+      alert(JSON.stringify(jresp));
+      dispatch(fetchAddress(customer_id));
+    })
+    .catch((error) => dispatch(alert("address could not be added")));
+};
