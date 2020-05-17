@@ -219,11 +219,13 @@ class UserAddress extends Component {
     this.state = {};
   }
   componentDidMount() {
-    this.props.fetchOrders(285);
+    this.props.fetchOrders(sessionStorage.getItem("userId"));
   }
   orderDetails = () => {
     if (this.props.orders.isLoading) {
       return <Loading />;
+    } else if (this.props.orders.errMess) {
+      return this.props.orders.errMess;
     } else {
       return (
         <React.Fragment>
@@ -238,7 +240,9 @@ class UserAddress extends Component {
       );
     }
   };
-
+  handleLogout = () => {
+    sessionStorage.removeItem("userId");
+  };
   render() {
     return (
       <React.Fragment>
@@ -259,13 +263,18 @@ class UserAddress extends Component {
                   src={logo}
                   className="fluid"
                   style={{ width: 150, height: 75, marginTop: "50px" }}
+                  alt=""
                 />
               </div>
               <div className="col-6">
                 <h1 className="checkoutHeader">Account</h1>
               </div>
               <div className="col-2">
-                <Button className="clearCartbtn">Logout</Button>
+                <NavLink to="/">
+                  <Button className="clearCartbtn" onClick={this.handleLogout}>
+                    Logout
+                  </Button>
+                </NavLink>
               </div>
             </div>
             <Row>

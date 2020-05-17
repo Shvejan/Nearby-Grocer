@@ -40,17 +40,8 @@ class Header extends Component {
     super(props);
 
     this.toggle = this.toggle.bind(this);
-    this.onMouseEnter = this.onMouseEnter.bind(this);
-    this.onMouseLeave = this.onMouseLeave.bind(this);
+
     this.state = {
-      dropdownOpen1: false,
-      dropdownOpen2: false,
-      dropdownOpen3: false,
-      dropdownOpen4: false,
-      dropdownOpen5: false,
-      dropdownOpen6: false,
-      dropdownOpen7: false,
-      dropdownOpen8: false,
       toggleNav: false,
       loginModel: false,
       activeTab: "1",
@@ -63,7 +54,7 @@ class Header extends Component {
     };
   }
   componentDidMount() {
-    if (sessionStorage.getItem("pincode") === "false") {
+    if (sessionStorage.getItem("pincode") === null) {
       this.toggleLocModal();
     }
   }
@@ -83,67 +74,7 @@ class Header extends Component {
       cartModal: !this.state.cartModal,
     });
   };
-  onMouseEnter(id) {
-    switch (id) {
-      case 1:
-        this.setState({ dropdownOpen1: true });
-        return;
-      case 2:
-        this.setState({ dropdownOpen2: true });
-        return;
-      case 3:
-        this.setState({ dropdownOpen3: true });
-        return;
-      case 4:
-        this.setState({ dropdownOpen4: true });
-        return;
-      case 5:
-        this.setState({ dropdownOpen5: true });
-        return;
-      case 6:
-        this.setState({ dropdownOpen6: true });
-        return;
-      case 7:
-        this.setState({ dropdownOpen7: true });
-        return;
-      case 8:
-        this.setState({ dropdownOpen8: true });
-        return;
-      default:
-        return;
-    }
-  }
 
-  onMouseLeave(id) {
-    switch (id) {
-      case 1:
-        this.setState({ dropdownOpen1: false });
-        return;
-      case 2:
-        this.setState({ dropdownOpen2: false });
-        return;
-      case 3:
-        this.setState({ dropdownOpen3: false });
-        return;
-      case 4:
-        this.setState({ dropdownOpen4: false });
-        return;
-      case 5:
-        this.setState({ dropdownOpen5: false });
-        return;
-      case 6:
-        this.setState({ dropdownOpen6: false });
-        return;
-      case 7:
-        this.setState({ dropdownOpen7: false });
-        return;
-      case 8:
-        this.setState({ dropdownOpen8: false });
-        return;
-      default:
-        return;
-    }
-  }
   toggleNav = () => {
     this.setState({ toggleNav: !this.state.toggleNav });
   };
@@ -210,7 +141,6 @@ class Header extends Component {
       )
       .then((response) => response.json())
       .then((jres) => {
-        alert(JSON.stringify(jres.DATA));
         this.setState({ loginData: jres.DATA });
         alert("OTP sent");
       })
@@ -218,11 +148,9 @@ class Header extends Component {
     event.preventDefault();
   };
   handleOtp = (event) => {
-    event.preventDefault();
     const response = this.state.loginData;
     response["mobile_no"] = this.state.mobile;
     response["otp"] = this.otp.value;
-    alert(JSON.stringify(response));
     fetch(baseUrl + "custsignin", {
       method: "POST",
       body: JSON.stringify(response),
@@ -248,10 +176,17 @@ class Header extends Component {
           throw errmess;
         }
       )
-      .then((response) => alert(JSON.stringify(response)))
-      .catch((error) => alert(error.message));
+      .then((response) => response.json())
+      .then((jres) => {
+        sessionStorage.setItem("userId", parseInt(jres.DATA["customer_id"]));
+        alert(sessionStorage.getItem("userId"));
+        alert("login successful");
+      })
+      .catch((error) => alert(error));
     this.toggleOtpModal();
+    event.preventDefault();
   };
+
   search = () => {
     this.props.fetchSearch(
       sessionStorage.getItem("branch_id"),
@@ -260,7 +195,7 @@ class Header extends Component {
     );
   };
   userDetails = () => {
-    if (true) {
+    if (sessionStorage.getItem("userId")) {
       return (
         <NavLink to="/account">
           <img
