@@ -2,7 +2,7 @@ import { Loading } from "./Loading";
 import React from "react";
 import "./css/recievedStores.css";
 import { Card } from "react-bootstrap";
-import { fetchMainCat } from "../redux/ActionCreators";
+import { fetchMainCat, cartClear } from "../redux/ActionCreators";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
@@ -10,6 +10,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => ({
   fetchMainCat: (branch_id) => dispatch(fetchMainCat(branch_id)),
+  cartClear: () => dispatch(cartClear()),
 });
 
 const RecievedStores = (props) => {
@@ -22,6 +23,7 @@ const RecievedStores = (props) => {
     window.location.reload(true);
     props.toggleStoresModal();
     props.fetchMainCat(branch_id);
+    props.cartClear();
   };
   if (props.stores.isLoading) {
     return <Loading />;

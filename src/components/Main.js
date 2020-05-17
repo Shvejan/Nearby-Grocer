@@ -29,9 +29,6 @@ const mapDispatchToProps = (dispatch) => ({
   fetchBanners: (branch_id) => dispatch(fetchBanners(branch_id)),
 });
 class Main extends Component {
-  constructor(props) {
-    super(props);
-  }
   componentDidMount() {
     const pin = sessionStorage.getItem("pincode");
     const branch = sessionStorage.getItem("branch_id");

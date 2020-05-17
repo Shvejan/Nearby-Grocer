@@ -20,7 +20,6 @@ import {
   placeOrder,
   fetchTimeslots,
 } from "../redux/ActionCreators";
-import Switch from "react-switch";
 import { Loading } from "./Loading";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -291,6 +290,7 @@ class Shipping extends Component {
 
   render() {
     let total = 0;
+    // eslint-disable-next-line array-callback-return
     this.props.cart.products.map((p) => {
       total += p.product.selling_price * p.quantity;
     });
@@ -313,6 +313,7 @@ class Shipping extends Component {
                   src={logo}
                   className="fluid"
                   style={{ width: 150, height: 75, marginTop: "50px" }}
+                  alt=""
                 />
               </div>
               <div className="col-6">
