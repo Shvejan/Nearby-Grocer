@@ -12,8 +12,6 @@ import {
   CardHeader,
   CardBody,
   CardFooter,
-  Form,
-  FormGroup,
   Input,
 } from "reactstrap";
 import {
@@ -22,6 +20,7 @@ import {
   placeOrder,
   fetchTimeslots,
 } from "../redux/ActionCreators";
+import Switch from "react-switch";
 import { Loading } from "./Loading";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -48,7 +47,8 @@ const mapDispatchToProps = (dispatch) => ({
     payment_mode,
     order_channel,
     order_notes,
-    time_slot
+    time_slot,
+    preference
   ) =>
     dispatch(
       placeOrder(
@@ -60,7 +60,8 @@ const mapDispatchToProps = (dispatch) => ({
         payment_mode,
         order_channel,
         order_notes,
-        time_slot
+        time_slot,
+        preference
       )
     ),
 });
@@ -68,37 +69,35 @@ const mapDispatchToProps = (dispatch) => ({
 class AddressList extends Component {
   render() {
     return (
-      <FormGroup check>
-        <div className="row">
-          <div className="col-6">
-            <span>Address {this.props.index + 1} </span>
-            <br />
-            <span>{this.props.address.first_name} </span>
-            <span>{this.props.address.last_name} </span>
-            <br />
-            <span>{this.props.address.pincode}</span>
-            <p>{this.props.address.line_1}</p>
-            <hr />
-          </div>
-          <div className="col offset-3">
-            <Input
-              type="radio"
-              name="address"
-              onClick={() => {
-                sessionStorage.setItem(
-                  "shipping_address_id",
-                  this.props.address.shipping_address_id
-                );
-                this.props.fetchcharges(
-                  sessionStorage.getItem("branch_id"),
-                  this.props.address.pincode,
-                  sessionStorage.getItem("cart_id")
-                );
-              }}
-            />
-          </div>
+      <div className="row">
+        <div className="col-6">
+          <span>Address {this.props.index + 1} </span>
+          <br />
+          <span>{this.props.address.first_name} </span>
+          <span>{this.props.address.last_name} </span>
+          <br />
+          <span>{this.props.address.pincode}</span>
+          <p>{this.props.address.line_1}</p>
+          <hr />
         </div>
-      </FormGroup>
+        <div className="col offset-3">
+          <Input
+            type="radio"
+            name="address"
+            onClick={() => {
+              sessionStorage.setItem(
+                "shipping_address_id",
+                this.props.address.shipping_address_id
+              );
+              this.props.fetchcharges(
+                sessionStorage.getItem("branch_id"),
+                this.props.address.pincode,
+                sessionStorage.getItem("cart_id")
+              );
+            }}
+          />
+        </div>
+      </div>
     );
   }
 }
@@ -153,6 +152,25 @@ const TimeSlots = (props) => {
         <Card>
           <CardBody>
             <CardTitle className="total">{props.renderTimeslots()}</CardTitle>
+            <div class="btn-group" data-toggle="buttons">
+              <label
+                class="btn btn-primary"
+                onClick={() => {
+                  sessionStorage.setItem("order_pref", "home delevery");
+                }}
+              >
+                <input type="radio" name="options" id="option1" checked /> Home
+                Delivery
+              </label>
+              <label
+                class="btn btn-primary"
+                onClick={() => {
+                  sessionStorage.setItem("order_pref", "store pickup");
+                }}
+              >
+                <input type="radio" name="options" id="option2" /> Store Pickup
+              </label>
+            </div>
           </CardBody>
           <CardFooter>
             <NavLink to="/shipping">
@@ -248,7 +266,8 @@ class Shipping extends Component {
         "COD",
         "Web",
         document.getElementById("note").value,
-        sessionStorage.getItem("timeslot")
+        sessionStorage.getItem("timeslot"),
+        sessionStorage.getItem("order_pref")
       );
     } else {
       alert("select an address and timeslot");

@@ -63,9 +63,7 @@ export const fetchMainCat = (branchId) => (dispatch) => {
     .then((mainCat) => {
       dispatch(mainCatAdd(mainCat));
       dispatch(fetchCatmix(mainCat.DATA[0].category_id, branchId, 20));
-      alert(mainCat.DATA[0].category_id);
       dispatch(fetchCatmix1(mainCat.DATA[1].category_id, branchId, 20));
-      alert(mainCat.DATA[1].category_id);
 
       //dispatch(fetchCatmix2(mainCat.DATA[2].category_id, branchId, 20));
       //dispatch(fetchCatmix3(mainCat.DATA[3].category_id, branchId, 20));
@@ -466,7 +464,6 @@ export const fetchCatmix1 = (main_category_id, branch_id, limit) => (
     )
     .then((response) => response.json())
     .then((catmix1) => {
-      alert("catmix1");
       dispatch(catmixAdd1(catmix1));
     })
     .catch((error) => dispatch(catmixFailed1(error.message)));
@@ -823,7 +820,8 @@ export const placeOrder = (
   payment_mode,
   order_channel,
   order_notes,
-  time_slot
+  time_slot,
+  preference
 ) => (dispatch) => {
   dispatch(brandProductsLoading(true));
   alert(cart_id);
@@ -839,6 +837,7 @@ export const placeOrder = (
       order_channel: order_channel,
       order_notes: order_notes,
       time_slot: time_slot,
+      preference: preference,
     }),
     headers: {
       "Content-Type": "application/json",

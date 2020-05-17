@@ -23,6 +23,7 @@
     "react-scripts": "3.4.1",
     "react-slick": "^0.25.2",
     "react-slideshow-image": "^1.4.2",
+    "react-switch": "^5.0.1",
     "react-transition-group": "^4.4.0",
     "reactstrap": "^8.4.1",
     "redux": "^4.0.5",
