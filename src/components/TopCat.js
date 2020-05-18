@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Card, Button } from "reactstrap";
