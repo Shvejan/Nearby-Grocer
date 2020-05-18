@@ -11,9 +11,6 @@ import {
   CardHeader,
   CardBody,
   CardFooter,
-  Form,
-  FormGroup,
-  Input,
 } from "reactstrap";
 import {
   cartAdd,
@@ -61,9 +58,6 @@ class ProductsList extends Component {
 }
 
 class Checkout extends Component {
-  constructor(props) {
-    super(props);
-  }
   componentDidMount() {
     sessionStorage.setItem("shipping_address_id", "");
     sessionStorage.setItem("timeslot", "");
@@ -103,6 +97,7 @@ class Checkout extends Component {
                   src={logo}
                   className="fluid"
                   style={{ width: 150, height: 75, marginTop: "50px" }}
+                  alt=""
                 />
               </div>
               <div className="col-6">

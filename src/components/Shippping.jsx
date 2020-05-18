@@ -16,6 +16,8 @@ import {
   Modal,
   ModalBody,
   ModalHeader,
+  Form,
+  FormGroup,
 } from "reactstrap";
 import {
   fetchAddress,
@@ -103,6 +105,34 @@ class AddressList extends Component {
     );
   }
 }
+
+const ProductsSection = (props) => {
+  const [collapse, setCollapse] = useState(false);
+
+  const toggle = () => setCollapse(!collapse);
+
+  return (
+    <div>
+      <Button
+        color="primary"
+        onClick={toggle}
+        style={{ marginBottom: "1rem", width: "100%" }}
+      >
+        Order summary
+      </Button>
+      <Collapse isOpen={collapse}>
+        <Card>
+          <CardBody>
+            <CardText className="total">{"Products List"}</CardText>
+            <CardText>{props.allProducts()}</CardText>
+            <CardText className="total">total: {props.total}</CardText>
+          </CardBody>
+          <CardFooter></CardFooter>
+        </Card>
+      </Collapse>
+    </div>
+  );
+};
 
 const AddressSection = (props) => {
   const [collapse, setCollapse] = useState(false);
@@ -303,7 +333,21 @@ class Shipping extends Component {
       );
     }
   };
-
+  allProducts = () => {
+    return this.props.cart.products.map((p) => (
+      <div className="row" style={{ color: "black" }}>
+        <div className="col-6">
+          <span>{p.product.product_name} </span>
+        </div>
+        <div className="col">
+          <span>{p.quantity} </span>
+        </div>
+        <div className="col">
+          <span>{p.product.selling_price * p.quantity}</span>
+        </div>
+      </div>
+    ));
+  };
   render() {
     let total = 0;
     // eslint-disable-next-line array-callback-return
@@ -350,6 +394,10 @@ class Shipping extends Component {
               <Col sm="4">
                 <div className="sticky">
                   <Card>
+                    <ProductsSection
+                      allProducts={this.allProducts}
+                      total={total}
+                    />
                     <CardHeader className="total">Bill</CardHeader>
                     <CardBody>
                       <CardText style={{ color: "black" }}>
@@ -382,7 +430,61 @@ class Shipping extends Component {
           centered
         >
           <ModalHeader toggle={this.toggleModal}>Address Details</ModalHeader>
-          <ModalBody>addresseseaeefadf</ModalBody>
+          <ModalBody>
+            <Form onSubmit={this.handleLocation}>
+              <FormGroup>
+                <Input
+                  type="number"
+                  id="pincode"
+                  name="pincode"
+                  innerRef={(input) => (this.pincode = input)}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  type="number"
+                  id="pincode"
+                  name="pincode"
+                  innerRef={(input) => (this.pincode = input)}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  type="number"
+                  id="pincode"
+                  name="pincode"
+                  innerRef={(input) => (this.pincode = input)}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  type="number"
+                  id="pincode"
+                  name="pincode"
+                  innerRef={(input) => (this.pincode = input)}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  type="number"
+                  id="pincode"
+                  name="pincode"
+                  innerRef={(input) => (this.pincode = input)}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  type="number"
+                  id="pincode"
+                  name="pincode"
+                  innerRef={(input) => (this.pincode = input)}
+                />
+              </FormGroup>
+              <Button type="submit" value="submit" color="primary">
+                Add
+              </Button>
+            </Form>
+          </ModalBody>
         </Modal>
       </React.Fragment>
     );
