@@ -24,6 +24,7 @@ import {
   fetchShipcharges,
   placeOrder,
   fetchTimeslots,
+  addAddress,
 } from "../redux/ActionCreators";
 import { Loading } from "./Loading";
 import { connect } from "react-redux";
@@ -39,7 +40,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchAddress: (customer_id) => dispatch(fetchAddress(customer_id)),
   fetchTimeslots: (branch_id) => dispatch(fetchTimeslots(branch_id)),
-
+  addAddress: (customer_id, address) =>
+    dispatch(addAddress(customer_id, address)),
   fetchShipcharges: (branch_id, pincode, cart_id) =>
     dispatch(fetchShipcharges(branch_id, pincode, cart_id)),
   placeOrder: (
@@ -348,12 +350,32 @@ class Shipping extends Component {
       </div>
     ));
   };
+  handleNewAddress = (event) => {
+    let address = [];
+    address.push({ first_name: this.firstname.value });
+    address.push({ last_name: this.lastname.value });
+    address.push({ email_address: this.email.value });
+    address.push({ contact_no: this.mobile.value });
+    address.push({ contact_no_alternate: this.altmobile.value });
+    address.push({ country: this.country.value });
+    address.push({ state: this.states.value });
+    address.push({ city: this.city.value });
+    address.push({ pincode: this.pincode.value });
+    address.push({ area: this.area.value });
+    address.push({ area: this.area.value });
+    address.push({ landmark: this.landmark.value });
+    address.push({ line_1: this.address1.value });
+    address.push({ line_2: this.address2.value });
+    this.props.addAddress(sessionStorage.getItem("userId"), address);
+    event.preventDefault();
+  };
   render() {
     let total = 0;
     // eslint-disable-next-line array-callback-return
     this.props.cart.products.map((p) => {
       total += p.product.selling_price * p.quantity;
     });
+
     return (
       <React.Fragment>
         <Header />
@@ -431,13 +453,86 @@ class Shipping extends Component {
         >
           <ModalHeader toggle={this.toggleModal}>Address Details</ModalHeader>
           <ModalBody>
-            <Form onSubmit={this.handleLocation}>
+            <Form onSubmit={this.handleNewAddress}>
+              <FormGroup>
+                <Input
+                  type="text"
+                  id="firstname"
+                  name="firstname"
+                  innerRef={(input) => (this.firstname = input)}
+                  placeholder="firstname"
+                />
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  type="text"
+                  id="lastname"
+                  name="lastname"
+                  innerRef={(input) => (this.lastname = input)}
+                  placeholder="lastname"
+                />
+              </FormGroup>
               <FormGroup>
                 <Input
                   type="number"
-                  id="pincode"
-                  name="pincode"
-                  innerRef={(input) => (this.pincode = input)}
+                  id="mobile"
+                  name="mobile"
+                  innerRef={(input) => (this.mobile = input)}
+                  placeholder="mobile number"
+                />
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  type="number"
+                  id="altmobile"
+                  name="altmobile"
+                  innerRef={(input) => (this.altmobile = input)}
+                  placeholder="alternate mobile number"
+                />
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  type="email"
+                  id="email"
+                  name="email"
+                  innerRef={(input) => (this.email = input)}
+                  placeholder="email"
+                />
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  type="text"
+                  id="address1"
+                  name="address1"
+                  innerRef={(input) => (this.address1 = input)}
+                  placeholder="Address line 1"
+                />
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  type="text"
+                  id="address2"
+                  name="address2"
+                  innerRef={(input) => (this.address2 = input)}
+                  placeholder="Address line 2"
+                />
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  type="text"
+                  id="area"
+                  name="area"
+                  innerRef={(input) => (this.area = input)}
+                  placeholder="area"
+                />
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  type="text"
+                  id="landmark"
+                  name="landmark"
+                  innerRef={(input) => (this.landmark = input)}
+                  placeholder="landmark"
                 />
               </FormGroup>
               <FormGroup>
@@ -446,41 +541,37 @@ class Shipping extends Component {
                   id="pincode"
                   name="pincode"
                   innerRef={(input) => (this.pincode = input)}
+                  placeholder="pincode"
                 />
               </FormGroup>
               <FormGroup>
                 <Input
-                  type="number"
-                  id="pincode"
-                  name="pincode"
-                  innerRef={(input) => (this.pincode = input)}
+                  type="text"
+                  id="city"
+                  name="city"
+                  innerRef={(input) => (this.city = input)}
+                  placeholder="city"
                 />
               </FormGroup>
               <FormGroup>
                 <Input
-                  type="number"
-                  id="pincode"
-                  name="pincode"
-                  innerRef={(input) => (this.pincode = input)}
+                  type="text"
+                  id="states"
+                  name="states"
+                  innerRef={(input) => (this.states = input)}
+                  placeholder="state"
                 />
               </FormGroup>
               <FormGroup>
                 <Input
-                  type="number"
-                  id="pincode"
-                  name="pincode"
-                  innerRef={(input) => (this.pincode = input)}
+                  type="text"
+                  id="country"
+                  name="country"
+                  innerRef={(input) => (this.country = input)}
+                  placeholder="country"
                 />
               </FormGroup>
-              <FormGroup>
-                <Input
-                  type="number"
-                  id="pincode"
-                  name="pincode"
-                  innerRef={(input) => (this.pincode = input)}
-                />
-              </FormGroup>
-              <Button type="submit" value="submit" color="primary">
+              <Button color="primary" type="submit">
                 Add
               </Button>
             </Form>
