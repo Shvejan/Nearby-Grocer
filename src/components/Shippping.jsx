@@ -351,23 +351,23 @@ class Shipping extends Component {
     ));
   };
   handleNewAddress = (event) => {
-    let address = [];
-    address.push({ first_name: this.firstname.value });
-    address.push({ last_name: this.lastname.value });
-    address.push({ email_address: this.email.value });
-    address.push({ contact_no: this.mobile.value });
-    address.push({ contact_no_alternate: this.altmobile.value });
-    address.push({ country: this.country.value });
-    address.push({ state: this.states.value });
-    address.push({ city: this.city.value });
-    address.push({ pincode: this.pincode.value });
-    address.push({ area: this.area.value });
-    address.push({ area: this.area.value });
-    address.push({ landmark: this.landmark.value });
-    address.push({ line_1: this.address1.value });
-    address.push({ line_2: this.address2.value });
+    let address = {};
+    address["first_name"] = this.firstname.value;
+    address["last_name"] = this.lastname.value;
+    address["email_address"] = this.email.value;
+    address["contact_no"] = this.mobile.value;
+    address["contact_no_alternate"] = this.altmobile.value;
+    address["country"] = this.country.value;
+    address["state"] = this.states.value;
+    address["city"] = this.city.value;
+    address["pincode"] = this.pincode.value;
+    address["area"] = this.area.value;
+    address["landmark"] = this.landmark.value;
+    address["line_1"] = this.address1.value;
+    address["line_2"] = this.address2.value;
     this.props.addAddress(sessionStorage.getItem("userId"), address);
     event.preventDefault();
+    this.toggleModal();
   };
   render() {
     let total = 0;

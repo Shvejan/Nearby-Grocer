@@ -993,15 +993,13 @@ export const timeslotsAdd = (timeslots) => ({
 });
 
 export const addAddress = (customer_id, address) => (dispatch) => {
-  alert(customer_id);
-  alert(address);
   return fetch(baseUrl + "shpaddr", {
     method: "POST",
     body: JSON.stringify([
       {
-        shipping_address_id: "address123",
+        shipping_address_id: "",
         customer_id: customer_id,
-        shipping_address: address,
+        shipping_address: [address],
       },
     ]),
     headers: {
@@ -1029,6 +1027,7 @@ export const addAddress = (customer_id, address) => (dispatch) => {
     .then((response) => response.json())
     .then((jresp) => {
       alert(JSON.stringify(jresp));
+      dispatch(fetchAddress(customer_id));
     })
     .catch((error) => dispatch(alert(error.message)));
 };
