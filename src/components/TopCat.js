@@ -46,11 +46,17 @@ class TopCat extends Component {
                           to={`/categories/${c.category_id}/subcategories`}
                           style={{ textDecoration: "none", fontSize: "15px" }}
                         >
-                          <Card style={{ width: "200px", height: "200px" }}>
+                          <Card
+                            style={{ width: "200px", height: "200px" }}
+                            onClick={() =>
+                              sessionStorage.removeItem("selectedMainCat")
+                            }
+                          >
                             <div className="align-items-center">
                               <img
                                 src={c.image}
                                 style={{ width: "199px", height: "199px" }}
+                                alt=""
                               />
                             </div>
                           </Card>
@@ -73,11 +79,17 @@ class TopCat extends Component {
                           to={`/categories/${c.category_id}/subcategories`}
                           style={{ textDecoration: "none", fontSize: "15px" }}
                         >
-                          <Card style={{ width: "200px", height: "200px" }}>
+                          <Card
+                            style={{ width: "200px", height: "200px" }}
+                            onClick={() =>
+                              sessionStorage.removeItem("selectedMainCat")
+                            }
+                          >
                             <div className="align-items-center">
                               <img
                                 src={c.image}
                                 style={{ width: "199px", height: "199px" }}
+                                alt=""
                               />
                             </div>
                           </Card>
