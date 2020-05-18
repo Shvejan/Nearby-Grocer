@@ -227,30 +227,38 @@ const TimeSlots = (props) => {
   );
 };
 const Times = (props) => {
-  return (
-    <div>
-      <div className="row">
-        <div className="col-6">
-          <span>
-            {props.time.start_time}-{props.time.end_time}
-          </span>
-          <hr />
-        </div>
-        <div className="col offset-3">
-          <Input
-            type="radio"
-            name="time"
-            onClick={() => {
-              sessionStorage.setItem(
-                "timeslot",
-                `${props.time.start_time}-${props.time.end_time}`
-              );
-            }}
-          />
+  var today = new Date();
+  if (
+    today.getHours() - 12 <
+    parseInt(props.time.end_time.split(" ")[0].split(":")[0])
+  )
+    return (
+      <div>
+        <div className="row">
+          <div className="col-6">
+            <span>
+              {props.time.start_time}-{props.time.end_time}
+            </span>
+            <hr />
+          </div>
+          <div className="col offset-3">
+            <Input
+              type="radio"
+              name="time"
+              onClick={() => {
+                sessionStorage.setItem(
+                  "timeslot",
+                  `${props.time.start_time}-${props.time.end_time}`
+                );
+              }}
+            />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  else {
+    return <div></div>;
+  }
 };
 
 class Shipping extends Component {
