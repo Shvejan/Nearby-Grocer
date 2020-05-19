@@ -18,7 +18,6 @@ import { Shipcharges } from "./shipcharges";
 import { Orders } from "./orders";
 import { Orderdetails } from "./orderdetails";
 import { Timeslots } from "./timeslots";
-import { Catmix1 } from "./catmix1";
 export const ConfigureStore = () => {
   const store = createStore(
     combineReducers({
@@ -32,7 +31,6 @@ export const ConfigureStore = () => {
       search: Search,
       brandWiseProducts: BrandWiseProducts,
       catmix: Catmix,
-      catmix1: Catmix1,
 
       privateStore: PrivateStore,
       cart: Cart,

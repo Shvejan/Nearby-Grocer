@@ -15,26 +15,17 @@ import {
   Label,
   Button,
   Badge,
+  Dropdown,
 } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import location from "./components/images/location.png";
-import { fetchStores, addPincode, fetchSearch } from "./redux/ActionCreators";
+import RecievedStores from "./components/RecievedStores";
 const mapStateToProps = (state) => {
-  return {
-    stores: state.stores,
-    pincode: state.pincode,
-    cart: state.cart,
-  };
+  return {};
 };
-const mapDispatchToProps = (dispatch) => ({
-  fetchStores: (pincode) => dispatch(fetchStores(pincode)),
-  fetchSearch: (branch_id, keyword, limit) =>
-    dispatch(fetchSearch(branch_id, keyword, limit)),
+const mapDispatchToProps = (dispatch) => ({});
 
-  addPincode: () => dispatch(addPincode),
-});
-
-class Header extends Component {
+class Test extends Component {
   constructor(props) {
     super(props);
 
@@ -52,8 +43,13 @@ class Header extends Component {
       mobile: "",
     };
   }
+  componentDidMount() {
+    if (sessionStorage.getItem("pincode") === null) {
+      this.toggleLocModal();
+    }
+  }
 
-  toggle() {
+  toggle(id) {
     this.setState((prevState) => ({
       dropdownOpen: !prevState.dropdownOpen,
     }));
@@ -87,10 +83,7 @@ class Header extends Component {
 
   cartTotal = () => {
     let total = 0;
-    // eslint-disable-next-line array-callback-return
-    this.props.cart.products.map((p) => {
-      total += p.quantity;
-    });
+
     return total;
   };
   handleLocation = (event) => {
@@ -222,226 +215,63 @@ class Header extends Component {
       alert(error);
     }
   };
-
-  myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-  }
-
-  filterFunction() {
-    var input, filter, a, i;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    let div = document.getElementById("myDropdown");
-    a = div.getElementsByTagName("a");
-    for (i = 0; i < a.length; i++) {
-      let txtValue = a[i].textContent || a[i].innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        a[i].style.display = "";
-      } else {
-        a[i].style.display = "none";
-      }
-    }
-  }
-
   render() {
     return (
       <React.Fragment>
-        <div className="sticky-top">
-          <div
-            className="row header"
-            style={{
-              height: "80px",
-              padding: "20px",
-            }}
-          >
-            <div className="col-3">
-              <NavLink to="/">
-                <div className="row">
-                  <div className="col-2">
-                    <img
-                      src={sessionStorage.getItem("branch_logo")}
-                      alt="Logo"
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                      }}
-                    />
-                  </div>
-                  <div className="col-7">
-                    <Label
-                      style={{
-                        color: "black",
-                        fontWeight: "bold",
-                        cursor: "pointer",
-                      }}
-                    >
-                      {sessionStorage.getItem("branch_name")}
-                    </Label>
-                  </div>
-                </div>
-              </NavLink>
-            </div>
-            <div className="row">
-              <div className="col-9 ">
-                <div class="dropdown">
-                  <button
-                    onclick={() => this.myFunction()}
-                    class="dropbtn search"
-                  >
-                    Dropdown
-                  </button>
-                  <div id="myDropdown" class="dropdown-content">
-                    <input
-                      type="text"
-                      placeholder="Search.."
-                      id="myInput"
-                      onkeyup={() => this.filterFunction()}
-                    />
-                    <a href="#about">About</a>
-                    <a href="#base">Base</a>
-                    <a href="#blog">Blog</a>
-                    <a href="#contact">Contact</a>
-                    <a href="#custom">Custom</a>
-                    <a href="#support">Support</a>
-                    <a href="#tools">Tools</a>
-                  </div>
-                </div>
-              </div>
-              <div className="col-3">
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#exampleModal"
+        >
+          a dasf dasdf ad
+        </button>
+
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Modal title
+                </h5>
                 <button
-                  onClick={this.search}
-                  type="submit"
-                  className="searchbtn"
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
                 >
-                  {" "}
-                  <img
-                    src={searchimg}
-                    style={{ height: "20px", width: "20px" }}
-                    alt=""
-                  />
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">...</div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="button" class="btn btn-primary">
+                  Save changes
                 </button>
               </div>
             </div>
-
-            <div className="col-1 offset-1">
-              <img
-                src={location}
-                style={{ height: "40px", width: "40px", cursor: "pointer" }}
-                onClick={() => this.toggleLocModal()}
-                alt=""
-              />
-            </div>
-            <div className="col-1">{this.userDetails()}</div>
-            <div className="col-1">
-              <NavLink to="/checkout">
-                <div>
-                  <img
-                    src={cart}
-                    style={{ height: "40px", width: "40px" }}
-                    alt=""
-                  />
-                  <Badge color="secondary">{this.cartTotal()}</Badge>
-                </div>
-              </NavLink>
-            </div>
           </div>
-          {/*nav bar*/}
-          <Modal isOpen={this.state.loginModel} toggle={this.toggleLoginModel}>
-            <ModalHeader toggle={this.toggleLoginModel}>
-              Mobile Number
-            </ModalHeader>
-
-            <div className="justify-content-center">
-              <Form onSubmit={this.handleMobile}>
-                <FormGroup>
-                  <Input
-                    type="number"
-                    id="mobile"
-                    name="mobile"
-                    innerRef={(input) => (this.mobile = input)}
-                  />
-                </FormGroup>
-                <Button type="submit" value="submit" color="primary">
-                  Request OTP
-                </Button>
-              </Form>
-            </div>
-          </Modal>
-          <Modal isOpen={this.state.otpModal} toggle={this.toggleOtpModal}>
-            <ModalHeader toggle={this.toggleOtpModal}>OTP</ModalHeader>
-
-            <div className="justify-content-center">
-              <Form onSubmit={this.handleOtp}>
-                <FormGroup>
-                  <Input
-                    type="number"
-                    id="otp"
-                    name="otp"
-                    innerRef={(input) => (this.otp = input)}
-                  />
-                </FormGroup>
-                <Button type="submit" value="submit" color="primary">
-                  Submit
-                </Button>
-              </Form>
-            </div>
-          </Modal>
-          <Modal
-            isOpen={this.state.cartModal}
-            toggle={this.toggleCartModal}
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-            dialogClassName="cart-modal"
-          >
-            <ModalHeader toggle={this.toggleCartModal}>Your Cart</ModalHeader>
-            <ModalBody>
-              <div className="container">
-                <p> item1</p>
-                <p> item2</p>
-                <p> item3</p>
-              </div>
-              <hr />
-              <NavLink to="/checkout">
-                <Button color="success">Checkout</Button>
-              </NavLink>
-            </ModalBody>
-          </Modal>
-          <Modal isOpen={this.state.locationModal} toggle={this.toggleLocModal}>
-            <ModalHeader toggle={this.toggleLocModal}>
-              Enter Your Pincode
-            </ModalHeader>
-            <ModalBody>
-              <Form onSubmit={this.handleLocation}>
-                <FormGroup>
-                  <Input
-                    type="number"
-                    id="pincode"
-                    name="pincode"
-                    innerRef={(input) => (this.pincode = input)}
-                  />
-                </FormGroup>
-
-                <Button type="submit" value="submit" color="primary">
-                  Search
-                </Button>
-              </Form>
-            </ModalBody>
-          </Modal>
-          <Modal isOpen={this.state.storeModal} toggle={this.toggleSelectStore}>
-            <ModalHeader toggle={this.toggleSelectStore}>
-              Avaliable stores at your location
-            </ModalHeader>
-
-            <ModalBody></ModalBody>
-          </Modal>
         </div>
       </React.Fragment>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Test);
 // eslint-disable-next-line no-lone-blocks
 {
   /*<Navbar light expand="md" className="mainNav">
