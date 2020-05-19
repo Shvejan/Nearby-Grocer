@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import Slider from "react-slick";
 
 export default class Test extends Component {
+  componentDidMount() {
+    const arr = ["adfad", "adfasdfas", "afd"];
+    sessionStorage.setItem("catlist", arr);
+  }
   render() {
     const settings = {
       dots: true,
@@ -13,6 +17,8 @@ export default class Test extends Component {
     return (
       <div>
         <h2> Multiple items </h2>
+        <h2>{sessionStorage.getItem("catlist").split(",")[0]}</h2>
+
         <Slider {...settings}>
           <div>
             <h3>1</h3>

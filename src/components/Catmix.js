@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Loading } from "./Loading";
@@ -18,6 +19,7 @@ class Catmix extends Component {
     this.state = {};
   }
   render() {
+    const arr = sessionStorage.getItem("catmixList").split(",");
     if (
       this.props.catmix.isLoading ||
       this.props.catmix1.isLoading ||
@@ -34,7 +36,7 @@ class Catmix extends Component {
       return (
         <div style={{ marginTop: "50px" }}>
           <div className="container">
-            <h1>Category Mix</h1>
+            <h3 style={{ marginBottom: "50px" }}>{arr[0]}</h3>
             <br />
             <div className="row">
               {this.props.catmix.catmix.DATA.map((p, index) => {
@@ -44,6 +46,7 @@ class Catmix extends Component {
               })}
             </div>
             <br />
+            <h3 style={{ marginBottom: "50px" }}>{arr[1]}</h3>
 
             <div className="row">
               {this.props.catmix1.catmix1.DATA.map((p, index) => {
@@ -53,6 +56,7 @@ class Catmix extends Component {
               })}
             </div>
             <br />
+            <h3 style={{ marginBottom: "50px" }}>{arr[2]}</h3>
 
             <div className="row">
               {this.props.catmix2.catmix2.DATA.map((p, index) => {
@@ -62,6 +66,7 @@ class Catmix extends Component {
               })}
             </div>
             <br />
+            <h3 style={{ marginBottom: "50px" }}>{arr[3]}</h3>
 
             <div className="row">
               {this.props.catmix3.catmix3.DATA.map((p, index) => {
@@ -71,6 +76,7 @@ class Catmix extends Component {
               })}
             </div>
             <br />
+            <h3 style={{ marginBottom: "50px" }}>{arr[4]}</h3>
 
             <div className="row">
               {this.props.catmix4.catmix4.DATA.map((p, index) => {

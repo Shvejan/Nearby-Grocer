@@ -61,12 +61,20 @@ export const fetchMainCat = (branchId) => (dispatch) => {
     )
     .then((response) => response.json())
     .then((mainCat) => {
+      const arr = [
+        mainCat.DATA[5].category_name,
+        mainCat.DATA[4].category_name,
+        mainCat.DATA[3].category_name,
+        mainCat.DATA[2].category_name,
+        mainCat.DATA[1].category_name,
+      ];
+      sessionStorage.setItem("catmixList", arr);
       dispatch(mainCatAdd(mainCat));
       dispatch(fetchCatmix(mainCat.DATA[5].category_id, branchId, 10));
-      dispatch(fetchCatmix1(mainCat.DATA[1].category_id, branchId, 10));
-      dispatch(fetchCatmix2(mainCat.DATA[2].category_id, branchId, 10));
-      dispatch(fetchCatmix3(mainCat.DATA[3].category_id, branchId, 10));
-      dispatch(fetchCatmix4(mainCat.DATA[4].category_id, branchId, 10));
+      dispatch(fetchCatmix1(mainCat.DATA[4].category_id, branchId, 10));
+      dispatch(fetchCatmix2(mainCat.DATA[3].category_id, branchId, 10));
+      dispatch(fetchCatmix3(mainCat.DATA[2].category_id, branchId, 10));
+      dispatch(fetchCatmix4(mainCat.DATA[1].category_id, branchId, 10));
     })
     .catch((error) => dispatch(mainCatFailed(error.message)));
 };
