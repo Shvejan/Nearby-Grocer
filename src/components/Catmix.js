@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchCatmix } from "../redux/ActionCreators";
 import { Loading } from "./Loading";
-import Header from "./Header";
 import ProductCard from "./ProductCard";
 const mapStateToProps = (state) => {
   return {
     catmix: state.catmix,
+    catmix1: state.catmix1,
+    catmix2: state.catmix2,
+    catmix3: state.catmix3,
+    catmix4: state.catmix4,
   };
 };
 const mapDispatchToProps = (dispatch) => ({});
@@ -16,7 +18,13 @@ class Catmix extends Component {
     this.state = {};
   }
   render() {
-    if (this.props.catmix.isLoading) {
+    if (
+      this.props.catmix.isLoading ||
+      this.props.catmix1.isLoading ||
+      this.props.catmix2.isLoading ||
+      this.props.catmix3.isLoading ||
+      this.props.catmix4.isLoading
+    ) {
       return (
         <div>
           <Loading />
@@ -27,11 +35,49 @@ class Catmix extends Component {
         <div style={{ marginTop: "50px" }}>
           <div className="container">
             <h1>Category Mix</h1>
+            <br />
+            <div className="row">
+              {this.props.catmix.catmix.DATA.map((p, index) => {
+                if (index < 4) {
+                  return <ProductCard p={p} />;
+                }
+              })}
+            </div>
+            <br />
 
             <div className="row">
-              {this.props.catmix.catmix.DATA.map((p) => (
-                <ProductCard p={p} />
-              ))}
+              {this.props.catmix1.catmix1.DATA.map((p, index) => {
+                if (index < 4) {
+                  return <ProductCard p={p} />;
+                }
+              })}
+            </div>
+            <br />
+
+            <div className="row">
+              {this.props.catmix2.catmix2.DATA.map((p, index) => {
+                if (index < 4) {
+                  return <ProductCard p={p} />;
+                }
+              })}
+            </div>
+            <br />
+
+            <div className="row">
+              {this.props.catmix3.catmix3.DATA.map((p, index) => {
+                if (index < 4) {
+                  return <ProductCard p={p} />;
+                }
+              })}
+            </div>
+            <br />
+
+            <div className="row">
+              {this.props.catmix4.catmix4.DATA.map((p, index) => {
+                if (index < 4) {
+                  return <ProductCard p={p} />;
+                }
+              })}
             </div>
           </div>
         </div>
