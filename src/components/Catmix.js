@@ -19,7 +19,10 @@ class Catmix extends Component {
     this.state = {};
   }
   render() {
-    const arr = sessionStorage.getItem("catmixList").split(",");
+    var arr = [];
+    try {
+      arr = sessionStorage.getItem("catmixList").split(",");
+    } catch (error) {}
     if (
       this.props.catmix.isLoading ||
       this.props.catmix1.isLoading ||

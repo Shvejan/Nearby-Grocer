@@ -440,11 +440,9 @@ class Shipping extends Component {
                       </CardText>
                     </CardBody>
                     <CardFooter>
-                      <NavLink to="/">
-                        <Button color="primary" onClick={this.placeOrder}>
-                          Place Order
-                        </Button>
-                      </NavLink>
+                      <Button color="primary" onClick={this.placeOrder}>
+                        Place Order
+                      </Button>
                     </CardFooter>
                   </Card>
                 </div>
