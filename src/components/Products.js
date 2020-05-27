@@ -7,15 +7,7 @@ import {
   cartRemove,
 } from "../redux/ActionCreators";
 import { Loading } from "./Loading";
-import { Redirect } from "react-router-dom";
-import {
-  Card,
-  CardBody,
-  Modal,
-  ModalBody,
-  ModalHeader,
-  Badge,
-} from "reactstrap";
+
 import ProductCard from "./ProductCard";
 const mapStateToProps = (state) => ({
   products: state.products,

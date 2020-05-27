@@ -36,6 +36,7 @@ class Slides extends Component {
                   <img
                     src={b.banner_image}
                     style={{ width: "100%", marginTop: "-60px" }}
+                    alt=""
                   />
                 </div>
               </div>

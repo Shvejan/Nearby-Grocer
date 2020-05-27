@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import image from "./images/orange.png";
-import { Card, CardImg, CardImgOverlay, CardText, CardTitle } from "reactstrap";
+import { Card, CardImg, CardImgOverlay, CardTitle } from "reactstrap";
 import { fetchBrands } from "../redux/ActionCreators";
 import { connect } from "react-redux";
 import { Loading } from "./Loading";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import brandImg from "./images/only-background.png";
-import { Button } from "react-bootstrap";
 const mapStateToProps = (state) => {
   return {
     brands: state.brands,

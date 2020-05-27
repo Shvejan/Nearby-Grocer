@@ -34,17 +34,17 @@ class WhyChoose extends Component {
         </div>
         <div className="row justify-content-center">
           <div className="col offset-2" style={{ "padding-left": "40px" }}>
-            <img src={i1} />
+            <img src={i1} alt="" />
             <h3>Quality</h3>
             <p>You can trust</p>
           </div>
           <div className="col  ml-2">
-            <img src={i2} />
+            <img src={i2} alt="" />
             <h3>Free</h3>
             <p>on orders above Rs. 500</p>
           </div>
           <div className="col">
-            <img src={i3} />
+            <img src={i3} alt="" />
             <h3>Return</h3>
             <p>No questions asked</p>
           </div>

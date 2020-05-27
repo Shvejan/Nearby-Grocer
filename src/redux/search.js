@@ -16,7 +16,7 @@ export const Search = (
     case ActionTypes.SEARCH_LOADING:
       return { ...state, isLoading: true, errMess: null, search: [] };
 
-    case ActionTypes.SEARCH_LOADING:
+    case ActionTypes.SEARCH_FAILED:
       return { ...state, isLoading: false, errMess: action.payload };
 
     default:

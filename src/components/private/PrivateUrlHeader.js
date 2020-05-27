@@ -2,15 +2,6 @@ import React, { Component } from "react";
 import { baseUrl } from "../../shared/baseUrl";
 import { connect } from "react-redux";
 import {
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Nav,
-  Navbar,
-  Collapse,
-  NavItem,
-  NavbarToggler,
   Modal,
   ModalHeader,
   ModalBody,
@@ -20,7 +11,7 @@ import {
   Label,
   Button,
 } from "reactstrap";
-import { NavLink, Redirect } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { fetchStores, fetchSearch } from "../../redux/ActionCreators";
 const mapStateToProps = (state) => {
   return {

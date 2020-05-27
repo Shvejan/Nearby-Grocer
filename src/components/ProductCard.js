@@ -140,7 +140,7 @@ class ProductCard extends Component {
               <img
                 top
                 src={this.props.p.image}
-                alt="Card image cap"
+                alt="Card"
                 className="hoverImages"
               />
             </div>
@@ -175,7 +175,7 @@ class ProductCard extends Component {
                   height="150px"
                   width="150px"
                   src={this.props.p.image}
-                  alt="Card image cap"
+                  alt="Card"
                 ></img>
               </div>
               <div className="col offset-1">

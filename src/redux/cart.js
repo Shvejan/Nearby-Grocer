@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import * as ActionTypes from "./ActionTypes";
 
 export const Cart = (state = { products: [] }, action) => {

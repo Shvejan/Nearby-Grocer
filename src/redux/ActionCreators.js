@@ -809,12 +809,7 @@ export const addressAdd = (address) => ({
 export const fetchShipcharges = (branch_id, pincode, cart_id) => (dispatch) => {
   dispatch(shipchargesLoading(true));
   return fetch(
-    "http://peril3as3a4.nearbygrocer.com/shpcharges/" +
-      branch_id +
-      "/" +
-      pincode +
-      "/" +
-      cart_id
+    baseUrl + "shpcharges/" + branch_id + "/" + pincode + "/" + cart_id
   )
     .then(
       (response) => {

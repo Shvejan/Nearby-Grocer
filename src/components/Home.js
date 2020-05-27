@@ -9,16 +9,12 @@ import Footer from "./Footer";
 import TopCat from "./TopCat";
 import TopBrands from "./TopBrands";
 import Catmix from "./Catmix";
-import CatNav from "./CatNav";
 const mapStateToProps = (state) => {
   return {
     mainCat: state.mainCat,
   };
 };
 class Home extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <React.Fragment>

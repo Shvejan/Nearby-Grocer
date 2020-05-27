@@ -75,6 +75,7 @@ class Checkout extends Component {
   };
   render() {
     let total = 0;
+    // eslint-disable-next-line array-callback-return
     this.props.cart.products.map((p) => {
       total += p.product.selling_price * p.quantity;
     });
