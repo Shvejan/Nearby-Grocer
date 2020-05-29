@@ -36,7 +36,7 @@ class ProductCard extends Component {
       };
       this.props.cartAdd(data);
     } else {
-      alert("out of stock");
+      alert("Maximum quantity reached");
     }
   };
   handleSub = () => {

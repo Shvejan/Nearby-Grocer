@@ -29,8 +29,8 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => ({
   fetchStores: (pincode) => dispatch(fetchStores(pincode)),
-  fetchSearch: (branch_id, keyword, limit) =>
-    dispatch(fetchSearch(branch_id, keyword, limit)),
+  fetchSearch: (branch_id, keyword, limit, pno) =>
+    dispatch(fetchSearch(branch_id, keyword, limit, pno)),
 
   addPincode: (pincode) => dispatch(addPincode),
 });
@@ -54,6 +54,11 @@ class Header extends Component {
     };
   }
   componentDidMount() {
+    if (window.location.href.includes("/shipping")) {
+      if (sessionStorage.getItem("userId") === null) {
+        this.toggleLoginModel();
+      }
+    }
     if (sessionStorage.getItem("pincode") === null) {
       this.toggleLocModal();
     }
@@ -188,10 +193,15 @@ class Header extends Component {
   };
 
   search = () => {
+    sessionStorage.setItem(
+      "searchKeyWord",
+      document.getElementById("search").value
+    );
     this.props.fetchSearch(
       sessionStorage.getItem("branch_id"),
       document.getElementById("search").value,
-      52
+      52,
+      0
     );
   };
   userDetails = () => {
@@ -379,10 +389,8 @@ class Header extends Component {
               </NavLink>
             </ModalBody>
           </Modal>
-          <Modal isOpen={this.state.locationModal} toggle={this.toggleLocModal}>
-            <ModalHeader toggle={this.toggleLocModal}>
-              Enter Your Pincode
-            </ModalHeader>
+          <Modal isOpen={this.state.locationModal}>
+            <ModalHeader>Enter Your Pincode</ModalHeader>
             <ModalBody>
               <Form onSubmit={this.handleLocation}>
                 <FormGroup>
@@ -399,10 +407,8 @@ class Header extends Component {
               </Form>
             </ModalBody>
           </Modal>
-          <Modal isOpen={this.state.storeModal} toggle={this.toggleSelectStore}>
-            <ModalHeader toggle={this.toggleSelectStore}>
-              Avaliable stores at your location
-            </ModalHeader>
+          <Modal isOpen={this.state.storeModal}>
+            <ModalHeader>Avaliable stores at your location</ModalHeader>
 
             <ModalBody>
               <RecievedStores

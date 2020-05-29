@@ -293,7 +293,7 @@ export const bannersAdd = (banners) => ({
   type: ActionTypes.BANNERS_ADD,
   payload: banners,
 });
-export const fetchSearch = (branch_id, keyword, limit) => (dispatch) => {
+export const fetchSearch = (branch_id, keyword, limit, pno) => (dispatch) => {
   dispatch(searchLoading(true));
   return fetch(baseUrl + "searchproduct", {
     method: "POST",
@@ -301,6 +301,7 @@ export const fetchSearch = (branch_id, keyword, limit) => (dispatch) => {
       keyword: keyword,
       limit: limit,
       branch_id: branch_id,
+      page_no: pno,
     }),
     headers: {
       "Content-Type": "application/json",

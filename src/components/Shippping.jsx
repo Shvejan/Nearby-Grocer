@@ -140,7 +140,31 @@ const AddressSection = (props) => {
   const [collapse, setCollapse] = useState(false);
 
   const toggle = () => setCollapse(!collapse);
-
+  const isLoggedin = () => {
+    if (props.addressData.errMess) {
+      if (sessionStorage.getItem("userId") !== null) {
+        window.location.reload();
+        return;
+      }
+      return (
+        <Button
+          color="warning"
+          style={{ marginBottom: "1rem", width: "100%", justifySelf: "center" }}
+        >
+          Login
+        </Button>
+      );
+    }
+    return (
+      <Button
+        color="warning"
+        onClick={() => props.toggleModal()}
+        style={{ marginBottom: "1rem", width: "100%" }}
+      >
+        Add Address
+      </Button>
+    );
+  };
   return (
     <div>
       <Button
@@ -153,15 +177,7 @@ const AddressSection = (props) => {
       <Collapse isOpen={collapse}>
         <Card>
           <CardBody>
-            <CardTitle>
-              <Button
-                color="warning"
-                onClick={() => props.toggleModal()}
-                style={{ marginBottom: "1rem", width: "100%" }}
-              >
-                Add Address
-              </Button>
-            </CardTitle>
+            <CardTitle>{isLoggedin()}</CardTitle>
             <CardText className="total">{props.addressSection()}</CardText>
           </CardBody>
           <CardFooter>
@@ -272,12 +288,14 @@ class Shipping extends Component {
     this.setState({ isModalOpen: !this.state.isModalOpen });
   };
   componentDidMount() {
-    this.props.fetchAddress(285);
     this.props.fetchTimeslots(sessionStorage.getItem("branch_id"));
+    this.props.fetchAddress(sessionStorage.getItem("userId"));
   }
   addressSection = () => {
     if (this.props.address.isLoading) {
       return <Loading />;
+    } else if (this.props.address.errMess) {
+      return <div></div>;
     } else {
       return (
         <React.Fragment>
@@ -377,6 +395,7 @@ class Shipping extends Component {
     event.preventDefault();
     this.toggleModal();
   };
+
   render() {
     let total = 0;
     // eslint-disable-next-line array-callback-return
@@ -415,6 +434,7 @@ class Shipping extends Component {
               <Col sm="8">
                 <Card>
                   <AddressSection
+                    addressData={this.props.address}
                     toggleModal={this.toggleModal}
                     addressSection={this.addressSection}
                   />
