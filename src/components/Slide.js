@@ -24,11 +24,11 @@ class Slides extends Component {
     this.state = {};
   }
   render() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
     if (this.props.banners.isLoading) {
       return <div></div>;
     } else {
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
       return (
         <div className="slide-container">
           <Slide {...properties}>
