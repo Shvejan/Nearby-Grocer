@@ -15,7 +15,10 @@ const mapDispatchToProps = (dispatch) => ({
 
 const RecievedStores = (props) => {
   const storeSelected = (branch_id, branch_name, branch_logo) => {
-    sessionStorage.setItem("branch_logo", branch_logo);
+    sessionStorage.setItem(
+      "branch_logo",
+      "https://nearbygrocer.com/" + branch_logo
+    );
     sessionStorage.setItem("branch_name", branch_name);
 
     sessionStorage.setItem("branch_id", branch_id);
@@ -40,7 +43,11 @@ const RecievedStores = (props) => {
             <Card className="storeCard">
               <div className="row justify-content-center">
                 <div className="col-5 align-items-center">
-                  <img src={s.logo} className="storeImage" alt="" />
+                  <img
+                    src={"https://nearbygrocer.com/" + s.logo}
+                    className="storeImage"
+                    alt=""
+                  />
                 </div>
                 <div className="col">
                   <h6>{s.branch_name}</h6>

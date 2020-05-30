@@ -328,10 +328,8 @@ class Header extends Component {
             </div>
           </div>
           {/*nav bar*/}
-          <Modal isOpen={this.state.loginModel} toggle={this.toggleLoginModel}>
-            <ModalHeader toggle={this.toggleLoginModel}>
-              Mobile Number
-            </ModalHeader>
+          <Modal isOpen={this.state.loginModel}>
+            <ModalHeader>Mobile Number</ModalHeader>
 
             <div className="justify-content-center">
               <Form onSubmit={this.handleMobile}>

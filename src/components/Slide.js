@@ -25,7 +25,7 @@ class Slides extends Component {
   }
   render() {
     if (this.props.banners.isLoading) {
-      return <Loading />;
+      return <div></div>;
     } else {
       return (
         <div className="slide-container">

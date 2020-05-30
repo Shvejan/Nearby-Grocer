@@ -24,7 +24,7 @@ class TopCat extends Component {
   };
   render() {
     if (this.props.mainCat.isLoading) {
-      return <Loading />;
+      return <div></div>;
     } else if (this.props.mainCat.errMess) {
       return <h3>Products not avaliable</h3>;
     }

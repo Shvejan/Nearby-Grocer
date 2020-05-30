@@ -97,6 +97,7 @@ class OrderList extends Component {
               <div className="col-1">
                 <img
                   src={
+                    "https://nearbygrocer.com/" +
                     this.props.orderdetails.orderdetails.DATA.branch_info.logo
                   }
                   alt="Logo"
