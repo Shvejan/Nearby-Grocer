@@ -11,14 +11,14 @@ class WhyChoose extends Component {
   render() {
     return (
       <div>
-        <div className="row" style={{ "padding-bottom": "50px" }}>
+        <div className="row" style={{ paddingBottom: "50px" }}>
           <hr
             className="col-1"
             style={{
               height: "4px",
               background: "#1eaca0",
-              "margin-top": "25px ",
-              "margin-right": "10px",
+              marginTop: "25px ",
+              marginRight: "10px",
             }}
           />
           <h1 className="col-5">Why choose NearbyGrocer?</h1>
@@ -27,13 +27,13 @@ class WhyChoose extends Component {
             style={{
               height: "4px",
               background: "#1eaca0",
-              "margin-top": "25px ",
-              "margin-left": "0px",
+              marginTop: "25px ",
+              marginLeft: "0px",
             }}
           />
         </div>
         <div className="row justify-content-center">
-          <div className="col offset-2" style={{ "padding-left": "40px" }}>
+          <div className="col offset-2" style={{ paddingLeft: "40px" }}>
             <img src={i1} alt="" />
             <h3>Quality</h3>
             <p>You can trust</p>
@@ -49,10 +49,7 @@ class WhyChoose extends Component {
             <p>No questions asked</p>
           </div>
         </div>
-        <div
-          className="productsDiv"
-          style={{ "padding-bottom": "200px" }}
-        ></div>
+        <div className="productsDiv" style={{ paddingBottom: "200px" }}></div>
       </div>
     );
   }

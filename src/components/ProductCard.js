@@ -65,12 +65,12 @@ class ProductCard extends Component {
         <button
           onClick={this.handleAdd}
           style={{
-            "background-color": "#41ada4",
+            backgroundColor: "#41ada4",
             width: "80px",
             height: "30px",
             color: "white",
             border: "0px",
-            "border-radius": "5px",
+            borderRadius: "5px",
           }}
         >
           ADD
@@ -82,24 +82,24 @@ class ProductCard extends Component {
           <button
             onClick={this.handleSub}
             style={{
-              "background-color": "#41ada4",
+              backgroundColor: "#41ada4",
               width: "30px",
               height: "30px",
               color: "white",
               border: "0px",
-              "border-radius": "5px",
+              borderRadius: "5px",
             }}
           >
             -
           </button>
           <button
             style={{
-              "background-color": "#fff",
+              backgroundColor: "#fff",
               width: "30px",
               height: "30px",
               color: "black",
               border: "0px",
-              "border-radius": "5px",
+              borderRadius: "5px",
             }}
           >
             {this.state.quantity}
@@ -107,12 +107,12 @@ class ProductCard extends Component {
           <button
             onClick={this.handleAdd}
             style={{
-              "background-color": "#41ada4",
+              backgroundColor: "#41ada4",
               width: "30px",
               height: "30px",
               color: "white",
               border: "0px",
-              "border-radius": "5px",
+              borderRadius: "5px",
             }}
           >
             +
@@ -123,7 +123,7 @@ class ProductCard extends Component {
   };
   render() {
     return (
-      <div className="col-sm-3" style={{ "margin-bottom": "50px" }}>
+      <div className="col-sm-3" style={{ marginBottom: "50px" }}>
         <div>
           <Card
             style={{ height: "18rem", width: "13rem" }}
@@ -134,7 +134,7 @@ class ProductCard extends Component {
               style={{
                 height: "200px",
                 width: "180px",
-                "text-align": "center",
+                textAlign: "center",
               }}
             >
               <img

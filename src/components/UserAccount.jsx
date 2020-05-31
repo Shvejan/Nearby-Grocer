@@ -81,6 +81,8 @@ class OrderList extends Component {
   orderDetail = () => {
     if (this.props.orderdetails.isLoading) {
       return <Loading />;
+    } else if (this.props.orderdetails.errMess) {
+      return <p>No Orders Found</p>;
     } else {
       return (
         <ModalBody>
@@ -225,8 +227,15 @@ class UserAddress extends Component {
   orderDetails = () => {
     if (this.props.orders.isLoading) {
       return <Loading />;
-    } else if (this.props.orders.errMess) {
-      return this.props.orders.errMess;
+    } else if (
+      this.props.orders.errMess ||
+      this.props.orders.orders.MESSAGE === "NOT FOUND"
+    ) {
+      return (
+        <div style={{ padding: "30px" }}>
+          <p>No Orders Found</p>
+        </div>
+      );
     } else {
       return (
         <React.Fragment>

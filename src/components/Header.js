@@ -39,8 +39,6 @@ class Header extends Component {
   constructor(props) {
     super(props);
 
-    this.toggle = this.toggle.bind(this);
-
     this.state = {
       toggleNav: false,
       loginModel: false,
@@ -51,6 +49,7 @@ class Header extends Component {
       otpModal: false,
       loginData: {},
       mobile: "",
+      signupModal: false,
     };
   }
   componentDidMount() {
@@ -64,11 +63,6 @@ class Header extends Component {
     }
   }
 
-  toggle(id) {
-    this.setState((prevState) => ({
-      dropdownOpen: !prevState.dropdownOpen,
-    }));
-  }
   toggleLoginModel = () => {
     this.setState({
       loginModel: !this.state.loginModel,
@@ -79,7 +73,11 @@ class Header extends Component {
       cartModal: !this.state.cartModal,
     });
   };
-
+  toggleSigninModal = () => {
+    this.setState({
+      signupModal: !this.state.signupModal,
+    });
+  };
   toggleNav = () => {
     this.setState({ toggleNav: !this.state.toggleNav });
   };
@@ -114,8 +112,6 @@ class Header extends Component {
     event.preventDefault();
   };
   handleMobile = (event) => {
-    this.toggleLoginModel();
-    this.toggleOtpModal();
     this.setState({ mobile: this.mobile.value });
     fetch(baseUrl + "custsignin", {
       method: "POST",
@@ -147,6 +143,12 @@ class Header extends Component {
       .then((response) => response.json())
       .then((jres) => {
         this.setState({ loginData: jres.DATA });
+        this.toggleLoginModel();
+        if (this.state.loginData.login_type === "signin") {
+          this.toggleOtpModal();
+        } else {
+          this.toggleSigninModal();
+        }
         alert("OTP sent");
       })
       .catch((error) => alert(error));
@@ -190,6 +192,49 @@ class Header extends Component {
       .catch((error) => alert(error));
     this.toggleOtpModal();
     event.preventDefault();
+  };
+  handleSignup = (event) => {
+    event.preventDefault();
+
+    const response = this.state.loginData;
+    response["mobile_no"] = this.state.mobile;
+    response["otp"] = this.otp.value;
+    response["first_name"] = this.firstname.value;
+    response["last_name"] = this.lastname.value;
+    alert(JSON.stringify(response));
+    fetch(baseUrl + "custsignin", {
+      method: "POST",
+      body: JSON.stringify(response),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "same-origin",
+    })
+      .then(
+        (response) => {
+          if (response.ok) {
+            return response;
+          } else {
+            var error = new Error(
+              "Error " + response.status + ": " + response.statusText
+            );
+            error.response = response;
+            throw error;
+          }
+        },
+        (error) => {
+          var errmess = new Error(error.message);
+          throw errmess;
+        }
+      )
+      .then((response) => response.json())
+      .then((jres) => {
+        sessionStorage.setItem("userId", parseInt(jres.DATA["customer_id"]));
+        alert(sessionStorage.getItem("userId"));
+        alert("login successful");
+        this.toggleSigninModal();
+      })
+      .catch((error) => alert(error));
   };
 
   search = () => {
@@ -236,6 +281,26 @@ class Header extends Component {
       );
     } catch (error) {
       alert(error);
+    }
+  };
+  locationModalHeader = () => {
+    if (sessionStorage.getItem("branch_id")) {
+      return (
+        <ModalHeader toggle={this.toggleLocModal}>
+          Enter Your Pincode
+        </ModalHeader>
+      );
+    } else {
+      return <ModalHeader>Enter Your Pincode</ModalHeader>;
+    }
+  };
+  loginModalHeader = () => {
+    if (window.location.href.includes("/shipping")) {
+      return <ModalHeader>Mobile Number</ModalHeader>;
+    } else {
+      return (
+        <ModalHeader toggle={this.toggleLoginModel}>Mobile Number</ModalHeader>
+      );
     }
   };
   render() {
@@ -329,7 +394,7 @@ class Header extends Component {
           </div>
           {/*nav bar*/}
           <Modal isOpen={this.state.loginModel}>
-            <ModalHeader>Mobile Number</ModalHeader>
+            {this.loginModalHeader()}
 
             <div className="justify-content-center">
               <Form onSubmit={this.handleMobile}>
@@ -367,28 +432,12 @@ class Header extends Component {
             </div>
           </Modal>
           <Modal
-            isOpen={this.state.cartModal}
-            toggle={this.toggleCartModal}
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-            dialogClassName="cart-modal"
+            isOpen={this.state.locationModal}
+            backdropClassName="modal-backdrop"
+            className="modal-dialog"
           >
-            <ModalHeader toggle={this.toggleCartModal}>Your Cart</ModalHeader>
-            <ModalBody>
-              <div className="container">
-                <p> item1</p>
-                <p> item2</p>
-                <p> item3</p>
-              </div>
-              <hr />
-              <NavLink to="/checkout">
-                <Button color="success">Checkout</Button>
-              </NavLink>
-            </ModalBody>
-          </Modal>
-          <Modal isOpen={this.state.locationModal}>
-            <ModalHeader>Enter Your Pincode</ModalHeader>
+            {this.locationModalHeader()}
+
             <ModalBody>
               <Form onSubmit={this.handleLocation}>
                 <FormGroup>
@@ -413,6 +462,39 @@ class Header extends Component {
                 stores={this.props.stores}
                 toggleStoresModal={this.toggleSelectStore}
               />
+            </ModalBody>
+          </Modal>
+          <Modal isOpen={this.state.signupModal}>
+            <ModalHeader>Please fill the following details</ModalHeader>
+            <ModalBody>
+              <Form onSubmit={this.handleSignup}>
+                <FormGroup>
+                  <Input
+                    placeholder="OTP"
+                    type="number"
+                    id="otp"
+                    name="otp"
+                    innerRef={(input) => (this.otp = input)}
+                  />
+                  <Input
+                    placeholder="First Name"
+                    type="text"
+                    id="firstname"
+                    name="firstname"
+                    innerRef={(input) => (this.firstname = input)}
+                  />
+                  <Input
+                    placeholder="Last Name"
+                    type="text"
+                    id="lastname"
+                    name="lastname"
+                    innerRef={(input) => (this.lastname = input)}
+                  />
+                </FormGroup>
+                <Button type="submit" value="submit" color="primary">
+                  SignUp
+                </Button>
+              </Form>
             </ModalBody>
           </Modal>
         </div>

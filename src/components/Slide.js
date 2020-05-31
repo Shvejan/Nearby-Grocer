@@ -33,7 +33,7 @@ class Slides extends Component {
         <div className="slide-container">
           <Slide {...properties}>
             {this.props.banners.banners.DATA.map((b) => (
-              <div className="each-slide">
+              <div className="each-slide" key={b.banner_id}>
                 <div style={{ height: "400px" }}>
                   <img
                     src={b.banner_image}

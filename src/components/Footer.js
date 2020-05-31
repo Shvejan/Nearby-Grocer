@@ -56,7 +56,7 @@ export default function Footer(props) {
                   ></span>
                 </div>
               </div>
-              <h5 className="fh" style={{ "padding-top": "20px" }}>
+              <h5 className="fh" style={{ paddingTop: "20px" }}>
                 NEWSLETTER
               </h5>
               <p className="fl  ">

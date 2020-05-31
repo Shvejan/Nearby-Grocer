@@ -226,3 +226,6 @@ div.sticky {
   color: blue;
   cursor: pointer;
 }
+.modal-backdrop.in {
+  opacity: 0.9;
+}
