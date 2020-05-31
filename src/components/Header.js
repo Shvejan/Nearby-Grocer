@@ -102,7 +102,6 @@ class Header extends Component {
   };
   handleLocation = (event) => {
     //this.setState({ pincode: this.pincode.value });
-    sessionStorage.setItem("pincode", this.pincode.value);
     console.log("session pin set");
     this.toggleLocModal();
     this.props.fetchStores(this.pincode.value);

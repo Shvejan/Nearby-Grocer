@@ -22,7 +22,12 @@ export const fetchStores = (pincode) => (dispatch) => {
       }
     )
     .then((response) => response.json())
-    .then((stores) => dispatch(storesAdd(stores)))
+    .then((stores) => {
+      if (stores.STATUS !== "Failure") {
+        sessionStorage.setItem("pincode", pincode);
+        dispatch(storesAdd(stores));
+      }
+    })
     .catch((error) => dispatch(storesFailed(error.message)));
 };
 

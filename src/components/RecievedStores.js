@@ -4,7 +4,7 @@ import "./css/recievedStores.css";
 import { Card } from "react-bootstrap";
 import { fetchMainCat, cartClear } from "../redux/ActionCreators";
 import { connect } from "react-redux";
-
+import { Button } from "reactstrap";
 const mapStateToProps = (state) => {
   return {};
 };
@@ -30,8 +30,20 @@ const RecievedStores = (props) => {
   };
   if (props.stores.isLoading) {
     return <Loading />;
-  } else if (props.stores.stores.STATUS === "Failure") {
-    return <h4>No stores avaliable at this location</h4>;
+  } else if (props.stores.stores.STATUS === "Failure" || props.stores.errMess) {
+    return (
+      <div>
+        <h4>No stores avaliable at this location</h4>
+        <Button
+          type="submit"
+          value="submit"
+          color="primary"
+          onClick={() => window.location.reload()}
+        >
+          Change Pincode
+        </Button>
+      </div>
+    );
   } else {
     return (
       <div>
