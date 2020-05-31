@@ -1,0 +1,12 @@
+.loadingPage {
+  background-image: url("../images/darkback.jpg");
+  color: white;
+  background-color: #26415f;
+  height: 100vh;
+  width: 200vh;
+  padding: 400px 530px;
+  position: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

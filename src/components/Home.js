@@ -9,7 +9,7 @@ import Footer from "./Footer";
 import TopCat from "./TopCat";
 import TopBrands from "./TopBrands";
 import Catmix from "./Catmix";
-import Test from "../test";
+import LoadingPage from "./LoadingPage";
 const mapStateToProps = (state) => {
   return {
     mainCat: state.mainCat,
@@ -24,7 +24,7 @@ class Home extends Component {
           <div style={{ display: "none" }}>
             <Header />
           </div>
-          <Test />
+          <LoadingPage />
         </React.Fragment>
       );
     }

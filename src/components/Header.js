@@ -18,7 +18,7 @@ import {
 } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import location from "./images/location.png";
-import { fetchStores, addPincode, fetchSearch } from "../redux/ActionCreators";
+import { fetchStores, fetchSearch } from "../redux/ActionCreators";
 import RecievedStores from "./RecievedStores";
 const mapStateToProps = (state) => {
   return {
@@ -31,8 +31,6 @@ const mapDispatchToProps = (dispatch) => ({
   fetchStores: (pincode) => dispatch(fetchStores(pincode)),
   fetchSearch: (branch_id, keyword, limit, pno) =>
     dispatch(fetchSearch(branch_id, keyword, limit, pno)),
-
-  addPincode: (pincode) => dispatch(addPincode),
 });
 
 class Header extends Component {
