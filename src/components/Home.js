@@ -9,13 +9,25 @@ import Footer from "./Footer";
 import TopCat from "./TopCat";
 import TopBrands from "./TopBrands";
 import Catmix from "./Catmix";
+import Test from "../test";
 const mapStateToProps = (state) => {
   return {
     mainCat: state.mainCat,
+    banners: state.banners,
   };
 };
 class Home extends Component {
   render() {
+    if (this.props.banners.isLoading) {
+      return (
+        <React.Fragment>
+          <div style={{ display: "none" }}>
+            <Header />
+          </div>
+          <Test />
+        </React.Fragment>
+      );
+    }
     return (
       <React.Fragment>
         <Header />

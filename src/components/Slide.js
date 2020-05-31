@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Slide } from "react-slideshow-image";
 import { connect } from "react-redux";
 import { Loading } from "./Loading";
+import Test from "../test";
 const mapStateToProps = (state) => {
   return {
     banners: state.banners,
@@ -27,7 +28,7 @@ class Slides extends Component {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
     if (this.props.banners.isLoading) {
-      return <div></div>;
+      return <div />;
     } else {
       return (
         <div className="slide-container">

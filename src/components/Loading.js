@@ -1,9 +1,10 @@
 import React from "react";
+import { Spinner } from "react-bootstrap";
 
 export const Loading = () => {
   return (
     <div className="col-12">
-      <span className="fa fa-spinner fa-pulse fa-3x fa-fw text-primary"></span>
+      <Spinner animation="border" />
       <p>Loading . . .</p>
     </div>
   );
