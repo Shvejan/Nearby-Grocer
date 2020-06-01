@@ -1072,3 +1072,43 @@ export const addAddress = (customer_id, address) => (dispatch) => {
     })
     .catch((error) => dispatch(alert(error.message)));
 };
+
+export const fetchUser = (cId) => (dispatch) => {
+  dispatch(userLoading(true));
+  return fetch(baseUrl + "custProfile/" + cId)
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((timeslots) => {
+      dispatch(userAdd(timeslots));
+    })
+    .catch((error) => dispatch(userFailed(error.message)));
+};
+
+export const userLoading = () => ({
+  type: ActionTypes.USER_LOADING,
+});
+
+export const userFailed = (errmess) => ({
+  type: ActionTypes.USER_FAILED,
+  payload: errmess,
+});
+export const userAdd = (user) => ({
+  type: ActionTypes.USER_ADD,
+  payload: user,
+});

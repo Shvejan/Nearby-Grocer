@@ -18,17 +18,20 @@ import {
 } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import location from "./images/location.png";
-import { fetchStores, fetchSearch } from "../redux/ActionCreators";
+import { fetchStores, fetchSearch, fetchUser } from "../redux/ActionCreators";
 import RecievedStores from "./RecievedStores";
 const mapStateToProps = (state) => {
   return {
     stores: state.stores,
     pincode: state.pincode,
     cart: state.cart,
+    user: state.user,
   };
 };
 const mapDispatchToProps = (dispatch) => ({
   fetchStores: (pincode) => dispatch(fetchStores(pincode)),
+  fetchUser: (customer_id) => dispatch(fetchUser(customer_id)),
+
   fetchSearch: (branch_id, keyword, limit, pno) =>
     dispatch(fetchSearch(branch_id, keyword, limit, pno)),
 });
@@ -109,6 +112,7 @@ class Header extends Component {
     event.preventDefault();
   };
   handleMobile = (event) => {
+    this.toggleLoginModel();
     this.setState({ mobile: this.mobile.value });
     fetch(baseUrl + "custsignin", {
       method: "POST",
@@ -140,7 +144,6 @@ class Header extends Component {
       .then((response) => response.json())
       .then((jres) => {
         this.setState({ loginData: jres.DATA });
-        this.toggleLoginModel();
         if (this.state.loginData.login_type === "signin") {
           this.toggleOtpModal();
         } else {
@@ -182,9 +185,8 @@ class Header extends Component {
       )
       .then((response) => response.json())
       .then((jres) => {
+        this.props.fetchUser(jres.DATA["customer_id"]);
         sessionStorage.setItem("userId", parseInt(jres.DATA["customer_id"]));
-        alert(sessionStorage.getItem("userId"));
-        alert("login successful");
       })
       .catch((error) => alert(error));
     this.toggleOtpModal();
@@ -198,7 +200,6 @@ class Header extends Component {
     response["otp"] = this.otp.value;
     response["first_name"] = this.firstname.value;
     response["last_name"] = this.lastname.value;
-    alert(JSON.stringify(response));
     fetch(baseUrl + "custsignin", {
       method: "POST",
       body: JSON.stringify(response),
@@ -227,8 +228,6 @@ class Header extends Component {
       .then((response) => response.json())
       .then((jres) => {
         sessionStorage.setItem("userId", parseInt(jres.DATA["customer_id"]));
-        alert(sessionStorage.getItem("userId"));
-        alert("login successful");
         this.toggleSigninModal();
       })
       .catch((error) => alert(error));
@@ -247,15 +246,20 @@ class Header extends Component {
     );
   };
   userDetails = () => {
-    if (sessionStorage.getItem("userId")) {
+    if (sessionStorage.getItem("userId") && !this.props.user.isLoading) {
       return (
         <NavLink to="/account">
-          <img
-            src={avatar}
-            style={{ height: "40px", cursor: "pointer" }}
-            onClick={this.toggleLoginModel}
-            alt=""
-          />
+          <Button
+            style={{
+              marginLeft: "-50px",
+              marginTop: "5px",
+              width: "140px",
+              height: "35px",
+              overflow: "hidden",
+            }}
+          >
+            {this.props.user.user.DATA["first_name"]}
+          </Button>
         </NavLink>
       );
     } else {

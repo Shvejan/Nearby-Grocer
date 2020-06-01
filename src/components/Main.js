@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Checkout from "./Checkout";
 import Home from "./Home";
-import { Switch, Route, withRouter } from "react-router-dom";
+import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 import { Loading } from "./Loading";
 import Test from "../test";
 import CategoryProducts from "./CategoryProducts";
@@ -10,6 +10,8 @@ import {
   fetchMainCat,
   fetchBrands,
   fetchBanners,
+  fetchSubCat,
+  fetchUser,
 } from "../redux/ActionCreators";
 import SearchResults from "./SearchResults";
 import BrandProducts from "./BrandProducts";
@@ -17,6 +19,7 @@ import PrivateUrl from "./private/PrivateUrl";
 import Shipping from "./Shippping";
 import UserAccount from "./UserAccount";
 import AllBrands from "./AllBrands";
+import LoadingPage from "./LoadingPage";
 const mapStateToProps = (state) => {
   return {
     mainCat: state.mainCat,
@@ -24,9 +27,12 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => ({
   fetchMainCat: (branch_id) => dispatch(fetchMainCat(branch_id)),
+  fetchSubCat: (branch_id, category_id) =>
+    dispatch(fetchSubCat(branch_id, category_id)),
   fetchBrands: (branch_id, limit, page_no) =>
     dispatch(fetchBrands(branch_id, limit, page_no)),
   fetchBanners: (branch_id) => dispatch(fetchBanners(branch_id)),
+  fetchUser: (customer_id) => dispatch(fetchUser(customer_id)),
 });
 class Main extends Component {
   componentDidMount() {
@@ -34,7 +40,10 @@ class Main extends Component {
     const branch = sessionStorage.getItem("branch_id");
     const branch_name = sessionStorage.getItem("branch_name");
     const branch_logo = sessionStorage.getItem("branch_logo");
-
+    const userId = sessionStorage.getItem("userId");
+    if (userId) {
+      this.props.fetchUser(userId);
+    }
     if (pin && branch) {
       console.log("session storeagadf");
       console.log(pin);
@@ -49,6 +58,12 @@ class Main extends Component {
     }
   }
   render() {
+    const getSubcat = ({ match }) => {
+      const branch = sessionStorage.getItem("branch_id");
+      this.props.fetchSubCat(branch, this.props.catId);
+      if (this.props.subCat.isLoading) return <LoadingPage />;
+      else return <Redirect to="/" />;
+    };
     const categorySelected = ({ match }) => {
       return (
         <CategoryProducts
@@ -105,6 +120,7 @@ class Main extends Component {
             path="/categories/:catId/:subCatId"
             component={categorySelected}
           />
+          <Route path="/categories/:catId" component={getSubcat} />
         </Switch>
       </React.Fragment>
     );

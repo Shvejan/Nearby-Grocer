@@ -94,6 +94,7 @@ class CategoryProducts extends Component {
             <Products
               branch_id={sessionStorage.getItem("branch_id")}
               subCatId={this.props.subCatId}
+              mainCat={this.props.catId}
             />
           </div>
         </div>

@@ -2,7 +2,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Card, Button } from "reactstrap";
-import { Loading } from "./Loading";
 import { Link } from "react-router-dom";
 
 const mapStateToProps = (state) => {
