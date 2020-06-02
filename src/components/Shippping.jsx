@@ -139,11 +139,15 @@ const ProductsSection = (props) => {
 const AddressSection = (props) => {
   const [collapse, setCollapse] = useState(false);
 
-  const toggle = () => setCollapse(!collapse);
+  const toggle = () => {
+    setCollapse(!collapse);
+  };
+
   const isLoggedin = () => {
     if (props.addressData.errMess) {
       if (sessionStorage.getItem("userId") !== null) {
-        window.location.reload();
+        props.fetchAddress(sessionStorage.getItem("userId"));
+        //window.location.reload();
         return;
       }
       return (
@@ -437,6 +441,7 @@ class Shipping extends Component {
                     addressData={this.props.address}
                     toggleModal={this.toggleModal}
                     addressSection={this.addressSection}
+                    fetchAddress={this.props.fetchAddress}
                   />
                   <TimeSlots renderTimeslots={this.renderTimeslots} />
                 </Card>
