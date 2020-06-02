@@ -1,4 +1,3 @@
-import WhyChoose from "./WhyChoose";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -42,7 +41,6 @@ class Home extends Component {
           </NavLink>
         </div>
         <Catmix />
-        <WhyChoose />
         <Footer />
       </React.Fragment>
     );
