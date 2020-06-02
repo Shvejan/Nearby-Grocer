@@ -20,6 +20,7 @@ import Shipping from "./Shippping";
 import UserAccount from "./UserAccount";
 import AllBrands from "./AllBrands";
 import LoadingPage from "./LoadingPage";
+import NewCategoryProjects from "./NewCategoryProjects";
 const mapStateToProps = (state) => {
   return {
     mainCat: state.mainCat,
@@ -59,10 +60,9 @@ class Main extends Component {
   }
   render() {
     const getSubcat = ({ match }) => {
-      const branch = sessionStorage.getItem("branch_id");
-      this.props.fetchSubCat(branch, this.props.catId);
-      if (this.props.subCat.isLoading) return <LoadingPage />;
-      else return <Redirect to="/" />;
+      return (
+        <NewCategoryProjects maincatId={parseInt(match.params.catId, 10)} />
+      );
     };
     const categorySelected = ({ match }) => {
       return (
@@ -85,22 +85,6 @@ class Main extends Component {
       <React.Fragment>
         <Switch>
           <Route exact path="/" component={() => <Home />} />
-          {/*<Route exact path="/beverages/" component={() => <Beverages />} />
-          <Route exact path="/brandedFood/" component={() => <BrandedFood />} />
-          <Route exact path="/diaryBakery/" component={() => <DiaryBakery />} />
-          <Route
-            exact
-            path="/fruitsVegitables/"
-            component={() => <FruitsVegitables />}
-          />
-          <Route exact path="/frozenVeg/" component={() => <FrozenVeg />} />
-          <Route exact path="/nonVeg/" component={() => <NonVeg />} />
-          <Route exact path="/homeCare/" component={() => <HomeCare />} />
-          <Route
-            exact
-            path="/personalCare"
-            component={() => <PersonalCare />}
-    />*/}
           <Route exact path="/allbrands/:p_no" component={allbrands} />
           <Route exact path="/checkout/" component={() => <Checkout />} />
           <Route exact path="/loading/" component={() => <Loading />} />
