@@ -21,10 +21,10 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class CategoryProducts extends Component {
-  componentDidMount() {
-    const branch = sessionStorage.getItem("branch_id");
-    this.props.fetchSubCat(branch, this.props.catId);
-  }
+  // componentDidMount() {
+  //   const branch = sessionStorage.getItem("branch_id");
+  //   this.props.fetchSubCat(branch, this.props.catId);
+  // }
 
   render() {
     return (

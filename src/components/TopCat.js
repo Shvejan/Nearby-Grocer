@@ -45,6 +45,12 @@ class TopCat extends Component {
                         <Link
                           to={`/categories/${c.category_id}`}
                           style={{ textDecoration: "none", fontSize: "15px" }}
+                          onClick={() => {
+                            sessionStorage.setItem(
+                              "selectedMainCat",
+                              c.category_name
+                            );
+                          }}
                         >
                           <Card
                             style={{ width: "200px", height: "200px" }}
@@ -78,6 +84,12 @@ class TopCat extends Component {
                         <Link
                           to={`/categories/${c.category_id}`}
                           style={{ textDecoration: "none", fontSize: "15px" }}
+                          onClick={() => {
+                            sessionStorage.setItem(
+                              "selectedMainCat",
+                              c.category_name
+                            );
+                          }}
                         >
                           <Card
                             style={{ width: "200px", height: "200px" }}

@@ -43,6 +43,12 @@ class SelectSubCat extends Component {
                       <Link
                         to={`/categories/${this.props.maincatId}/${c.sub_category_id}`}
                         style={{ textDecoration: "none", fontSize: "15px" }}
+                        onClick={() => {
+                          sessionStorage.setItem(
+                            "selectedSubcat",
+                            c.sub_category_name
+                          );
+                        }}
                       >
                         <Card style={{ width: "200px", height: "200px" }}>
                           <div className="align-items-center">
