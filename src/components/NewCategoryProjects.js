@@ -7,6 +7,7 @@ import CatNav from "./CatNav";
 import SubCatNav from "../SubCatNav";
 import { Loading } from "./Loading";
 import Products from "./Products";
+import { Redirect } from "react-router-dom";
 
 const mapStateToProps = (state) => {
   return {
@@ -30,20 +31,22 @@ class NewCategoryProjects extends Component {
       sessionStorage.getItem("branch_id"),
       this.props.maincatId
     );
-    if (!this.props.subCat.isLoading) {
-      try {
-        //alert(this.props.subCat.subCat.DATA[0].sub_category_id);
-        this.setState({
-          selectedSubCatId: this.props.subCat.subCat.DATA[0].sub_category_id,
-        });
-      } catch (error) {}
-    }
   }
   setSubCat = (cid) => {
     alert("setttt");
     this.setState({
       selectedSubCatId: cid,
     });
+  };
+  setcatid = () => {
+    //alert(this.props.subCat.subCat.DATA[0].sub_category_id);
+    try {
+      return (
+        <Redirect
+          to={`/categories/${this.props.maincatId}/${this.props.subCat.subCat.DATA[0].sub_category_id}`}
+        />
+      );
+    } catch (error) {}
   };
   render() {
     const page = () => {
@@ -57,6 +60,7 @@ class NewCategoryProjects extends Component {
               mainCat={this.props.maincatId}
               setSubCat={this.setSubCat}
             />
+            {this.setcatid()}
             <div className="productsDiv">
               <div className="container">
                 <Products

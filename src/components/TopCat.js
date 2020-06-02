@@ -43,7 +43,7 @@ class TopCat extends Component {
                     return (
                       <div className="col-3" style={{ marginBottom: "20px" }}>
                         <Link
-                          to={`/categories/${c.category_id}/subcategories`}
+                          to={`/categories/${c.category_id}`}
                           style={{ textDecoration: "none", fontSize: "15px" }}
                         >
                           <Card
@@ -76,7 +76,7 @@ class TopCat extends Component {
                     return (
                       <div className="col-3" style={{ marginBottom: "20px" }}>
                         <Link
-                          to={`/categories/${c.category_id}/subcategories`}
+                          to={`/categories/${c.category_id}`}
                           style={{ textDecoration: "none", fontSize: "15px" }}
                         >
                           <Card

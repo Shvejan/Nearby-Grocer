@@ -21,6 +21,7 @@ import UserAccount from "./UserAccount";
 import AllBrands from "./AllBrands";
 import LoadingPage from "./LoadingPage";
 import NewCategoryProjects from "./NewCategoryProjects";
+import SelectSubCat from "./SelectSubCat";
 const mapStateToProps = (state) => {
   return {
     mainCat: state.mainCat,
@@ -64,6 +65,9 @@ class Main extends Component {
         <NewCategoryProjects maincatId={parseInt(match.params.catId, 10)} />
       );
     };
+    const showSubCat = ({ match }) => {
+      return <SelectSubCat maincatId={parseInt(match.params.catId, 10)} />;
+    };
     const categorySelected = ({ match }) => {
       return (
         <CategoryProducts
@@ -104,7 +108,7 @@ class Main extends Component {
             path="/categories/:catId/:subCatId"
             component={categorySelected}
           />
-          <Route path="/categories/:catId" component={getSubcat} />
+          <Route path="/categories/:catId" component={showSubCat} />
         </Switch>
       </React.Fragment>
     );
