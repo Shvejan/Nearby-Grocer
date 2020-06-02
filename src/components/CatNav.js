@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Loading } from "./Loading";
 class CatNav extends Component {
   render() {
@@ -17,7 +17,7 @@ class CatNav extends Component {
           {this.props.mainCat.mainCat.DATA.map((c) => {
             if (sessionStorage.getItem("selectedMainCat") === c.category_name)
               return (
-                <NavLink to={`/categories/${c.category_id}/subcategories`}>
+                <Link to={`/categories/${c.category_id}`}>
                   <label
                     id={c.category_name}
                     key={c.category_name}
@@ -31,11 +31,11 @@ class CatNav extends Component {
                   >
                     {c.category_name}
                   </label>
-                </NavLink>
+                </Link>
               );
             else {
               return (
-                <NavLink to={`/categories/${c.category_id}/subcategories`}>
+                <Link to={`/categories/${c.category_id}`}>
                   <label
                     id={c.category_name}
                     key={c.category_name}
@@ -48,7 +48,7 @@ class CatNav extends Component {
                   >
                     {c.category_name}
                   </label>
-                </NavLink>
+                </Link>
               );
             }
           })}

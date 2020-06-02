@@ -3,6 +3,10 @@ import { connect } from "react-redux";
 import { fetchSubCat } from "../redux/ActionCreators";
 import LoadingPage from "./LoadingPage";
 import Header from "./Header";
+import CatNav from "./CatNav";
+import SubCatNav from "../SubCatNav";
+import { Loading } from "./Loading";
+import Products from "./Products";
 
 const mapStateToProps = (state) => {
   return {
@@ -17,24 +21,64 @@ const mapDispatchToProps = (dispatch) => ({
 class NewCategoryProjects extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      selectedSubCatId: 0,
+    };
   }
   componentDidMount() {
     this.props.fetchSubCat(
       sessionStorage.getItem("branch_id"),
       this.props.maincatId
     );
-  }
-  render() {
-    if (this.props.subCat.isLoading) {
-      return <LoadingPage />;
-    } else {
-      return (
-        <React.Fragment>
-          <Header />
-        </React.Fragment>
-      );
+    if (!this.props.subCat.isLoading) {
+      try {
+        //alert(this.props.subCat.subCat.DATA[0].sub_category_id);
+        this.setState({
+          selectedSubCatId: this.props.subCat.subCat.DATA[0].sub_category_id,
+        });
+      } catch (error) {}
     }
+  }
+  setSubCat = (cid) => {
+    alert("setttt");
+    this.setState({
+      selectedSubCatId: cid,
+    });
+  };
+  render() {
+    const page = () => {
+      if (this.props.subCat.isLoading) {
+        return <Loading />;
+      } else {
+        return (
+          <React.Fragment>
+            <SubCatNav
+              subCat={this.props.subCat}
+              mainCat={this.props.maincatId}
+              setSubCat={this.setSubCat}
+            />
+            <div className="productsDiv">
+              <div className="container">
+                <Products
+                  branch_id={sessionStorage.getItem("branch_id")}
+                  subCatId={this.state.selectedSubCatId}
+                  mainCat={this.props.maincatId}
+                />
+              </div>
+            </div>
+          </React.Fragment>
+        );
+      }
+    };
+
+    return (
+      <React.Fragment>
+        <Header />
+        <CatNav mainCat={this.props.mainCat} />
+        <hr className="line" />
+        {page()}
+      </React.Fragment>
+    );
   }
 }
 
