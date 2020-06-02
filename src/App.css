@@ -10,9 +10,8 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url("./components/images/watermark.png");
-  margin: 0px auto;
-  padding: 20px 0px 20px 0px;
+  background-image: url("./components/images/Footer-Background.jpg");
+  padding: 20px;
 }
 .jumbotron {
   padding: 70px 30px 70px 30px;
@@ -142,13 +141,14 @@
   background-color: #d3741c;
 }
 .fh {
-  color: #11afa2;
+  color: #96f1f1;
   font-family: "Lucida Console";
   font-weight: bold;
 }
 .fl {
   font-size: small;
-  font-weight: bold;
+  font-weight: 500;
+  color: rgb(214, 231, 207);
 }
 .product-btn {
   background-color: #41ada4;
@@ -228,4 +228,12 @@ div.sticky {
 }
 .modal-backdrop.in {
   opacity: 0.9;
+}
+.vl {
+  border-left: 6px solid rgb(166, 236, 166);
+  height: auto;
+}
+.gif {
+  margin-top: 30px;
+  height: 200px;
 }

@@ -1112,3 +1112,50 @@ export const userAdd = (user) => ({
   type: ActionTypes.USER_ADD,
   payload: user,
 });
+
+export const fetchStoreDetails = (store_id) => (dispatch) => {
+  dispatch(storeDetailsLoading(true));
+  return fetch(baseUrl + "storeinfo", {
+    method: "POST",
+    body: JSON.stringify({ store_id: store_id }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "same-origin",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((storedetails) => {
+      dispatch(storeDetailsAdd(storedetails));
+    })
+    .catch((error) => dispatch(storeDetailsFailed(error.message)));
+};
+
+export const storeDetailsLoading = () => ({
+  type: ActionTypes.STOREDETAILS_LOADING,
+});
+
+export const storeDetailsFailed = (errmess) => ({
+  type: ActionTypes.STOREDETAILS_FAILED,
+  payload: errmess,
+});
+export const storeDetailsAdd = (store) => ({
+  type: ActionTypes.STOREDETAILS_ADD,
+  payload: store,
+});

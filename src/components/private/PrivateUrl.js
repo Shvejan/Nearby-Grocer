@@ -8,7 +8,6 @@ import Footer from "../Footer";
 import TopCat from "../TopCat";
 import TopBrands from "../TopBrands";
 import Catmix from "../Catmix";
-import WhyChoose from "../WhyChoose";
 
 const mapStateToProps = (state) => {
   return {
@@ -56,7 +55,6 @@ class PrivateUrl extends Component {
           <TopCat />
           <TopBrands />
           <Catmix />
-          <WhyChoose />
           <Footer />
         </div>
       );

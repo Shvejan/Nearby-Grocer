@@ -2,7 +2,11 @@ import { Loading } from "./Loading";
 import React from "react";
 import "./css/recievedStores.css";
 import { Card } from "react-bootstrap";
-import { fetchMainCat, cartClear } from "../redux/ActionCreators";
+import {
+  fetchMainCat,
+  cartClear,
+  fetchStoreDetails,
+} from "../redux/ActionCreators";
 import { connect } from "react-redux";
 import { Button } from "reactstrap";
 const mapStateToProps = (state) => {
@@ -11,21 +15,23 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   fetchMainCat: (branch_id) => dispatch(fetchMainCat(branch_id)),
   cartClear: () => dispatch(cartClear()),
+  fetchStoreDetails: (store_id) => dispatch(fetchStoreDetails(store_id)),
 });
 
 const RecievedStores = (props) => {
-  const storeSelected = (branch_id, branch_name, branch_logo) => {
+  const storeSelected = (branch_id, branch_name, branch_logo, branch_phone) => {
     sessionStorage.setItem(
       "branch_logo",
       "https://nearbygrocer.com/" + branch_logo
     );
     sessionStorage.setItem("branch_name", branch_name);
-
+    sessionStorage.setItem("branch_phone", branch_phone);
     sessionStorage.setItem("branch_id", branch_id);
     console.log("session branch set");
     window.location.reload(true);
     props.toggleStoresModal();
     props.fetchMainCat(branch_id);
+    //props.fetchStoreDetails(branch_id);
     props.cartClear();
   };
   if (props.stores.isLoading) {
@@ -50,7 +56,9 @@ const RecievedStores = (props) => {
         {props.stores.stores.DATA.map((s) => (
           <div
             className="justify-content-center"
-            onClick={() => storeSelected(s.branch_id, s.branch_name, s.logo)}
+            onClick={() =>
+              storeSelected(s.branch_id, s.branch_name, s.logo, s.phone)
+            }
           >
             <Card className="storeCard">
               <div className="row justify-content-center">

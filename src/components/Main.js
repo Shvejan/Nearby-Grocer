@@ -12,6 +12,7 @@ import {
   fetchBanners,
   fetchSubCat,
   fetchUser,
+  fetchStoreDetails,
 } from "../redux/ActionCreators";
 import SearchResults from "./SearchResults";
 import BrandProducts from "./BrandProducts";
@@ -19,7 +20,6 @@ import PrivateUrl from "./private/PrivateUrl";
 import Shipping from "./Shippping";
 import UserAccount from "./UserAccount";
 import AllBrands from "./AllBrands";
-import LoadingPage from "./LoadingPage";
 import NewCategoryProjects from "./NewCategoryProjects";
 import SelectSubCat from "./SelectSubCat";
 const mapStateToProps = (state) => {
@@ -35,6 +35,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchBrands(branch_id, limit, page_no)),
   fetchBanners: (branch_id) => dispatch(fetchBanners(branch_id)),
   fetchUser: (customer_id) => dispatch(fetchUser(customer_id)),
+  fetchStoreDetails: (store_id) => dispatch(fetchStoreDetails(store_id)),
 });
 class Main extends Component {
   componentDidMount() {
@@ -52,6 +53,7 @@ class Main extends Component {
       console.log(branch);
       console.log(branch_name);
       console.log(branch_logo);
+      this.props.fetchStoreDetails(branch);
       this.props.fetchMainCat(branch);
       this.props.fetchBanners(branch);
       this.props.fetchBrands(branch, 30, 1);
@@ -60,11 +62,6 @@ class Main extends Component {
     }
   }
   render() {
-    const getSubcat = ({ match }) => {
-      return (
-        <NewCategoryProjects maincatId={parseInt(match.params.catId, 10)} />
-      );
-    };
     const showSubCat = ({ match }) => {
       return <SelectSubCat maincatId={parseInt(match.params.catId, 10)} />;
     };

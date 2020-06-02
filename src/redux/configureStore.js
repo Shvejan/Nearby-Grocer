@@ -23,6 +23,7 @@ import { Catmix2 } from "./catmix2";
 import { Catmix3 } from "./catmix3";
 import { Catmix4 } from "./catmix4";
 import { User } from "./user";
+import { StoreDetails } from "./storeDetails";
 
 export const ConfigureStore = () => {
   const store = createStore(
@@ -49,6 +50,7 @@ export const ConfigureStore = () => {
       orderdetails: Orderdetails,
       timeslots: Timeslots,
       user: User,
+      storeDetails: StoreDetails,
     }),
     applyMiddleware(thunk, logger)
   );
