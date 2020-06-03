@@ -80,7 +80,7 @@ function Footer(props) {
               <ul className="list-unstyled fl">{links()}</ul>
             </div>
             <div className="col-4  col-sm-2">
-              <h5 className="fh">CONTACT US</h5>
+              <h5 className="fh">Contact Us</h5>
               <ul className="list-unstyled fl">
                 <li>
                   <b>Phone: </b>
@@ -151,7 +151,7 @@ function Footer(props) {
                   </p>
                   <p className="fl">
                     {" "}
-                    <b>Phone:</b> +918160509206, +918866686625
+                    <b>Phone:</b> +918160509206 +918866686625
                   </p>
                   <p className="fl">
                     <b>Email:</b> info@nearbygrocer.com

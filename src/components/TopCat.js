@@ -38,19 +38,50 @@ class TopCat extends Component {
           <div>
             <div className="row">
               {this.props.mainCat.mainCat.DATA.map((c, index) => {
-                if (c.image) {
-                  if (index <= 12)
+                if (index < 12)
+                  return (
+                    <div className="col-3" style={{ marginBottom: "20px" }}>
+                      <Link
+                        to={`/categories/${c.category_id}`}
+                        style={{ textDecoration: "none", fontSize: "15px" }}
+                        onClick={() => {
+                          sessionStorage.setItem(
+                            "selectedMainCat",
+                            c.category_name
+                          );
+                        }}
+                      >
+                        <Card
+                          style={{ width: "200px", height: "200px" }}
+                          onClick={() =>
+                            sessionStorage.removeItem("selectedMainCat")
+                          }
+                        >
+                          <div className="align-items-center">
+                            <img
+                              src={c.image}
+                              style={{ width: "199px", height: "199px" }}
+                              alt=""
+                            />
+                          </div>
+                        </Card>
+                      </Link>
+                      <h6>{c.category_name}</h6>
+                    </div>
+                  );
+              })}
+            </div>
+          </div>
+          {
+            <div id="hide" style={{ display: "none" }}>
+              <div className="row">
+                {this.props.mainCat.mainCat.DATA.map((c, index) => {
+                  if (index >= 12)
                     return (
                       <div className="col-3" style={{ marginBottom: "20px" }}>
                         <Link
                           to={`/categories/${c.category_id}`}
                           style={{ textDecoration: "none", fontSize: "15px" }}
-                          onClick={() => {
-                            sessionStorage.setItem(
-                              "selectedMainCat",
-                              c.category_name
-                            );
-                          }}
                         >
                           <Card
                             style={{ width: "200px", height: "200px" }}
@@ -70,49 +101,10 @@ class TopCat extends Component {
                         <h6>{c.category_name}</h6>
                       </div>
                     );
-                }
-              })}
+                })}
+              </div>
             </div>
-          </div>
-          <div id="hide" style={{ display: "none" }}>
-            <div className="row">
-              {this.props.mainCat.mainCat.DATA.map((c, index) => {
-                if (c.image) {
-                  if (index > 12)
-                    return (
-                      <div className="col-3" style={{ marginBottom: "20px" }}>
-                        <Link
-                          to={`/categories/${c.category_id}`}
-                          style={{ textDecoration: "none", fontSize: "15px" }}
-                          onClick={() => {
-                            sessionStorage.setItem(
-                              "selectedMainCat",
-                              c.category_name
-                            );
-                          }}
-                        >
-                          <Card
-                            style={{ width: "200px", height: "200px" }}
-                            onClick={() =>
-                              sessionStorage.removeItem("selectedMainCat")
-                            }
-                          >
-                            <div className="align-items-center">
-                              <img
-                                src={c.image}
-                                style={{ width: "199px", height: "199px" }}
-                                alt=""
-                              />
-                            </div>
-                          </Card>
-                        </Link>
-                        <h6>{c.category_name}</h6>
-                      </div>
-                    );
-                }
-              })}
-            </div>
-          </div>
+          }
           <div className="justify-content-center">
             <Button
               id="viewMorBtn"
