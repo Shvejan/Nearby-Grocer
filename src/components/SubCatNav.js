@@ -6,6 +6,8 @@ class SubCatNav extends Component {
   render() {
     if (this.props.subCat.isLoading) {
       return <Loading />;
+    } else if (this.props.subCat.errMess) {
+      return <div />;
     } else {
       return (
         <React.Fragment>
@@ -17,16 +19,16 @@ class SubCatNav extends Component {
                 return (
                   <NavLink
                     to={`/categories/${this.props.mainCat}/${s.sub_category_id}`}
+                    onClick={() => {
+                      sessionStorage.setItem(
+                        "selectedSubcat",
+                        s.sub_category_name
+                      );
+                    }}
                   >
                     <label
                       key={s.sub_category_name}
                       style={{ backgroundColor: "grey", margin: "0px" }}
-                      onClick={() => {
-                        sessionStorage.setItem(
-                          "selectedSubcat",
-                          s.sub_category_name
-                        );
-                      }}
                     >
                       {s.sub_category_name}
                     </label>
@@ -36,16 +38,14 @@ class SubCatNav extends Component {
                 return (
                   <NavLink
                     to={`/categories/${this.props.mainCat}/${s.sub_category_id}`}
+                    onClick={() => {
+                      sessionStorage.setItem(
+                        "selectedSubcat",
+                        s.sub_category_name
+                      );
+                    }}
                   >
-                    <label
-                      key={s.sub_category_name}
-                      onClick={() => {
-                        sessionStorage.setItem(
-                          "selectedSubcat",
-                          s.sub_category_name
-                        );
-                      }}
-                    >
+                    <label key={s.sub_category_name}>
                       {s.sub_category_name}
                     </label>
                   </NavLink>

@@ -28,6 +28,8 @@ class SelectSubCat extends Component {
   subCatCards = () => {
     if (this.props.subCat.isLoading) {
       return <Loading />;
+    } else if (this.props.subCat.errMess) {
+      return <div>{this.props.subCat.errMess}</div>;
     } else {
       return (
         <div className="productsDiv">

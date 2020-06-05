@@ -262,6 +262,8 @@ class Header extends Component {
           </Button>
         </NavLink>
       );
+    } else if (this.props.user.errMess) {
+      return <div>Invalid User</div>;
     } else {
       return (
         <img

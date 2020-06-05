@@ -25,6 +25,8 @@ class TopCat extends Component {
     if (this.props.mainCat.isLoading) {
       return <div></div>;
     } else if (this.props.mainCat.errMess) {
+      return <div>{this.props.mainCat.errMess}</div>;
+    } else if (this.props.mainCat.errMess) {
       return <h3>Products not avaliable</h3>;
     }
 

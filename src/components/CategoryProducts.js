@@ -25,15 +25,6 @@ class CategoryProducts extends Component {
   // }
 
   render() {
-    try {
-      document
-        .getElementById(sessionStorage.getItem("selectedMainCat"))
-        .scrollIntoView({ block: "center" });
-      alert("scrolling");
-    } catch (error) {
-      //alert(error);
-    }
-
     return (
       <React.Fragment>
         <Header />

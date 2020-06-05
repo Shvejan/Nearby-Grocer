@@ -51,6 +51,8 @@ class NewCategoryProjects extends Component {
     const page = () => {
       if (this.props.subCat.isLoading) {
         return <Loading />;
+      } else if (this.props.subCat.errMess) {
+        return <div>{this.props.subCat.errMess}</div>;
       } else {
         return (
           <React.Fragment>

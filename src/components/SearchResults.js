@@ -31,6 +31,14 @@ class SearchResults extends Component {
           <Loading />
         </div>
       );
+    }
+    if (this.props.search.errMess) {
+      return (
+        <div>
+          <Header />
+          <div>{this.props.search.errMess}</div>
+        </div>
+      );
     } else {
       return (
         <div>

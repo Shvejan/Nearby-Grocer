@@ -29,6 +29,9 @@ class Slides extends Component {
     document.documentElement.scrollTop = 0;
     if (this.props.banners.isLoading) {
       return <div />;
+    }
+    if (this.props.banners.errMess) {
+      return <div />;
     } else {
       return (
         <div className="slide-container">

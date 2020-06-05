@@ -34,6 +34,13 @@ class BrandProducts extends Component {
           <Loading />
         </div>
       );
+    } else if (this.props.brandWiseProducts.errMess) {
+      return (
+        <div>
+          <Header />
+          <div>{this.props.brandWiseProducts.errMess}</div>
+        </div>
+      );
     } else {
       return (
         <div>
