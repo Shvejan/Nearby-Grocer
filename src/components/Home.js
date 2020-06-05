@@ -20,6 +20,9 @@ class Home extends Component {
     if (this.props.banners.isLoading) {
       return (
         <React.Fragment>
+          <div style={{ display: "none" }}>
+            <Header />
+          </div>
           <LoadingPage />
         </React.Fragment>
       );
