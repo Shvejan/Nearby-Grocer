@@ -443,7 +443,7 @@ class Header extends Component {
               <Form onSubmit={this.handleLocation}>
                 <FormGroup>
                   <Input
-                    type="number"
+                    type="text"
                     id="pincode"
                     name="pincode"
                     innerRef={(input) => (this.pincode = input)}

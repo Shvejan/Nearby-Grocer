@@ -2,12 +2,10 @@ import React, { Component } from "react";
 import Header from "./Header";
 import "./css/CategoryProducts.css";
 import { fetchMainCat, fetchSubCat } from "../redux/ActionCreators";
-import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import { Loading } from "./Loading";
 import Products from "./Products";
 import CatNav from "./CatNav";
-import SubCatNav from "../SubCatNav";
+import SubCatNav from "./SubCatNav";
 const mapStateToProps = (state) => {
   return {
     mainCat: state.mainCat,
@@ -27,6 +25,15 @@ class CategoryProducts extends Component {
   // }
 
   render() {
+    try {
+      document
+        .getElementById(sessionStorage.getItem("selectedMainCat"))
+        .scrollIntoView({ block: "center" });
+      alert("scrolling");
+    } catch (error) {
+      //alert(error);
+    }
+
     return (
       <React.Fragment>
         <Header />

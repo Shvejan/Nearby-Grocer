@@ -26,9 +26,11 @@ export const fetchStores = (pincode) => (dispatch) => {
       if (stores.STATUS !== "Failure") {
         sessionStorage.setItem("pincode", pincode);
         dispatch(storesAdd(stores));
+      } else {
+        dispatch(storesFailed("no stores found"));
       }
     })
-    .catch((error) => dispatch(storesFailed(error.message)));
+    .catch((error) => dispatch(storesFailed(error)));
 };
 
 export const storesLoading = () => ({

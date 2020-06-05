@@ -51,12 +51,7 @@ class TopCat extends Component {
                           );
                         }}
                       >
-                        <Card
-                          style={{ width: "200px", height: "200px" }}
-                          onClick={() =>
-                            sessionStorage.removeItem("selectedMainCat")
-                          }
-                        >
+                        <Card style={{ width: "200px", height: "200px" }}>
                           <div className="align-items-center">
                             <img
                               src={c.image}
@@ -82,13 +77,14 @@ class TopCat extends Component {
                         <Link
                           to={`/categories/${c.category_id}`}
                           style={{ textDecoration: "none", fontSize: "15px" }}
+                          onClick={() => {
+                            sessionStorage.setItem(
+                              "selectedMainCat",
+                              c.category_name
+                            );
+                          }}
                         >
-                          <Card
-                            style={{ width: "200px", height: "200px" }}
-                            onClick={() =>
-                              sessionStorage.removeItem("selectedMainCat")
-                            }
-                          >
+                          <Card style={{ width: "200px", height: "200px" }}>
                             <div className="align-items-center">
                               <img
                                 src={c.image}

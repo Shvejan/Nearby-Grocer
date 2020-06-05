@@ -33,7 +33,7 @@ class Home extends Component {
         <Slide />
         <TopCat />
         <TopBrands />
-        <div className="justify-content-center">
+        <div className="justify-content-center m-5">
           <NavLink to="/allbrands/1">
             <Button color="primary" style={{ marginLeft: "600px" }}>
               View More

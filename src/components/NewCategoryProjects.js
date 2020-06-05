@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchSubCat } from "../redux/ActionCreators";
-import LoadingPage from "./LoadingPage";
 import Header from "./Header";
 import CatNav from "./CatNav";
-import SubCatNav from "../SubCatNav";
+import SubCatNav from "./SubCatNav";
 import { Loading } from "./Loading";
 import Products from "./Products";
 import { Redirect } from "react-router-dom";

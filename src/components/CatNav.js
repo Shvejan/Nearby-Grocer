@@ -6,8 +6,10 @@ class CatNav extends Component {
     try {
       document
         .getElementById(sessionStorage.getItem("selectedMainCat"))
-        .scrollIntoView({ block: "end" });
-    } catch (error) {}
+        .scrollIntoView({ block: "center" });
+    } catch (error) {
+      //alert(error);
+    }
 
     if (this.props.mainCat.isLoading) {
       return <Loading />;
