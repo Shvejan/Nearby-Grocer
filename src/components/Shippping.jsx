@@ -75,7 +75,7 @@ const mapDispatchToProps = (dispatch) => ({
 class AddressList extends Component {
   render() {
     return (
-      <div className="row">
+      <div className="row" key={this.props.address.shipping_address_id}>
         <div className="col-6">
           <span>Address {this.props.index + 1} </span>
           <br />
@@ -367,7 +367,11 @@ class Shipping extends Component {
   };
   allProducts = () => {
     return this.props.cart.products.map((p) => (
-      <div className="row" style={{ color: "black" }}>
+      <div
+        className="row"
+        style={{ color: "black" }}
+        key={p.product.product_id}
+      >
         <div className="col-6">
           <span>{p.product.product_name} </span>
         </div>

@@ -59,6 +59,7 @@ const RecievedStores = (props) => {
             onClick={() =>
               storeSelected(s.branch_id, s.branch_name, s.logo, s.phone)
             }
+            key={s.branch_id}
           >
             <Card className="storeCard">
               <div className="row justify-content-center">

@@ -42,7 +42,11 @@ class TopCat extends Component {
               {this.props.mainCat.mainCat.DATA.map((c, index) => {
                 if (index < 12)
                   return (
-                    <div className="col-3" style={{ marginBottom: "20px" }}>
+                    <div
+                      className="col-3"
+                      style={{ marginBottom: "20px" }}
+                      key={c.category_id}
+                    >
                       <Link
                         to={`/categories/${c.category_id}`}
                         style={{ textDecoration: "none", fontSize: "15px" }}
@@ -75,7 +79,11 @@ class TopCat extends Component {
                 {this.props.mainCat.mainCat.DATA.map((c, index) => {
                   if (index >= 12)
                     return (
-                      <div className="col-3" style={{ marginBottom: "20px" }}>
+                      <div
+                        className="col-3"
+                        style={{ marginBottom: "20px" }}
+                        key={c.category_id}
+                      >
                         <Link
                           to={`/categories/${c.category_id}`}
                           style={{ textDecoration: "none", fontSize: "15px" }}

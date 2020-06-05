@@ -47,10 +47,10 @@ class Catmix extends Component {
       try {
         return (
           <div style={{ marginTop: "50px" }}>
-            <div className="container">
+            <div className="container" key={"maincontainer"}>
               <h3 style={{ marginBottom: "50px" }}>{arr[0]}</h3>
               <br />
-              <div className="row">
+              <div className="row" key={1}>
                 {this.props.catmix.catmix.DATA.map((p, index) => {
                   if (index < 4) {
                     return <ProductCard p={p} />;
@@ -60,7 +60,7 @@ class Catmix extends Component {
               <br />
               <h3 style={{ marginBottom: "50px" }}>{arr[1]}</h3>
 
-              <div className="row">
+              <div className="row" key={2}>
                 {this.props.catmix1.catmix1.DATA.map((p, index) => {
                   if (index < 4) {
                     return <ProductCard p={p} />;
@@ -70,7 +70,7 @@ class Catmix extends Component {
               <br />
               <h3 style={{ marginBottom: "50px" }}>{arr[2]}</h3>
 
-              <div className="row">
+              <div className="row" key={3}>
                 {this.props.catmix2.catmix2.DATA.map((p, index) => {
                   if (index < 4) {
                     return <ProductCard p={p} />;
@@ -80,7 +80,7 @@ class Catmix extends Component {
               <br />
               <h3 style={{ marginBottom: "50px" }}>{arr[3]}</h3>
 
-              <div className="row">
+              <div className="row" key={4}>
                 {this.props.catmix3.catmix3.DATA.map((p, index) => {
                   if (index < 4) {
                     return <ProductCard p={p} />;
@@ -90,7 +90,7 @@ class Catmix extends Component {
               <br />
               <h3 style={{ marginBottom: "50px" }}>{arr[4]}</h3>
 
-              <div className="row">
+              <div className="row" key={5}>
                 {this.props.catmix4.catmix4.DATA.map((p, index) => {
                   if (index < 4) {
                     return <ProductCard p={p} />;

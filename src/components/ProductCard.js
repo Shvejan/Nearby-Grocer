@@ -123,7 +123,11 @@ class ProductCard extends Component {
   };
   render() {
     return (
-      <div className="col-sm-3" style={{ marginBottom: "50px" }}>
+      <div
+        className="col-sm-3"
+        style={{ marginBottom: "50px" }}
+        key={this.props.p.product_id}
+      >
         <div>
           <Card
             style={{ height: "18rem", width: "13rem" }}

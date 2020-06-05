@@ -25,6 +25,7 @@ class SubCatNav extends Component {
                         s.sub_category_name
                       );
                     }}
+                    key={s.sub_category_id}
                   >
                     <label
                       key={s.sub_category_name}
@@ -44,6 +45,7 @@ class SubCatNav extends Component {
                         s.sub_category_name
                       );
                     }}
+                    key={s.sub_category_id}
                   >
                     <label key={s.sub_category_name}>
                       {s.sub_category_name}

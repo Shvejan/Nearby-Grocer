@@ -37,7 +37,7 @@ class ProdList extends Component {
   }
   render() {
     return (
-      <div className="row">
+      <div className="row" key={this.props.p.product_name}>
         <div className="col-1">
           <img
             src={this.props.p.image}
@@ -85,7 +85,9 @@ class OrderList extends Component {
       return <p>No Orders Found</p>;
     } else {
       return (
-        <ModalBody>
+        <ModalBody
+          key={this.props.orderdetails.orderdetails.DATA.order_info.order_no}
+        >
           <div className="container">
             <h6
               style={{

@@ -40,7 +40,11 @@ class SelectSubCat extends Component {
             <div className="row">
               {this.props.subCat.subCat.DATA.map((c) => {
                 return (
-                  <div className="col-3" style={{ marginBottom: "20px" }}>
+                  <div
+                    className="col-3"
+                    style={{ marginBottom: "20px" }}
+                    key={c.sub_category_name}
+                  >
                     <Link
                       to={`/categories/${this.props.maincatId}/${c.sub_category_id}`}
                       style={{ textDecoration: "none", fontSize: "15px" }}

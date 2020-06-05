@@ -27,6 +27,7 @@ class CatNav extends Component {
                   onClick={() => {
                     sessionStorage.setItem("selectedMainCat", c.category_name);
                   }}
+                  key={c.category_name}
                 >
                   <label
                     id={c.category_name}
@@ -44,6 +45,7 @@ class CatNav extends Component {
                   onClick={() => {
                     sessionStorage.setItem("selectedMainCat", c.category_name);
                   }}
+                  key={c.category_name}
                 >
                   <label id={c.category_name} key={c.category_name}>
                     {c.category_name}

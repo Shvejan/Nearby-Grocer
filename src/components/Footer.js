@@ -102,7 +102,7 @@ function Footer(props) {
                 </p>
               </ul>
             </div>
-            <div class="vl"></div>
+            <div className="vl"></div>
             <div className="col">
               <div className="row">
                 <div className="col-5">

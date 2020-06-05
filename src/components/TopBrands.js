@@ -44,7 +44,7 @@ class TopBrands extends Component {
 const BrandsCard = (props) => {
   if (props.brand.image === null) {
     return (
-      <div className="col-2">
+      <div className="col-2" key={props.brand.brand_id}>
         <Link to={"brands/" + props.brand.brand_id}>
           <Card inverse style={{ height: "100px" }}>
             <CardImg height="100%" src={brandImg} alt="Card image cap" />
