@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Slide } from "react-slideshow-image";
 import { connect } from "react-redux";
-import { Loading } from "./Loading";
-import Test from "../test";
 const mapStateToProps = (state) => {
   return {
     banners: state.banners,
