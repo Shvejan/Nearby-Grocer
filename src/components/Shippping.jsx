@@ -91,10 +91,8 @@ class AddressList extends Component {
             type="radio"
             name="address"
             onClick={() => {
-              sessionStorage.setItem(
-                "shipping_address_id",
-                this.props.address.shipping_address_id
-              );
+              this.props.setAddress(this.props.address.shipping_address_id);
+
               this.props.fetchcharges(
                 sessionStorage.getItem("branch_id"),
                 this.props.address.pincode,
@@ -137,12 +135,6 @@ const ProductsSection = (props) => {
 };
 
 const AddressSection = (props) => {
-  const [collapse, setCollapse] = useState(false);
-
-  const toggle = () => {
-    setCollapse(!collapse);
-  };
-
   const isLoggedin = () => {
     if (props.addressData.errMess) {
       if (sessionStorage.getItem("userId") !== null) {
@@ -173,23 +165,25 @@ const AddressSection = (props) => {
     <div>
       <Button
         color="primary"
-        onClick={toggle}
+        onClick={props.toggle}
         style={{ marginBottom: "1rem", width: "100%" }}
       >
         Shipping Adderess
       </Button>
-      <Collapse isOpen={collapse}>
+      <Collapse isOpen={props.collapse}>
         <Card>
           <CardBody>
             <CardTitle>{isLoggedin()}</CardTitle>
             <CardText className="total">{props.addressSection()}</CardText>
           </CardBody>
           <CardFooter>
-            <NavLink to="/shipping">
-              <Button className="placeOrder" color="warning">
-                Continue >
-              </Button>
-            </NavLink>
+            <Button
+              className="placeOrder"
+              color="warning"
+              onClick={props.toggle}
+            >
+              Continue >
+            </Button>
           </CardFooter>
         </Card>
       </Collapse>
@@ -197,20 +191,16 @@ const AddressSection = (props) => {
   );
 };
 const TimeSlots = (props) => {
-  const [collapse, setCollapse] = useState(false);
-
-  const toggle = () => setCollapse(!collapse);
-
   return (
     <div>
       <Button
         color="primary"
-        onClick={toggle}
+        onClick={props.toggle}
         style={{ marginBottom: "1rem", width: "100%" }}
       >
         Shipping Timings
       </Button>
-      <Collapse isOpen={collapse}>
+      <Collapse isOpen={props.collapse}>
         <Card>
           <CardBody>
             <CardTitle className="total">{props.renderTimeslots()}</CardTitle>
@@ -218,7 +208,7 @@ const TimeSlots = (props) => {
               <label
                 class="btn btn-primary"
                 onClick={() => {
-                  sessionStorage.setItem("order_pref", "home delevery");
+                  props.setOrderPref("home delevery");
                 }}
               >
                 <input type="radio" name="options" id="option1" checked /> Home
@@ -227,7 +217,7 @@ const TimeSlots = (props) => {
               <label
                 class="btn btn-primary"
                 onClick={() => {
-                  sessionStorage.setItem("order_pref", "store pickup");
+                  props.setOrderPref("store pickup");
                 }}
               >
                 <input type="radio" name="options" id="option2" /> Store Pickup
@@ -235,11 +225,13 @@ const TimeSlots = (props) => {
             </div>
           </CardBody>
           <CardFooter>
-            <NavLink to="/shipping">
-              <Button className="placeOrder" color="warning" onClick={toggle}>
-                Continue >
-              </Button>
-            </NavLink>
+            <Button
+              className="placeOrder"
+              color="warning"
+              onClick={props.toggle}
+            >
+              Continue >
+            </Button>
           </CardFooter>
         </Card>
       </Collapse>
@@ -266,8 +258,7 @@ const Times = (props) => {
               type="radio"
               name="time"
               onClick={() => {
-                sessionStorage.setItem(
-                  "timeslot",
+                props.setTimeslot(
                   `${props.time.start_time}-${props.time.end_time}`
                 );
               }}
@@ -286,6 +277,11 @@ class Shipping extends Component {
     super(props);
     this.state = {
       isModalOpen: false,
+      selectedAddress: "",
+      selectedTimeslot: "",
+      orderPreff: "home delevery",
+      addressTab: false,
+      timeslotTab: false,
     };
   }
   toggleModal = () => {
@@ -294,7 +290,23 @@ class Shipping extends Component {
   componentDidMount() {
     this.props.fetchTimeslots(sessionStorage.getItem("branch_id"));
     this.props.fetchAddress(sessionStorage.getItem("userId"));
+    this.toggleAddressTab();
   }
+  toggleAddressTab = () => {
+    this.setState({ addressTab: !this.state.addressTab });
+  };
+  toggleTimeslotTab = () => {
+    this.setState({ timeslotTab: !this.state.timeslotTab });
+  };
+  setAddress = (data) => {
+    this.setState({ selectedAddress: data });
+  };
+  setTimeslot = (data) => {
+    this.setState({ selectedTimeslot: data });
+  };
+  setOrderPref = (data) => {
+    this.setState({ orderPreff: data });
+  };
   addressSection = () => {
     if (this.props.address.isLoading) {
       return <Loading />;
@@ -308,6 +320,7 @@ class Shipping extends Component {
               address={address}
               index={index}
               fetchcharges={this.props.fetchShipcharges}
+              setAddress={this.setAddress}
             />
           ))}
         </React.Fragment>
@@ -316,10 +329,12 @@ class Shipping extends Component {
   };
   shippingCharges = () => {
     if (this.props.shipcharges.isLoading) {
-      return <span>Select address</span>;
+      return <span>Select Address</span>;
     } else if (this.props.shipcharges.shipcharges.STATUS === "Failure") {
       return <span>{this.props.shipcharges.shipcharges.MESSAGE}</span>;
     } else {
+      //this.setState({ addressTab: false });
+      alert("close");
       return (
         <span>
           shipping charges:{" "}
@@ -331,20 +346,20 @@ class Shipping extends Component {
   placeOrder = () => {
     if (
       sessionStorage.getItem("cart_id") !== "" &&
-      sessionStorage.getItem("shipping_address_id") !== "" &&
-      sessionStorage.getItem("timeslot") !== ""
+      this.state.selectedAddress !== ""
+      //sessionStorage.getItem("timeslot") !== ""
     ) {
       this.props.placeOrder(
         sessionStorage.getItem("branch_id"),
-        285,
+        sessionStorage.getItem("userId"),
         sessionStorage.getItem("cart_id"),
-        sessionStorage.getItem("shipping_address_id"),
+        this.state.selectedAddress,
         this.props.shipcharges.shipcharges.DATA.shipping_charges,
         "COD",
         "Web",
         document.getElementById("note").value,
-        sessionStorage.getItem("timeslot"),
-        sessionStorage.getItem("order_pref")
+        this.state.selectedTimeslot,
+        this.state.orderPreff
       );
     } else {
       alert("select an address and timeslot");
@@ -358,7 +373,7 @@ class Shipping extends Component {
       return (
         <React.Fragment>
           {this.props.timeslots.timeslots.DATA.map((timeslot) => (
-            <Times time={timeslot} />
+            <Times time={timeslot} setTimeslot={this.setTimeslot} />
           ))}
           <Input placeholder="leave a note" id="note" type="text" />
         </React.Fragment>
@@ -446,8 +461,15 @@ class Shipping extends Component {
                     toggleModal={this.toggleModal}
                     addressSection={this.addressSection}
                     fetchAddress={this.props.fetchAddress}
+                    collapse={this.state.addressTab}
+                    toggle={this.toggleAddressTab}
                   />
-                  <TimeSlots renderTimeslots={this.renderTimeslots} />
+                  <TimeSlots
+                    renderTimeslots={this.renderTimeslots}
+                    setOrderPref={this.setOrderPref}
+                    collapse={this.state.timeslotTab}
+                    toggle={this.toggleTimeslotTab}
+                  />
                 </Card>
               </Col>
               <Col sm="4">
